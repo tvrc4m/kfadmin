@@ -4,35 +4,48 @@
       <i class="el-icon-menu"></i>
       <span>折叠</span>
     </el-menu-item>
-    <el-submenu index="1">
-      <template slot="title">
-        <i class="el-icon-location"></i>
-        <span slot="title">Navigator One</span>
-      </template>
-      <el-menu-item-group>
-        <span slot="title">Group One</span>
-        <el-menu-item index="1-1">item one</el-menu-item>
-        <el-menu-item index="1-2">item two</el-menu-item>
-      </el-menu-item-group>
-      <el-menu-item-group title="Group Two">
-        <el-menu-item index="1-3">item three</el-menu-item>
-      </el-menu-item-group>
-      <el-submenu index="1-4">
-        <span slot="title">item four</span>
-        <el-menu-item index="1-4-1">item one</el-menu-item>
-      </el-submenu>
-    </el-submenu>
     <el-menu-item index="/dashboard">
       <i class="el-icon-menu"></i>
       <span slot="title">Dashboard</span>
     </el-menu-item>
-    <el-menu-item index="/login">
-      <i class="el-icon-document"></i>
-      <span slot="title">Login</span>
+    <el-menu-item index="/dashboard">
+      <i class="el-icon-menu"></i>
+      <span slot="title">用户提问</span>
     </el-menu-item>
-    <el-menu-item index="4">
-      <i class="el-icon-setting"></i>
-      <span slot="title">Navigator Four</span>
+    <el-submenu index="1">
+      <template slot="title">
+        <i class="el-icon-location"></i>
+        <span slot="title">数据库</span>
+      </template>
+      <el-menu-item index="/law">
+        <span slot="title">法规库</span>
+      </el-menu-item>
+      <el-menu-item index="/case">
+        <span slot="title">案例库</span>
+      </el-menu-item>
+      <el-menu-item index="/question">
+        <span slot="title">法律问题</span>
+      </el-menu-item>
+    </el-submenu>
+    <el-submenu index="/dashboard">
+      <template slot="title">
+        <i class="el-icon-location"></i>
+        <span slot="title">专家库</span>
+      </template>
+      <el-menu-item index="emotion">
+        <span slot="title">情感专家</span>
+      </el-menu-item>
+      <el-menu-item index="law">
+        <span slot="title">律师</span>
+      </el-menu-item>
+    </el-submenu>
+    <el-menu-item index="/dashboard">
+      <i class="el-icon-menu"></i>
+      <span slot="title">过滤词库</span>
+    </el-menu-item>
+    <el-menu-item index="admin">
+      <i class="el-icon-menu"></i>
+      <span slot="title">后台账户</span>
     </el-menu-item>
   </el-menu>
 </template>

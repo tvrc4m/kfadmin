@@ -1,11 +1,11 @@
 <template>
     <div id="app">
         <el-container>
-            <el-header height="60px">
+            <el-header  v-if="show" height="60px">
                 <top></top>
             </el-header>
             <el-container>
-                <el-aside width="300px">
+                <el-aside v-if="show" width="300px">
                     <slider></slider>
                 </el-aside>
                 <el-main>
@@ -22,8 +22,13 @@
     import slider from "./components/navbar/slider.vue"
     import top from "./components/navbar/header.vue"
     export default{
-        name: 'APP',
-        components:{slider,top}
+        name: 'app',
+        components:{slider,top},
+        data(){
+            return {
+                show:!!this.$store.state.user.auth_key
+            }
+        }
     }
 </script>
 <style lang="scss">
