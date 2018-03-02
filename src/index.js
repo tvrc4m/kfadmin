@@ -3,12 +3,14 @@ import VueRouter from "vue-router"
 import Vuex from "vuex"
 import EleUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import axios from "axios"
 import App from "./App.vue"
 
 // 注册组件 
 Vue.use(EleUI)
 Vue.use(Vuex)
 Vue.use(VueRouter)
+
 
 import routes from "./config/router"
 const router=new VueRouter({
@@ -38,7 +40,15 @@ router.beforeEach((to,from,next)=>{
     }
 })
 
-console.log(this)
+// 设置ajax请求实例
+Vue.prototype.$http=axios.create({
+    baseURL:store.state.http.baseURL,
+    timeout:5000,
+    params:{
+        key:store.state.user.auth_key
+    }
+})
+
 console.log(Vue.$route)
 
 new Vue({

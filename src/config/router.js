@@ -1,6 +1,5 @@
 
 import DashboardView from "../components/dashboard/index.vue"
-import OrderView from "../components/order/index.vue"
 import LoginView from "../components/login/index.vue"
 import LawHomeView from "../components/law/home.vue"
 import LawAddView from "../components/law/add.vue"
@@ -16,8 +15,11 @@ export default [
     {
         path:"/dashboard",
         requireAuth:true,
-        component:OrderView
-    },{
+        components:{
+            default:DashboardView
+        }
+    },
+    {
         path:"/login",
         component:LoginView
     },{
