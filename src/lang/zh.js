@@ -46,7 +46,11 @@ export default {
     exportZip: 'Export Zip',
     theme: '换肤',
     clipboardDemo: 'Clipboard',
-    i18n: '国际化'
+    i18n: '国际化',
+    law:'法规库',
+    lawList:'法规库列表',
+    lawAdd:'添加法规条目',
+    lawCatAdd:'添加新法规类型',
   },
   navbar: {
     logOut: '退出登录',
