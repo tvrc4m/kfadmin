@@ -91,6 +91,41 @@ export const asyncRouterMap = [
         }
     ]
   },
+  {//情感问题库
+    path:"/emotion",
+    component:Layout,
+    name:"emotion",
+    alwaysShow: false,
+    children:[{path:"",component:_import("emotion/index"),name:"emotion",meta:{title:"emotion",icon:"404"}}]
+  },
+  {//添加情感问题
+    path:"/emotion/add",
+    component:Layout,
+    name:"emotionAdd",
+    hidden: true,
+    children:[{path:"",component:_import("emotion/add"),name:"emotionAdd",meta:{title:"emotionAdd"}}]
+  },
+  {//专家库
+    path:"/professional",
+    component:Layout,
+    alwaysShow: false,
+    children:[{path:"",component:_import("professional/index"),name:"professional",meta:{title:"professional",icon:"404"}}]
+  },{//添加专家
+      path:"/professional/add",
+      component:Layout,
+      children:[{path:"",component:_import("professional/add"),name:"professionalAdd",meta:{title:"professionalAdd"}}],
+      hidden: true
+  },
+  {//案例库
+    path:"/case",
+    component:Layout,
+    alwaysShow: false,
+    children:[{path:"",component:_import("case/index"),name:"case",meta:{title:"case",icon:"404"}}]
+  },{//添加案例库
+      path:"/case/add",
+      component:_import("case/add"),
+      hidden: true
+  },
   {
     path: '/error',
     component: Layout,
@@ -117,3 +152,5 @@ export const asyncRouterMap = [
 
   { path: '*', redirect: '/404', hidden: true }
 ]
+
+console.log(asyncRouterMap)

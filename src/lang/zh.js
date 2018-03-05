@@ -51,13 +51,18 @@ export default {
     lawList:'法规库列表',
     lawAdd:'添加法规条目',
     lawCatAdd:'添加新法规类型',
+    emotion:'情感问题',
+    emotionList:'情感问题列表',
+    emotionAdd:'添加情感问题',
+    professional:'专家库',
+    professionalList:'专家列表',
+    professionalAdd:'添加专家',
+    case:'案例库'
   },
   navbar: {
     logOut: '退出登录',
     dashboard: '首页',
-    github: '项目地址',
     screenfull: '全屏',
-    theme: '换肤'
   },
   login: {
     title: '系统登录',

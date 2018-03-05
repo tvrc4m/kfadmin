@@ -53,6 +53,7 @@ export default {
   methods: {
     generateTitle, // generateTitle by vue-i18n
     generateRoute() {
+      console.log(this.$route)
       if (this.$route.name) {
         return this.$route
       }
@@ -63,6 +64,7 @@ export default {
     },
     addViewTags() {
       const route = this.generateRoute()
+
       if (!route) {
         return false
       }
