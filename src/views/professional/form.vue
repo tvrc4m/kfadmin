@@ -21,18 +21,17 @@
         <el-form-item label="位置" class="block">
             <el-cascader :options="location" filterable clearabel placeholder="选择城市" v-model="loc" expand-trigger="hover"></el-cascader>
         </el-form-item>
-        <el-row>
-            <el-form-item label="擅长">
-                <el-tag v-for="skill in skills_selected" :key="skill" :closable="true==true" type="success" @close="removeSkill(skill)">{{skill}}</el-tag>
-                <el-cascader class="block" :options="skills" filterable clearabel placeholder="选择技能" v-model="skill" expand-trigger="hover" @change="changeSkill"></el-cascader>
-            </el-form-item>
+        <el-row style="height: 80px;">
+            <keywords :keywords="skills"></keywords>
         </el-row>
         <el-button type="primary" @click="addProfessional">添加</el-button>
     </el-form>
 </template>
 <script>
+    import keywords from "@/components/Question/keywords"
     export default{
         name:"professional-add",
+        components:{keywords},
         data(){
             return {
                 professional:{
@@ -114,14 +113,13 @@
                 this.skills_selected=this.skills_selected.filter(item=>item!=value)
             },
             addProfessional:function(){
-                
+
             }
         }
     }
 </script>
 <style lang="scss" scoped>
     .emotion-form{
-        margin:10px 15px;
     }
     .block{
         display:block;

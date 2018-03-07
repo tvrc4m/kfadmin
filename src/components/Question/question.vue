@@ -1,7 +1,7 @@
 <template>
-    <div class="law-container">
-        <h1>add cat</h1>
-    </div>
+    <el-form :inline="true">
+        
+    </el-form>
 </template>
 <script>
     export default{

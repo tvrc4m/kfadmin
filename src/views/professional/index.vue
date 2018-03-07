@@ -3,7 +3,7 @@
         <el-row :span="24" class="emotion-header">
             <el-col :span="6">
                 <router-link to="/professional/add">
-                    <el-button type="primary">添加新专家</el-button>
+                    <el-button type="primary" size="small">添加新专家</el-button>
                 </router-link>
             </el-col>
             <el-col :span="18">
@@ -18,10 +18,10 @@
             <el-table-column prop="realname" label="姓名"></el-table-column>
             <el-table-column prop="job" label="职业"></el-table-column>
             <el-table-column prop="remark" label="擅长"></el-table-column>
-            <el-table-column label="操作">
+            <el-table-column label="操作" width="80">
                 <template slot-scope="scope">
-                    <el-button type="text">删除</el-button>
-                    <el-button type="text">编辑</el-button>
+                    <el-button type="text" icon="el-icon-edit" @click="editPro(scope.row.id)"></el-button>
+                    <el-button type="text" icon="el-icon-delete" @click="delPro(scope.row.id)"></el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -48,6 +48,14 @@
                     }
                 ],
                 total:10
+            }
+        },
+        methods:{
+            editPro:function(id){
+                this.$router.push({path:"/professional/add",query:{id:id}});
+            },
+            delPro:function(id){
+                this.professionals=this.professionals.filter(item=>item.id!=id);
             }
         }
     }

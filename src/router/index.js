@@ -52,58 +52,46 @@ export default new Router({
 })
 
 export const asyncRouterMap = [
-  {
-    path:"/law",
+  {//法规列表
+    path:"/law/rule",
     component:Layout,
-    redirect:"law",
+    alwaysShow: false,
+    children:[{path:"",component:_import("law/rule/index"),name:"lawRule",meta:{title:"lawRule",icon:"404"}}]
+  },
+  {//添加法规
+    path:"/law/rule/add",
+    component:Layout,
+    name:"lawRuleAdd",
+    hidden: true,
+    children:[{path:"",component:_import("law/rule/form"),name:"lawRuleAdd",meta:{title:"lawRuleAdd"}}]
+  },
+   {//法律列表
+    path:"/law/",
+    component:Layout,
     name:"law",
-    meta:{
-      title:"law",
-      icon:"404"
-    },
-    children:[
-        {
-          path:"",
-          component:_import("law/index"),
-          name:"law",
-          meta:{
-            title:"law",
-            icon:"404"
-          }
-        },
-        {
-          path:"add",
-          component:_import("law/add"),
-          name:"lawAdd",
-          meta:{
-            title:"lawAdd",
-            icon:"404"
-          }
-        },
-        {
-          path:"cat/add",
-          component:_import("law/cat/index"),
-          name:"lawCatAdd",
-          meta:{
-            title:"lawCatAdd",
-            icon:"404"
-          }
-        }
-    ]
+    hidden: true,
+    children:[{path:"",component:_import("law/index"),name:"law",meta:{title:"law"}}]
+  },
+  {//添加法律
+    path:"/law/add",
+    component:Layout,
+    name:"lawAdd",
+    hidden: true,
+    children:[{path:"",component:_import("law/form"),name:"lawAdd",meta:{title:"lawAdd"}}]
   },
   {//情感问题库
-    path:"/emotion",
+    path:"/question",
     component:Layout,
-    name:"emotion",
+    name:"question",
     alwaysShow: false,
-    children:[{path:"",component:_import("emotion/index"),name:"emotion",meta:{title:"emotion",icon:"404"}}]
+    children:[{path:"",component:_import("question/index"),name:"question",meta:{title:"question",icon:"404"}}]
   },
   {//添加情感问题
-    path:"/emotion/add",
+    path:"/question/add",
     component:Layout,
-    name:"emotionAdd",
+    name:"questionAdd",
     hidden: true,
-    children:[{path:"",component:_import("emotion/add"),name:"emotionAdd",meta:{title:"emotionAdd"}}]
+    children:[{path:"",component:_import("question/form"),name:"questionAdd",meta:{title:"questionAdd"}}]
   },
   {//专家库
     path:"/professional",
@@ -113,7 +101,7 @@ export const asyncRouterMap = [
   },{//添加专家
       path:"/professional/add",
       component:Layout,
-      children:[{path:"",component:_import("professional/add"),name:"professionalAdd",meta:{title:"professionalAdd"}}],
+      children:[{path:"",component:_import("professional/form"),name:"professionalAdd",meta:{title:"professionalAdd"}}],
       hidden: true
   },
   {//案例库

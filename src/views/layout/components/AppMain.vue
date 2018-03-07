@@ -21,3 +21,8 @@ export default {
   }
 }
 </script>
+<style lang="scss" type="text/css">
+    .app-main{
+        margin:10px 15px;
+    }
+</style>
