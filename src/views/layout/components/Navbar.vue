@@ -6,9 +6,10 @@
 
     <div class="right-menu">
       <error-log class="errLog-container right-menu-item"></error-log>
-
-      <span>@admin</span>
-      <router-link to="/logout">退出</router-link>
+      <span class="nick">@admin</span>
+      <router-link to="/logout">
+        <el-button type="text" size="medium">退出</el-button>
+      </router-link>
     </div>
   </el-menu>
 </template>
@@ -66,41 +67,11 @@ export default {
   .right-menu {
     float: right;
     height: 100%;
-    &:focus{
-     outline: none;
-    }
-    .right-menu-item {
-      display: inline-block;
-      margin: 0 8px;
-    }
-    .screenfull {
-      height: 20px;
-    }
-    .international{
-      vertical-align: top;
-    }
-    .theme-switch {
-      vertical-align: 15px;
-    }
-    .avatar-container {
-      height: 50px;
-      margin-right: 30px;
-      .avatar-wrapper {
-        cursor: pointer;
-        margin-top: 5px;
-        position: relative;
-        .user-avatar {
-          width: 40px;
-          height: 40px;
-          border-radius: 10px;
-        }
-        .el-icon-caret-bottom {
-          position: absolute;
-          right: -20px;
-          top: 25px;
-          font-size: 12px;
-        }
-      }
+    margin-right:20px;
+    .nick{
+        font-size:16px;
+        font-family:"PingFang SC";
+        line-height:22px;
     }
   }
 }

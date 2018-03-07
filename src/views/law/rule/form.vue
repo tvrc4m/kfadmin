@@ -14,17 +14,16 @@
                 </el-form-item>
         </el-row>
         <el-row>
-            <el-form-item label="匹配词">
-                <el-cascader class="block" :options="skills" filterable clearabel placeholder="选择技能" v-model="skill" expand-trigger="hover" @change="changeSkill"></el-cascader>
-                <el-tag v-for="skill in skills_selected" :key="skill" :closable="true==true" type="success" @close="removeSkill(skill)">{{skill}}</el-tag>
-            </el-form-item>
+            <keywords :keywords="skills" label="匹配词"></keywords>
         </el-row>
         <el-button type="primary" @click="addProfessional">添加</el-button>
     </el-form>
 </template>
 <script>
+    import keywords from "@/components/Question/keywords"
     export default{
         name:"professional-add",
+        components:{keywords},
         data(){
             return {
                 law_rule:{

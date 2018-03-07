@@ -1,12 +1,6 @@
 <template>
     <div class="law-container">
-        <el-popover ref="del_law_rule" placement="top" width="200" v-model="deleted">
-            <p>是否确认要删除?</p>
-            <div style="text-align: right; margin: 0">
-                <el-button size="mini" type="text" @click="deleted = false">取消</el-button>
-                <el-button type="primary" size="mini" @click="delLawRule">确定</el-button>
-            </div>
-        </el-popover>
+        <confirm :confirmSuccess="delLawRule" ref="confirm"></confirm>
         <el-row>
                 <el-select v-model="law">
                 <el-option v-for="l in laws" :key="l.id" :value="l.id" :label="l.name"></el-option>
@@ -22,7 +16,7 @@
             <el-table-column prop="keywords" label="匹配词" :formatter="formatKeyword" width="150"></el-table-column>
             <el-table-column label="操作" width="100">
                 <template slot-scope="scope">
-                    <el-button type="text" size="mini" v-popover:del_law_rule @click="deleted=true">删除</el-button>
+                    <el-button type="text" size="mini" @click="$refs.confirm.delConfirm">删除</el-button>
                     <el-button type="text" size="mini" @click="editLawRule">编辑</el-button>
                 </template>
             </el-table-column>
@@ -31,7 +25,9 @@
     </div>
 </template>
 <script>
+    import confirm from "@/components/Confirm/dialog"
     export default{
+        components:{confirm},
         data(){
             return {
                 laws:[
@@ -55,6 +51,11 @@
                         title:"第一条",
                         content:"载60人印度大巴坠桥致25死 多数遇难者为妇女儿童载60人印度大巴坠桥致25死 多数遇难者为妇女儿童",
                         keywords:["刑事案件","严重事件"]
+                    },
+                    {
+                        title:"第三条",
+                        content:"载60人印度大巴坠桥致25死 多数遇难者为妇女儿童载60人印度大巴坠桥致25死 多数遇难者为妇女儿童",
+                        keywords:["刑事案件","严重事件"]
                     }
                 ]
             }
@@ -72,6 +73,7 @@
             },
             delLawRule:function(){
                 console.log("delete logs")
+                this.$refs.confirm.closeConfirm()
             },
             editLawRule:function(){
 

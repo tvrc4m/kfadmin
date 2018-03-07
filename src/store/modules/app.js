@@ -5,7 +5,8 @@ const app = {
     sidebar: {
       opened: !+Cookies.get('sidebarStatus')
     },
-    language: Cookies.get('language') || 'en'
+    language: Cookies.get('language') || 'en',
+    confirm:false
   },
   mutations: {
     TOGGLE_SIDEBAR: state => {
@@ -19,7 +20,12 @@ const app = {
     SET_LANGUAGE: (state, language) => {
       state.language = language
       Cookies.set('language', language)
+    },
+    CONFIRM_DIALOG:(state,status)=>{
+      console.log(status)
+      state.confirm=status
     }
+
   },
   actions: {
     toggleSideBar({ commit }) {
