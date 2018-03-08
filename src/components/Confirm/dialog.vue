@@ -1,5 +1,5 @@
 <template>
-    <el-dialog title="" width="200" center :visible.sync="$store.state.app.confirm">
+    <el-dialog title="" width="200" :modal="false" center :visible.sync="$store.state.app.confirm">
         <span class="text-center">是否确认要删除?</span>
         <span slot="footer" class="dialog-footer">
         <el-button @click="cancelConfrim">取消</el-button>
@@ -24,6 +24,9 @@
             },
             closeConfirm:function(){
                 this.$store.commit("CONFIRM_DIALOG",false)  
+            },
+            showConfirm:function(){
+              this.$store.commit("CONFIRM_DIALOG",true)    
             }
         }
     }

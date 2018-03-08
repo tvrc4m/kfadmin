@@ -12,11 +12,7 @@
                 required:true,
                 default:"关键词"
             },
-            keywords:{
-                type:Array,
-                required:true
-            },
-            kvlist:{
+            selected:{
                 type:Array,
                 required:false,
                 default(){
@@ -26,11 +22,29 @@
         },
         data(){
             return {
-                kv:null
+                kv:null,
+                keywords:[
+                    {
+                        label:"法律",
+                        value:"law",
+                        children:[
+                            {
+                                label:'婚姻法',
+                                value:"hunyin"
+                            },
+                            {
+                                label:"民事法",
+                                value:'minshi'
+                            }
+                        ]
+                    }
+                ],
+                kvlist:this.selected
             }
         },
         methods:{
             changeKeyword:function(value){
+                console.log(value)
                 var target=this.kvlist.filter(item=>item==value.join("/"))
                 if(target.length==0)
                     this.kvlist.push(value.join("/"))

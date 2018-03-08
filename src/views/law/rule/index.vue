@@ -17,7 +17,7 @@
             <el-table-column label="操作" width="100">
                 <template slot-scope="scope">
                     <el-button type="text" size="mini" @click="$refs.confirm.delConfirm">删除</el-button>
-                    <el-button type="text" size="mini" @click="editLawRule">编辑</el-button>
+                    <el-button type="text" size="mini" @click="editLawRule(scope.row.id)">编辑</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -48,11 +48,13 @@
                 deleted:false,
                 law_rules:[
                     {
+                        id:1,
                         title:"第一条",
                         content:"载60人印度大巴坠桥致25死 多数遇难者为妇女儿童载60人印度大巴坠桥致25死 多数遇难者为妇女儿童",
                         keywords:["刑事案件","严重事件"]
                     },
                     {
+                        id:3,
                         title:"第三条",
                         content:"载60人印度大巴坠桥致25死 多数遇难者为妇女儿童载60人印度大巴坠桥致25死 多数遇难者为妇女儿童",
                         keywords:["刑事案件","严重事件"]
@@ -75,8 +77,8 @@
                 console.log("delete logs")
                 this.$refs.confirm.closeConfirm()
             },
-            editLawRule:function(){
-
+            editLawRule:function(law_rule_id){
+                this.$router.push({name:"lawRuleEdit",params:{law_rule_id:law_rule_id}})
             }
         }
     }

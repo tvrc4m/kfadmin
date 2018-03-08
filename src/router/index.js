@@ -65,6 +65,13 @@ export const asyncRouterMap = [
     hidden: true,
     children:[{path:"",component:_import("law/rule/form"),name:"lawRuleAdd",meta:{title:"lawRuleAdd"}}]
   },
+  {//编辑法规
+    path:"/law/rule/edit/:law_rule_id",
+    component:Layout,
+    name:"lawRuleEdit",
+    hidden: true,
+    children:[{path:"",component:_import("law/rule/form"),name:"lawRuleEdit",meta:{title:"lawRuleEdit"}}]
+  },
    {//法律列表
     path:"/law/",
     component:Layout,
@@ -113,6 +120,24 @@ export const asyncRouterMap = [
       path:"/case/add",
       component:_import("case/add"),
       hidden: true
+  },
+  {//后台账户列表
+    path:"/admin/user",
+    component:Layout,
+    alwaysShow: false,
+    children:[{path:"",component:_import("adminUser/index"),name:"adminUser",meta:{title:"adminUser",icon:"404"}}]
+  },{//添加案例库
+      path:"/admin/user/add",
+      component:Layout,
+      hidden: true,
+      children:[{path:"",component:_import("adminUser/form"),name:"adminUserAdd",meta:{title:"adminUserAdd",icon:"404"}}]
+  },
+  {//添加案例库
+      path:"/admin/user/edit/:admin_user_id",
+      component:Layout,
+      name:'adminUserEdit',
+      hidden: true,
+      children:[{path:"",component:_import("adminUser/form"),name:"adminUserEdit",meta:{title:"adminUserEdit",icon:"404"}}]
   },
   {
     path: '/error',
