@@ -63,7 +63,8 @@ export default {
     professional:'专家库',
     professionalList:'专家列表',
     professionalAdd:'添加专家',
-    case:'案例库'
+    case:'案例库',
+    caseAdd:'添加案例',
   },
   navbar: {
     logOut: '退出登录',

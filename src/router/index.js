@@ -118,8 +118,9 @@ export const asyncRouterMap = [
     children:[{path:"",component:_import("case/index"),name:"case",meta:{title:"case",icon:"404"}}]
   },{//添加案例库
       path:"/case/add",
-      component:_import("case/add"),
-      hidden: true
+      component:Layout,
+      hidden: true,
+      children:[{path:"",component:_import("case/form"),name:"caseAdd",meta:{title:"caseAdd"}}]
   },
   {//后台账户列表
     path:"/admin/user",

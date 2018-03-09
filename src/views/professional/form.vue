@@ -1,5 +1,5 @@
 <template>
-    <el-form class="emotion-form" :inline="true">
+    <el-form class="emotion-form" :inline="true" label-width="120" label-position="right">
         <el-row type="flex">
             <el-form-item label="昵称">
                 <el-input v-model="professional.nick"></el-input>
@@ -14,15 +14,13 @@
             </el-select>
         </el-form-item>
         <el-form-item label="认证" class="block">
-            <el-checkbox-group v-model="verifyid">
-                <el-checkbox v-for="v in verify" :label="v.name" :key="v.name">{{v.name}}</el-checkbox>
-            </el-checkbox-group>
+            <el-checkbox v-for="v in verify" :label="v.id" :key="v.name" name="verify">{{v.name}}</el-checkbox>
         </el-form-item>
         <el-form-item label="位置" class="block">
             <el-cascader :options="location" filterable clearabel placeholder="选择城市" v-model="loc" expand-trigger="hover"></el-cascader>
         </el-form-item>
         <el-row style="height: 80px;">
-            <keywords :keywords="skills"></keywords>
+            <keywords label="关键词" :keywords="skills"></keywords>
         </el-row>
         <el-button type="primary" @click="addProfessional">添加</el-button>
     </el-form>
@@ -51,12 +49,15 @@
                 ],
                 verify:[
                     {
+                        id:1,
                         name:"官方认证"
                     },
                     {
+                        id:2,
                         name:"专业律师"
                     },
                     {
+                        id:3,
                         name:"专业咨询师"
                     }
                 ],

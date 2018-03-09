@@ -1,8 +1,8 @@
 <template>
     <el-form-item :label="label">
-            <el-cascader class="block" :options="keywords" filterable clearabel placeholder="选择关键词" v-model="kv" expand-trigger="hover" @change="changeKeyword"></el-cascader>
-            <el-tag v-for="k in kvlist" :key="k" :closable="true" type="success" @close="removeKeyword(k)">{{k}}</el-tag>
-        </el-form-item>
+        <el-cascader class="block" :options="keywords" filterable clearabel placeholder="选择关键词" v-model="kv" expand-trigger="hover" @change="changeKeyword"></el-cascader>
+        <el-tag v-for="k in kvlist" :key="k" :closable="true" type="success" @close="removeKeyword(k)">{{k}}</el-tag>
+    </el-form-item>
 </template>
 <script>
     export default{
