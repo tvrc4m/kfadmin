@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
     <div id="app">
         <el-container>
             <el-container>
@@ -34,3 +35,15 @@
 </script>
 <style lang="scss">
 </style>
+=======
+	<div id="app">
+		<router-view></router-view>
+	</div>
+</template>
+
+<script>
+  export default{
+    name: 'App'
+  }
+</script>
+>>>>>>> 8a7a055b990a75524427781702359240cf9a8698

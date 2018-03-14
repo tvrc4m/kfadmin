@@ -1,0 +1,128 @@
+<template>
+    <el-form class="emotion-form" :inline="true" label-width="120" label-position="right">
+        <el-row type="flex">
+            <el-form-item label="昵称">
+                <el-input v-model="professional.nick"></el-input>
+            </el-form-item>
+            <el-form-item label="姓名">
+                <el-input v-model="professional.realname"></el-input>
+            </el-form-item>
+        </el-row>
+        <el-form-item label="职业" class="block">
+            <el-select v-model="job_id" placeholder="选择职业" filterable>
+                <el-option v-for="job in jobs" :key="job.id" :label="job.name" :value="job.id"></el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item label="认证" class="block">
+            <el-checkbox v-for="v in verify" :label="v.id" :key="v.name" name="verify">{{v.name}}</el-checkbox>
+        </el-form-item>
+        <el-form-item label="位置" class="block">
+            <el-cascader :options="location" filterable clearabel placeholder="选择城市" v-model="loc" expand-trigger="hover"></el-cascader>
+        </el-form-item>
+        <el-row style="height: 80px;">
+            <keywords label="关键词" :keywords="skills"></keywords>
+        </el-row>
+        <el-button type="primary" @click="addProfessional">添加</el-button>
+    </el-form>
+</template>
+<script>
+    import keywords from "@/components/Question/keywords"
+    export default{
+        name:"professional-add",
+        components:{keywords},
+        data(){
+            return {
+                professional:{
+                    nick:"tvrc4m",
+                    realname:"魏山",
+                    job:"律师",
+                },
+                jobs:[
+                    {
+                        id:1,
+                        name:"律师"
+                    },
+                    {
+                        id:2,
+                        name:"IT工程师"
+                    }
+                ],
+                verify:[
+                    {
+                        id:1,
+                        name:"官方认证"
+                    },
+                    {
+                        id:2,
+                        name:"专业律师"
+                    },
+                    {
+                        id:3,
+                        name:"专业咨询师"
+                    }
+                ],
+                verifyid:null,
+                job_id:null,
+                loc:null,
+                skill:null,
+                location:[{
+                    label:"北京",
+                    value:"bj",
+                    children:[
+                        {
+                            label:"朝阳区",
+                            value:"chaoyang"
+                        },
+                        {
+                            label:"海淀区",
+                            value:"haidian"
+                        }
+                    ]
+                }],
+                skills_selected:[],
+                skills:[
+                    {
+                        label:"法律",
+                        value:"法律",
+                        children:[
+                            {
+                                label:"民事诉讼",
+                                value:"民事诉讼"
+                            },
+                            {
+                                label:"法律诉讼",
+                                value:"法律诉讼"
+                            }
+                        ]
+                    },
+                ],
+            }
+        },
+        computed:{
+            job_name:function(){
+                var current=this.jobs.filter(item=>item.id==this.job_id)
+                return current.length && current[0].name
+            }
+        },
+        methods:{
+            changeSkill:function(value){
+                var target=this.skills_selected.filter(item=>item==value.join("/"))
+                if(target.length==0)
+                    this.skills_selected.push(value.join("/"))
+            },
+            removeSkill:function(value){
+                this.skills_selected=this.skills_selected.filter(item=>item!=value)
+            },
+            addProfessional:function(){
+
+            }
+        }
+    }
+</script>
+<style lang="scss" scoped>
+    .emotion-form{
+    }
+    .block{
+        display:block;
+    }
+</style>
