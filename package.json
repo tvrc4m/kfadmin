@@ -10,7 +10,8 @@
     "build:prod": "cross-env NODE_ENV=production env_config=prod node build/build.js",
     "build:sit": "cross-env NODE_ENV=production env_config=sit node build/build.js",
     "lint": "eslint --ext .js,.vue src",
-    "test": "npm run lint"
+    "test": "npm run lint",
+    "webpack:dev":"webpack --config ./build/webpack.dev.conf.js"
   },
   "dependencies": {
     "axios": "0.17.1",

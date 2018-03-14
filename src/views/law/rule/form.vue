@@ -14,26 +14,27 @@
         <el-row>
             <keywords :selected="law_rule.keywords" label="匹配词"></keywords>
         </el-row>
-        <el-button type="primary" @click="addProfessional">添加</el-button>
+        <el-button type="primary" @click="confirm">{{confirm_text}}</el-button>
     </el-form>
 </template>
 <script>
     import keywords from "@/components/Question/keywords"
+    import {getLawInfo,getLawRuleInfo,addLawRule,editLawRule} from '@/api/law'
     export default{
         name:"professional-add",
         components:{keywords},
         data(){
             return {
                 law_rule:{
+                    id:null,
                     title:"",
                     content:"",
-                    keywords:[]
+                    keyword:[11,12],
+                    law_id:null
                 },
-                law:{
-                    id:1,
-                    name:"婚姻法"
-                },
-                content:"",
+                law:{},
+                add:true,
+                confirm_text:"新增",
                 skills_selected:[],
                 skills:[
                     {
@@ -71,13 +72,41 @@
             
         },
         methods:{
-            addProfessional:function(){
-
+            confirm(){
+                if(this.add){
+                    addLawRule(this.law_rule).then(response=>{
+                        console.log("add law rule")
+                    })
+                }else{
+                    editLawRule(this.law_rule.id,this.law_rule).then(response=>{
+                        console.log('edit law rule')
+                    })
+                }
+            }
+        },
+        created(){
+            if(this.$router.params.id){
+                this.law_rule.id=this.$router.params.id;
+                this.add=false;
+                this.confirm_text='编辑';
             }
         },
         mounted(){
-            console.log(this.$route.params)
-            this.law_rule={title:"夫妻共同财产",content:"要共同承担及尝付",keywords:["婚姻法"]}
+
+            getLawInfo(this.$route.query.law_id).then(response=>{
+                this.law=response.data
+                console.log(this.law)
+            })
+
+            this.law_rule.law_id=this.$route.query.law_id
+
+            if(!this.add){
+                getLawRuleInfo(this.law_rule.id).then(response=>{
+                    this.law_rule=response.data
+                })
+            }
+            
+
         }
     }
 </script>

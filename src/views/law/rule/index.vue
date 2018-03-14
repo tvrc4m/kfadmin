@@ -2,7 +2,7 @@
     <div class="law-container">
         <confirm :confirmSuccess="delLawRule" ref="confirm"></confirm>
         <el-row>
-                <el-select v-model="law">
+            <el-select v-model="selected_law" @change="changeLaw">
                 <el-option v-for="l in laws" :key="l.id" :value="l.id" :label="l.name"></el-option>
             </el-select>
             <el-button type="primary" size="small" @click="addLawRule">添加法规</el-button>
@@ -26,40 +26,15 @@
 </template>
 <script>
     import confirm from "@/components/Confirm/dialog"
+    import {getLawList,getLawRuleList} from "@/api/law"
     export default{
         components:{confirm},
         data(){
             return {
-                laws:[
-                    {
-                        id:1,
-                        name:"婚姻法",
-                        fullname:"中国婚姻法",
-                        pinyin:"hunyin"
-                    },
-                    {
-                        id:2,
-                        name:"民事法",
-                        fullname:"中国民事法",
-                        pinyin:"minshi"
-                    }
-                ],
-                law:null,
+                laws:[],
+                selected_law:null,
                 deleted:false,
-                law_rules:[
-                    {
-                        id:1,
-                        title:"第一条",
-                        content:"载60人印度大巴坠桥致25死 多数遇难者为妇女儿童载60人印度大巴坠桥致25死 多数遇难者为妇女儿童",
-                        keywords:["刑事案件","严重事件"]
-                    },
-                    {
-                        id:3,
-                        title:"第三条",
-                        content:"载60人印度大巴坠桥致25死 多数遇难者为妇女儿童载60人印度大巴坠桥致25死 多数遇难者为妇女儿童",
-                        keywords:["刑事案件","严重事件"]
-                    }
-                ]
+                law_rules:[]
             }
         },
         methods:{
@@ -67,11 +42,11 @@
                 return cellValue.join(",")
             },
             addLawRule:function(){
-                if(!this.law){
+                if(!this.selected_law){
                     this.$message({type:"warning",message:"请先选择具体法律",duration:1000});
                     return;
                 }
-                this.$router.push({path:"/law/rule/add",query:{law:this.law}})
+                this.$router.push({path:"/law/rule/add",query:{law_id:this.selected_law}})
             },
             delLawRule:function(){
                 console.log("delete logs")
@@ -79,7 +54,23 @@
             },
             editLawRule:function(law_rule_id){
                 this.$router.push({name:"lawRuleEdit",params:{law_rule_id:law_rule_id}})
+            },
+            changeLaw(){
+                getLawRuleList(this.selected_law).then(response=>{
+                    this.law_rules=response.data.data
+                })
             }
+        },
+        mounted(){
+            getLawList().then(response=>{
+                this.laws=response.data.data
+                this.selected_law=this.laws[0]['id'];
+                if(this.laws.length){
+                    getLawRuleList(this.selected_law).then(response=>{
+                        this.law_rules=response.data.data
+                    })
+                }
+            })
         }
     }
 </script>   

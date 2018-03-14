@@ -9,7 +9,7 @@
         <el-row>
             <el-table :data="laws">
                 <el-table-column prop="id" label="ID" width="100"></el-table-column>
-                <el-table-column prop="name" label="法律全称"></el-table-column>
+                <el-table-column prop="name" label="法律简称"></el-table-column>
                 <el-table-column prop="fullname" label="法律全称"></el-table-column>
                 <el-table-column prop="name" label="法律简称"></el-table-column>
                 <el-table-column prop="pinyin" label="拼音"></el-table-column>
@@ -26,28 +26,28 @@
 </template>
 <script>
     import confirm from "@/components/Confirm/dialog"
+    import {getLawList,delLaw} from "@/api/law"
     export default{
         components:{confirm},
         data(){
             return {
-                laws:[
-                    {
-                        id:1,
-                        name:"婚姻法",
-                        fullname:"中国婚姻法",
-                        pinyin:"hunyin"
-                    }
-                ],
+                laws:[],
                 confirm_id:0
             }
         },
         methods:{
             editLaw:function(id){
-                this.$router.push({path:"/law/edit",query:{id:id}})
+                this.$router.push({name:"lawEdit",params:{id:id}})
             },
             delLaw:function(){
-                this.laws=this.laws.filter(item=>item.id!=this.confirm_id)
-                this.$refs.confirm.closeConfirm()
+                delLaw(this.confirm_id).then(response=>{
+                    if(response.error_no==0){
+                        this.laws=this.laws.filter(item=>item.id!=this.confirm_id)
+                        this.$refs.confirm.closeConfirm()
+                    }
+                }).catch(error=>{
+
+                })
             },
             delConfirm(id){
                 this.confirm_id=id
@@ -57,6 +57,15 @@
                 console.log(law_id)
                 this.$router.push({path:'/law/rule/add',query:{law_id:law_id}})
             }
+        },
+        mounted(){
+            getLawList().then(response=>{
+                this.laws=response.data.data
+                console.log(this.laws)
+            }).catch(error=>{
+                    console.log(error)
+                }
+            )
         }
     }
 </script>

@@ -86,6 +86,12 @@ export const asyncRouterMap = [
     hidden: true,
     children:[{path:"",component:_import("law/form"),name:"lawAdd",meta:{title:"lawAdd"}}]
   },
+  {//编辑法律
+    path:"/law/edit/:id",
+    component:Layout,
+    hidden: true,
+    children:[{path:"",component:_import("law/form"),name:"lawEdit",meta:{title:"lawEdit"}}]
+  },
   {//情感问题库
     path:"/question",
     component:Layout,
@@ -101,14 +107,20 @@ export const asyncRouterMap = [
     children:[{path:"",component:_import("question/form"),name:"questionAdd",meta:{title:"questionAdd"}}]
   },
   {//专家库
-    path:"/professional",
+    path:"/expert",
     component:Layout,
     alwaysShow: false,
-    children:[{path:"",component:_import("professional/index"),name:"professional",meta:{title:"professional",icon:"404"}}]
+    children:[{path:"",component:_import("expert/index"),name:"expert",meta:{title:"expert",icon:"404"}}]
   },{//添加专家
-      path:"/professional/add",
+      path:"/expert/add",
       component:Layout,
-      children:[{path:"",component:_import("professional/form"),name:"professionalAdd",meta:{title:"professionalAdd"}}],
+      children:[{path:"",component:_import("expert/form"),name:"expertAdd",meta:{title:"expertAdd"}}],
+      hidden: true
+  },
+  {//编辑专家
+      path:"/expert/edit/:id",
+      component:Layout,
+      children:[{path:"",component:_import("expert/form"),name:"expertEdit",meta:{title:"expertEdit"}}],
       hidden: true
   },
   {//案例库
