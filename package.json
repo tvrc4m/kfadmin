@@ -1,44 +1,4 @@
 {
-<<<<<<< HEAD
-  "name": "fsb",
-  "version": "1.0.0",
-  "description": "fsb backend",
-  "main": "index.js",
-  "scripts": {
-    "test": "println(\"hello,fsb\")",
-    "webpack": "webpack --mode development",
-    "dev": "webpack-dev-server --hot",
-    "watch": "webpack --watch"
-  },
-  "author": "tvrc4m@qq.com",
-  "license": "ISC",
-  "devDependencies": {
-    "axios": "^0.18.0",
-    "babel-loader": "^7.1.3",
-    "css-loader": "^0.28.10",
-    "element-ui": "^2.2.0",
-    "extract-text-webpack-plugin": "^3.0.2",
-    "file-loader": "^1.1.10",
-    "html-webpack-plugin": "^3.0.0",
-    "node-sass": "^4.7.2",
-    "sass-loader": "^6.0.6",
-    "style-loader": "^0.20.2",
-    "url-loader": "^0.6.2",
-    "vue": "^2.5.13",
-    "vue-loader": "^14.1.1",
-    "vue-router": "^3.0.1",
-    "vue-template-compiler": "^2.5.13",
-    "vuex": "^3.0.1",
-    "webpack": "^4.0.1",
-    "webpack-cli": "^2.0.9",
-    "webpack-dev": "^1.1.0",
-    "webpack-dev-server": "^3.1.0",
-    "webpack-server": "^0.1.2"
-  },
-  "dependencies": {
-    "npm": "^5.7.1"
-  }
-=======
   "name": "vue-element-admin",
   "version": "3.6.2",
   "description": "A magical vue admin. Typical templates for enterprise applications. Newest development stack of vue. Lots of awesome features",
@@ -138,5 +98,4 @@
     "last 2 versions",
     "not ie <= 8"
   ]
->>>>>>> 8a7a055b990a75524427781702359240cf9a8698
 }
