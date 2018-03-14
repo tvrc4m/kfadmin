@@ -1,19 +1,20 @@
 <template>
     <div id="app">
         <el-container>
-            <el-header  v-if="show" height="60px">
-                <top></top>
-            </el-header>
             <el-container>
-                <el-aside v-if="show" width="300px">
+                <el-aside v-if="show">
                     <slider></slider>
                 </el-aside>
+            </el-container>
+            <el-container>
+                <el-header  v-if="show" height="60px">
+                    <top></top>
+                </el-header>
                 <el-main>
                     <router-view name="default"></router-view>        
                 </el-main>
+                <el-footer height="40px"></el-footer>
             </el-container>
-            
-            <el-footer height="40px"></el-footer>
         </el-container>
     </div>
 </template>
