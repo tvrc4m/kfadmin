@@ -39,7 +39,8 @@
         },
         methods:{
             formatKeyword:function(row,column,cellValue){
-                return cellValue.join(",")
+                if(cellValue && cellValue.length)
+                    return cellValue.join(",")
             },
             addLawRule:function(){
                 if(!this.selected_law){
@@ -56,18 +57,18 @@
                 this.$router.push({name:"lawRuleEdit",params:{law_rule_id:law_rule_id}})
             },
             changeLaw(){
-                getLawRuleList(this.selected_law).then(response=>{
-                    this.law_rules=response.data.data
+                getLawRuleList(this.selected_law).then(data=>{
+                    this.law_rules=data.data
                 })
             }
         },
         mounted(){
-            getLawList().then(response=>{
-                this.laws=response.data.data
+            getLawList().then(data=>{
+                this.laws=data.data
                 this.selected_law=this.laws[0]['id'];
                 if(this.laws.length){
-                    getLawRuleList(this.selected_law).then(response=>{
-                        this.law_rules=response.data.data
+                    getLawRuleList(this.selected_law).then(data=>{
+                        this.law_rules=data.data
                     })
                 }
             })

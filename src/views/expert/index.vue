@@ -49,7 +49,7 @@
                         label:"情感专家"
                     }
                 ],
-                expert_type:null,
+                expert_type:1,
                 experts:[],
                 total:10,
                 deleted:false,
@@ -61,7 +61,7 @@
                 this.$router.push({name:"expertEdit",params:{id:id}});
             },
             delPro:function(){
-                delExpert(this.current_id).then(response=>{
+                delExpert(this.current_id).then(data=>{
                     this.experts=this.experts.filter(item=>item.id!=this.current_id);
                     this.$store.commit('CONFIRM_DIALOG',false)
                 })
@@ -72,17 +72,14 @@
             },
             getExpertByType(){
                 console.log({type:this.expert_type})
-                getExpertList({type:this.expert_type}).then(response=>{
-                    this.experts=response.data.data
-                    this.total=response.data.total
+                getExpertList({type:this.expert_type}).then(data=>{
+                    this.experts=data.data
+                    this.total=data.total
                 })
             }
         },
         mounted(){
-            getExpertList().then(response=>{
-                this.experts=response.data.data
-                this.total=response.data.total
-            })
+            this.getExpertByType()
         }
     }
 </script>

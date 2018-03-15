@@ -9,7 +9,7 @@
         <el-table :data="users">
             <el-table-column prop="id" label="ID"></el-table-column>
             <el-table-column prop="username" label="账号"></el-table-column>
-            <el-table-column prop="add_user" label="添加人"></el-table-column>
+            <el-table-column prop="create_user" label="添加人"></el-table-column>
             <el-table-column prop="created_at" label="创建时间"></el-table-column>
             <el-table-column label="管理" header-align="center" width="90">
                 <template slot-scope="scope">

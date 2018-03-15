@@ -127,11 +127,11 @@
             },
             confirm:function(){
                 if(this.add){
-                    addExpert(this.expert).then(response=>{
+                    addExpert(this.expert).then(data=>{
 
                     })
                 }else{
-                    editExpert(this.expert.id,this.expert).then(response=>{
+                    editExpert(this.expert.id,this.expert).then(data=>{
 
                     })
                 }
@@ -139,8 +139,8 @@
         },
         mounted(){
             if(!this.add){
-                getExpertInfo(this.expert.id).then(response=>{
-                    this.expert=response.data;
+                getExpertInfo(this.expert.id).then(data=>{
+                    this.expert=data;
                 })
             }
         }

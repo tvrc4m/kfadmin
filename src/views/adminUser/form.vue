@@ -73,19 +73,19 @@
         },
         mounted(){
             if(!this.add){
-                getAdminUserInfo(this.user.id).then(response=>{
-                    this.user=response.data
+                getAdminUserInfo(this.user.id).then(data=>{
+                    this.user=data
                 })
             }
         },
         methods:{
             confirm(){
                 if(this.add){
-                    addAdminUser(this.user).then(response=>{
+                    addAdminUser(this.user).then(data=>{
 
                     })
                 }else{
-                    editAdminUser(this.user.id,this.user).then(response=>{
+                    editAdminUser(this.user.id,this.user).then(data=>{
 
                     })
                 }

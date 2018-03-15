@@ -36,17 +36,12 @@
         methods:{
             confirm(){
                 if(this.add){
-                    addLaw(this.law).then(response=>{
-                        console.log(response.data)
-                        if(response.error_no==0){
-                            this.$router.back(-1);
-                        }
+                    addLaw(this.law).then(data=>{
+                        this.$router.back(-1);
                     })
                 }else{
-                    editLaw(this.law.id,this.law).then(response=>{
-                        if(response.error_no==0){
-                            this.$router.back(-1);
-                        }
+                    editLaw(this.law.id,this.law).then(data=>{
+                        this.$router.back(-1);
                     })
                 }
             }
@@ -60,8 +55,8 @@
         },
         mounted(){
             if(!this.add){
-                getLawInfo(this.$route.params.id).then(response=>{
-                    this.law=response.data
+                getLawInfo(this.$route.params.id).then(data=>{
+                    this.law=data
                 }).catch(error=>{
                     console.log(error)
                 })

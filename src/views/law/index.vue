@@ -40,11 +40,9 @@
                 this.$router.push({name:"lawEdit",params:{id:id}})
             },
             delLaw:function(){
-                delLaw(this.confirm_id).then(response=>{
-                    if(response.error_no==0){
-                        this.laws=this.laws.filter(item=>item.id!=this.confirm_id)
-                        this.$refs.confirm.closeConfirm()
-                    }
+                delLaw(this.confirm_id).then(data=>{
+                    this.laws=this.laws.filter(item=>item.id!=this.confirm_id)
+                    this.$refs.confirm.closeConfirm()
                 }).catch(error=>{
 
                 })
@@ -59,8 +57,8 @@
             }
         },
         mounted(){
-            getLawList().then(response=>{
-                this.laws=response.data.data
+            getLawList().then(data=>{
+                this.laws=data.data
                 console.log(this.laws)
             }).catch(error=>{
                     console.log(error)

@@ -85,24 +85,27 @@
             }
         },
         created(){
-            if(this.$router.params.id){
-                this.law_rule.id=this.$router.params.id;
+            if(this.$route.params.law_rule_id){
+                this.law_rule.id=this.$route.params.law_rule_id;
                 this.add=false;
                 this.confirm_text='编辑';
             }
         },
         mounted(){
 
-            getLawInfo(this.$route.query.law_id).then(response=>{
-                this.law=response.data
-                console.log(this.law)
-            })
-
-            this.law_rule.law_id=this.$route.query.law_id
-
             if(!this.add){
-                getLawRuleInfo(this.law_rule.id).then(response=>{
-                    this.law_rule=response.data
+                getLawRuleInfo(this.law_rule.id).then(data=>{
+                    this.law_rule=data
+                    getLawInfo(this.law_rule.law_id).then(data=>{
+                        this.law=data
+                        console.log(this.law)
+                    })
+                })
+            }else{
+                this.law_rule.law_id=this.$route.query.law_id
+                getLawInfo(this.$route.query.law_id).then(data=>{
+                    this.law=data
+                    console.log(this.law)
                 })
             }
             
