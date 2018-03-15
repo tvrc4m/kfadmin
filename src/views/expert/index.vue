@@ -2,7 +2,10 @@
     <div class="emotion">
         <el-row :span="24" class="emotion-header">
             <el-col :span="6">
-                <router-link to="/professional/add">
+                <el-select v-model="expert_type" placehoder="选择专家类型" @change="getExpertByType">
+                    <el-option v-for="type in expert_types" :label="type.label" :value="type.id" :key="type.id"></el-option>
+                </el-select>
+                <router-link to="/expert/add">
                     <el-button type="primary" size="small">添加新专家</el-button>
                 </router-link>
             </el-col>
@@ -13,10 +16,10 @@
             </el-col>
         </el-row>
         <confirm :confirmSuccess="delPro"></confirm>
-        <el-table :data="professionals" stripe style="width=100%">
+        <el-table :data="experts" stripe style="width=100%">
             <el-table-column prop="id" label="ID" width="50"></el-table-column>
-            <el-table-column prop="name" label="昵称"></el-table-column>
-            <el-table-column prop="realname" label="姓名"></el-table-column>
+            <el-table-column prop="nickname" label="昵称"></el-table-column>
+            <el-table-column prop="name" label="姓名"></el-table-column>
             <el-table-column prop="job" label="职业"></el-table-column>
             <el-table-column prop="remark" label="擅长"></el-table-column>
             <el-table-column label="操作" width="100">
@@ -30,27 +33,24 @@
 </template>
 <script>
     import confirm from "@/components/Confirm/dialog"
+    import {getExpertList,delExpert} from '@/api/expert'
     import {mapState} from 'vuex'
     export default{
         components:{confirm},
         data(){
             return {
-                professionals:[
+                expert_types:[
                     {
                         id:1,
-                        name:"tvrc4m",
-                        realname:"魏山",
-                        job:"PHP技术经理",
-                        remark:"php,scala,spark,manager"
+                        label:"法律专家"
                     },
                     {
                         id:2,
-                        name:"shengqi",
-                        realname:"郑生齐",
-                        job:"PHP开发",
-                        remark:"php,go"
+                        label:"情感专家"
                     }
                 ],
+                expert_type:1,
+                experts:[],
                 total:10,
                 deleted:false,
                 current_id:0
@@ -58,16 +58,28 @@
         },
         methods:{
             editPro:function(id){
-                this.$router.push({path:"/professional/add",query:{id:id}});
+                this.$router.push({name:"expertEdit",params:{id:id}});
             },
             delPro:function(){
-                this.professionals=this.professionals.filter(item=>item.id!=this.current_id);
-                this.$store.commit('CONFIRM_DIALOG',false)
+                delExpert(this.current_id).then(data=>{
+                    this.experts=this.experts.filter(item=>item.id!=this.current_id);
+                    this.$store.commit('CONFIRM_DIALOG',false)
+                })
             },
             delConfirm:function(id){
                 this.current_id=id;
                 this.$store.commit('CONFIRM_DIALOG',true)
+            },
+            getExpertByType(){
+                console.log({type:this.expert_type})
+                getExpertList({type:this.expert_type}).then(data=>{
+                    this.experts=data.data
+                    this.total=data.total
+                })
             }
+        },
+        mounted(){
+            this.getExpertByType()
         }
     }
 </script>

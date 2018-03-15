@@ -7,9 +7,7 @@
     <div class="right-menu">
       <error-log class="errLog-container right-menu-item"></error-log>
       <span class="nick">@admin</span>
-      <router-link to="/logout">
-        <el-button type="text" size="medium">退出</el-button>
-      </router-link>
+      <el-button type="text" size="medium" @click="logout">退出</el-button>
     </div>
   </el-menu>
 </template>

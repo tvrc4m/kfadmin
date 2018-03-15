@@ -1,11 +1,11 @@
 <template>
-    <el-form class="emotion-form" :inline="true" label-width="120" label-position="right">
+    <el-form class="emotion-form" :inline="true" label-width="120" label-position="right" :model="expert">
         <el-row type="flex">
             <el-form-item label="昵称">
-                <el-input v-model="professional.nick"></el-input>
+                <el-input v-model="expert.nickname"></el-input>
             </el-form-item>
             <el-form-item label="姓名">
-                <el-input v-model="professional.realname"></el-input>
+                <el-input v-model="expert.name"></el-input>
             </el-form-item>
         </el-row>
         <el-form-item label="职业" class="block">
@@ -22,20 +22,23 @@
         <el-row style="height: 80px;">
             <keywords label="关键词" :keywords="skills"></keywords>
         </el-row>
-        <el-button type="primary" @click="addProfessional">添加</el-button>
+        <el-button type="primary" @click="confirm">{{confirm_text}}</el-button>
     </el-form>
 </template>
 <script>
     import keywords from "@/components/Question/keywords"
+    import {getExpertInfo,addExpert,editExpert} from '@/api/expert'
     export default{
-        name:"professional-add",
+        name:"expert-add",
         components:{keywords},
         data(){
             return {
-                professional:{
-                    nick:"tvrc4m",
-                    realname:"魏山",
-                    job:"律师",
+                expert:{
+                    id:null,
+                    nickname:"",
+                    name:"",
+                    job_id:"",
+                    good_at:[]
                 },
                 jobs:[
                     {
@@ -96,12 +99,21 @@
                         ]
                     },
                 ],
+                confirm_text:"新增",
+                add:true
             }
         },
         computed:{
             job_name:function(){
                 var current=this.jobs.filter(item=>item.id==this.job_id)
                 return current.length && current[0].name
+            }
+        },
+        created(){
+            if(this.$route.params.id){
+                this.expert.id=this.$route.params.id
+                this.add=false
+                this.confirm_text='编辑'
             }
         },
         methods:{
@@ -113,8 +125,23 @@
             removeSkill:function(value){
                 this.skills_selected=this.skills_selected.filter(item=>item!=value)
             },
-            addProfessional:function(){
+            confirm:function(){
+                if(this.add){
+                    addExpert(this.expert).then(data=>{
 
+                    })
+                }else{
+                    editExpert(this.expert.id,this.expert).then(data=>{
+
+                    })
+                }
+            }
+        },
+        mounted(){
+            if(!this.add){
+                getExpertInfo(this.expert.id).then(data=>{
+                    this.expert=data;
+                })
             }
         }
     }
