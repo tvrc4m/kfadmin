@@ -51,6 +51,7 @@
             if(this.$route.params.id){
                 this.add=false;
                 this.confirm_text="编辑"
+                this.law.id=this.$route.params.id
             }
         },
         mounted(){

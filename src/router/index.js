@@ -103,7 +103,35 @@ export const asyncRouterMap = [
     component:Layout,
     name:"questionAdd",
     hidden: true,
-    children:[{path:"",component:_import("question/form"),name:"questionAdd",meta:{title:"questionAdd"}}]
+    // children:[{path:"",component:_import("question/form"),name:"questionAdd",meta:{title:"questionAdd"}}]
+
+    children:[
+      {
+        path:"",
+        component:_import("question/form"),
+        children:[
+          {
+            path:"",
+            components:{
+              base_info:_import("question/base_form"),
+              question_info:_import("question/question_form"),
+              advise_info:_import("question/advise_form"),
+              relation_info:_import("question/relation_form")
+            },
+            name:"questionBaseAdd",
+            meta:{title:"questionBaseAdd"},
+          }
+        ]
+
+      }
+    ]
+  },
+  {//编辑情感问题集
+    path:"/question/edit/:id",
+    component:Layout,
+    name:"questionCollectionEdit",
+    hidden: true,
+    children:[{path:"",component:_import("question/form"),name:"questionCollectionEdit",meta:{title:"questionCollectionEdit"}}]
   },
   {//专家库
     path:"/expert",
