@@ -56,6 +56,7 @@ export default {
     lawEdit:'编辑法律',
     lawCatEdit:'编辑法律',
     adminUser:'后台账户',
+    userTopic:'用户帖子',
     adminUserEdit:'编辑后台账户',
     adminUserAdd:'添加后台账户',
     question:'情感问题',
