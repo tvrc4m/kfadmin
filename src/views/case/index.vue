@@ -5,7 +5,7 @@
             <el-select v-model="filter.case_cate_id" placehoder="案例类型" clearable>
                 <el-option v-for="cat in cats" :key="cat.id" :label="cat.name" :value="cat.id"></el-option>
             </el-select>
-            <el-date-picker v-model="filter.case_date" placeholder="判决时间" type="month"></el-date-picker>
+            <el-date-picker v-model="filter.case_date" placeholder="判决时间" type="month" value-format="yyyy-MM-01 00:00:00"></el-date-picker>
             <el-select v-model="filter.is_breakup" placeholder="判决结果" clearable>
                 <el-option label="不离" value="0"></el-option>
                 <el-option label="离婚" value="1"></el-option>

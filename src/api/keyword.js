@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getCaseFactorList(){
     return request({
-        url:"keyword/getFactorList",
+        url:"/admin/keyword/getFactorList",
         method:"GET"
     })
 }
@@ -10,7 +10,7 @@ export function getCaseFactorList(){
 
 export function getFactorKeywords(factor_id){
     return request({
-        url:"keyword/getKeywordList/"+factor_id,
+        url:"/admin/keyword/getKeywordList/"+factor_id,
         method:"GET"
     })
 }

@@ -146,7 +146,6 @@ export const asyncRouterMap = [
               meta:{title:"caseAdd"},
             }
           ]
-
         }
       ]
   },
@@ -154,7 +153,28 @@ export const asyncRouterMap = [
       path:"/case/edit/:case_id",
       component:Layout,
       hidden: true,
-      children:[{path:"",component:_import("case/form"),name:"caseEdit",meta:{title:"caseEdit"}}]
+      children:[{
+          path:"",
+          component:_import("case/form"),
+          children:[
+            {
+              path:"",
+              components:{
+                case_info:_import("case/case_form"),
+                case_factor:_import("case/case_factor_form")
+              },
+              name:"caseEdit",
+              meta:{title:"caseEdit"},
+            }
+          ]
+      }]
+  },
+  {//管理案例要素
+      path:"/case/factor",
+      component:Layout,
+      name:"case_factor",
+      hidden: true,
+      children:[{path:"",component:_import("case/factor/index"),name:"caseFactor",meta:{title:"caseFactor"}}]
   },
   {//后台账户列表
     path:"/admin/user",

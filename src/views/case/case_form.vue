@@ -8,8 +8,11 @@
                 <el-option v-for="cat in cats" :key="cat.id" :label="cat.name" :value="cat.id"></el-option>
             </el-select>
         </el-form-item>
+        <el-form-item label="位置">
+            <location :province_id.sync="caseinfo.province_id" :city_id.sync="caseinfo.city_id"></location>
+        </el-form-item>
         <el-form-item label="时间">
-            <el-date-picker type="month" v-model="caseinfo.case_date" placeholder="选择发生日期"></el-date-picker>
+            <el-date-picker type="month" v-model="caseinfo.case_date" value-format="yyyy-MM-01 00:00:00" placeholder="选择发生日期"></el-date-picker>
         </el-form-item>
         <el-form-item label="案情">
             <el-input type="textarea" v-model="caseinfo.info"></el-input>
@@ -25,18 +28,19 @@
 </template>
 <script>
     import {addCase,editCase,getCaseInfo,getCaseCat} from '@/api/case'
+    import location from "@/components/Location/index"
     export default{
+        components:{location},
         data(){
             return {
                 tab:"caseinfo",
                 cats:[],
-                factor_active:["基本要素","财产及收入要素","感情要素"],
                 caseinfo:{
                     id:null,
                     name:'',
                     case_cate_id:'',
-                    province_id:'',
-                    city_id:'',
+                    province_id:0,
+                    city_id:0,
                     case_date:'',
                     info:'',
                     judgment:'',
@@ -59,11 +63,7 @@
                 }
             },
             tabClicked(tab){
-                if(tab.name=='casefactor'){
-                    // this.$router.push({name:"case_factor_form",params:{id:this.caseinfo.id}})
-                }
                 console.log(tab)
-                console.log(tab.value)
             }
         },
         created(){
@@ -75,8 +75,8 @@
         mounted(){
             if(this.caseinfo.id){
                 getCaseInfo(this.caseinfo.id).then(data=>{
-                    console.log(data)
                     this.caseinfo=data
+                    console.log(data)
                 })
             }
             getCaseCat().then(data=>{

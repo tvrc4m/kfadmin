@@ -2,7 +2,7 @@ import request from "@/utils/request"
 
 export function getLawList(params){
     return request({
-        url:"law",
+        url:"/admin/law",
         method:'get',
         params
     })
@@ -14,14 +14,14 @@ export function getLawList(params){
  */
 export function getLawInfo(id){
     return request({
-        url:'law/detail/'+id,
+        url:'/admin/law/detail/'+id,
         method:'get'
     })
 }
 
 export function addLaw(data){
     return request({
-        url:"law",
+        url:"/admin/law",
         method:'POST',
         data
     })
@@ -29,7 +29,7 @@ export function addLaw(data){
 
 export function editLaw(law_id,data){
     return request({
-        url:"law/"+law_id,
+        url:"/admin/law/"+law_id,
         method:"PUT",
         data
     })
@@ -37,14 +37,14 @@ export function editLaw(law_id,data){
 
 export function delLaw(law_id){
     return request({
-        url:"law/"+law_id,
+        url:"/admin/law/"+law_id,
         method:"DELETE"
     })
 }
 
 export function getLawRuleList(law_id,page=1){
     return request({
-        url:"law/rule",
+        url:"/admin/law/rule",
         method:"GET",
         params:{law_id:law_id,page:page},
     })
@@ -52,7 +52,7 @@ export function getLawRuleList(law_id,page=1){
 
 export function getLawRuleInfo(law_rule_id){
     return request({
-        url:"law/rule/detail/"+law_rule_id,
+        url:"/admin/law/rule/detail/"+law_rule_id,
         method:"GET"
     })
 }
