@@ -37,3 +37,27 @@ export function delExpert(expert_id){
         method:"DELETE"
     })
 }
+
+export function getExpertJob(){
+    return request({
+        url:"expert/job",
+    })
+}
+
+export function getExpertGoodAt(){
+    return request({
+        url:"expert/goodAt",
+    })
+}
+
+export function getExpertServices(){
+    return request({
+        url:"expert/service",
+    })
+}
+
+export function getExpertCertification(){
+    return request({
+        url:"expert/certification",
+    })
+}

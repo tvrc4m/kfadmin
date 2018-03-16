@@ -12,7 +12,7 @@
                 </el-form-item>
         </el-row>
         <el-row>
-            <keywords :selected="law_rule.keywords" label="匹配词"></keywords>
+            <keywords :keywords.sync="keywords" label="匹配词"></keywords>
         </el-row>
         <el-button type="primary" @click="confirm">{{confirm_text}}</el-button>
     </el-form>
@@ -29,9 +29,10 @@
                     id:null,
                     title:"",
                     content:"",
-                    keyword:[11,12],
-                    law_id:null
+                    law_id:null,
+                    keyword:[],
                 },
+                keywords:[],
                 law:{},
                 add:true,
                 confirm_text:"新增",
@@ -70,6 +71,13 @@
         },
         computed:{
             
+        },
+        watch:{
+            keywords(selected){
+                if(this.law_rule.keyword.length) this.law_rule.keyword.splice(0,this.law_rule.keyword.length)
+                selected.forEach(item=>this.law_rule.keyword.push(item.keyword_id))
+                console.log(this.law_rule)
+            }
         },
         methods:{
             confirm(){

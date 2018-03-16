@@ -13,7 +13,7 @@
         <el-table :data="law_rules">
             <el-table-column prop="title" label="标题" width="80"></el-table-column>
             <el-table-column prop="content" label="内容"></el-table-column>
-            <el-table-column prop="keywords" label="匹配词" :formatter="formatKeyword" width="150"></el-table-column>
+            <el-table-column prop="law_rule_keyword" label="匹配词" :formatter="formatKeyword" width="150"></el-table-column>
             <el-table-column label="操作" width="100">
                 <template slot-scope="scope">
                     <el-button type="text" size="mini" @click="$refs.confirm.delConfirm">删除</el-button>
@@ -21,26 +21,32 @@
                 </template>
             </el-table-column>
         </el-table>
-        
+        <pagination :total="total" :page_size="page_size" @change="changePage"></pagination>
     </div>
 </template>
 <script>
     import confirm from "@/components/Confirm/dialog"
+    import pagination from "@/components/Pagination/index"
     import {getLawList,getLawRuleList} from "@/api/law"
     export default{
-        components:{confirm},
+        components:{confirm,pagination},
         data(){
             return {
                 laws:[],
                 selected_law:null,
                 deleted:false,
-                law_rules:[]
+                law_rules:[],
+                total:0,
+                page_size:0,
             }
         },
         methods:{
             formatKeyword:function(row,column,cellValue){
+                var keywords=[]
+                console.log(cellValue)
                 if(cellValue && cellValue.length)
-                    return cellValue.join(",")
+                    cellValue.forEach(item=>keywords.push(item.name))
+                return keywords.join(",")
             },
             addLawRule:function(){
                 if(!this.selected_law){
@@ -60,16 +66,24 @@
                 getLawRuleList(this.selected_law).then(data=>{
                     this.law_rules=data.data
                 })
+            },
+            getLawRuleList(page=1){
+                getLawRuleList(this.selected_law,page).then(data=>{
+                    this.law_rules=data.data
+                    this.total=data.total
+                    this.page_size=data.per_page
+                })
+            },
+            changePage(page){
+                this.getLawRuleList(page);
             }
         },
         mounted(){
             getLawList().then(data=>{
                 this.laws=data.data
-                this.selected_law=this.laws[0]['id'];
                 if(this.laws.length){
-                    getLawRuleList(this.selected_law).then(data=>{
-                        this.law_rules=data.data
-                    })
+                    this.selected_law=this.laws[0]['id'];
+                    this.changePage()
                 }
             })
         }
