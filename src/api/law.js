@@ -1,10 +1,10 @@
 import request from "@/utils/request"
 
-export function getLawList(){
+export function getLawList(params){
     return request({
         url:"law",
         method:'get',
-        data:{}
+        params
     })
 }
 /**
@@ -42,11 +42,11 @@ export function delLaw(law_id){
     })
 }
 
-export function getLawRuleList(law_id){
+export function getLawRuleList(law_id,page=1){
     return request({
         url:"law/rule",
         method:"GET",
-        params:{law_id:law_id}
+        params:{law_id:law_id,page:page},
     })
 }
 

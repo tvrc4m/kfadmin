@@ -1,19 +1,15 @@
 <template>
     <div class="emotion">
         <el-row :span="24" class="emotion-header">
-            <el-col :span="6">
-                <el-select v-model="expert_type" placehoder="选择专家类型" @change="getExpertByType">
-                    <el-option v-for="type in expert_types" :label="type.label" :value="type.id" :key="type.id"></el-option>
-                </el-select>
-                <router-link to="/expert/add">
-                    <el-button type="primary" size="small">添加新专家</el-button>
-                </router-link>
-            </el-col>
-            <el-col :span="18">
-                <div class="right">
-                    共<span v-text="total"></span>条数据
-                </div>
-            </el-col>
+            <el-select v-model="expert_type" placehoder="选择专家类型" @change="getExpertByType">
+                <el-option v-for="type in expert_types" :label="type.label" :value="type.id" :key="type.id"></el-option>
+            </el-select>
+            <router-link to="/expert/add">
+                <el-button type="primary" size="small">添加新专家</el-button>
+            </router-link>
+            <span class="text right">
+                共<span v-text="total"></span>条数据
+            </span>
         </el-row>
         <confirm :confirmSuccess="delPro"></confirm>
         <el-table :data="experts" stripe style="width=100%">
@@ -29,14 +25,16 @@
                 </template>
             </el-table-column>
         </el-table>
+        <pagination :total="total" :page_size="page_size" @change="changePage"></pagination>
     </div>
 </template>
 <script>
     import confirm from "@/components/Confirm/dialog"
+    import pagination from "@/components/Pagination/index"
     import {getExpertList,delExpert} from '@/api/expert'
     import {mapState} from 'vuex'
     export default{
-        components:{confirm},
+        components:{confirm,pagination},
         data(){
             return {
                 expert_types:[
@@ -53,7 +51,9 @@
                 experts:[],
                 total:10,
                 deleted:false,
-                current_id:0
+                current_id:0,
+                total:0,
+                page_size:20
             }
         },
         methods:{
@@ -70,12 +70,18 @@
                 this.current_id=id;
                 this.$store.commit('CONFIRM_DIALOG',true)
             },
-            getExpertByType(){
+            getExpertByType(page){
                 console.log({type:this.expert_type})
-                getExpertList({type:this.expert_type}).then(data=>{
+                getExpertList({type:this.expert_type,page:page}).then(data=>{
                     this.experts=data.data
+                    console.log(data)
+                    console.log(this.experts)
                     this.total=data.total
+                    this.page_size=data.per_page
                 })
+            },
+            changePage(page=1){
+                this.getExpertByType(page)
             }
         },
         mounted(){
@@ -89,7 +95,11 @@
     }
     .emotion-header{
         .right{
-            text-align:right;
+            float:right;
+        }
+        .text{
+            font-size:14px;
+            line-height:22px;
         }
     }
 </style>
