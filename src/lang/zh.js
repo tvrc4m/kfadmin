@@ -67,6 +67,7 @@ export default {
     expertEdit:'编辑专家',
     case:'案例库',
     caseAdd:'添加案例',
+    caseEdit:'编辑案例',
   },
   navbar: {
     logOut: '退出登录',

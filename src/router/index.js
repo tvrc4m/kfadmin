@@ -133,6 +133,12 @@ export const asyncRouterMap = [
       hidden: true,
       children:[{path:"",component:_import("case/form"),name:"caseAdd",meta:{title:"caseAdd"}}]
   },
+  {//编辑案例库
+      path:"/case/edit/:case_id",
+      component:Layout,
+      hidden: true,
+      children:[{path:"",component:_import("case/form"),name:"caseEdit",meta:{title:"caseEdit"}}]
+  },
   {//后台账户列表
     path:"/admin/user",
     component:Layout,

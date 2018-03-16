@@ -81,9 +81,9 @@
         mounted(){
             getLawList().then(data=>{
                 this.laws=data.data
-                this.selected_law=this.laws[0]['id'];
                 if(this.laws.length){
-                    this.current_page=1
+                    this.selected_law=this.laws[0]['id'];
+                    this.changePage()
                 }
             })
         }
