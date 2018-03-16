@@ -151,6 +151,12 @@ export const asyncRouterMap = [
       hidden: true,
       children:[{path:"",component:_import("adminUser/form"),name:"adminUserEdit",meta:{title:"adminUserEdit",icon:"404"}}]
   },
+  {//用户帖子
+      path:"/admin/user/topic",
+      component:Layout,
+      alwaysShow: false,
+      children:[{path:"",component:_import("topic/index"),name:"userTopic",meta:{title:"userTopic",icon:"404"}}]
+  },
   {
     path: '/error',
     component: Layout,
