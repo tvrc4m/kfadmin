@@ -1,6 +1,6 @@
 <template>
     <div class="emotion-container">
-        <el-form :inline="true" label-width="300">
+        <el-form :inline="true" label-width="300" :model="question">
             <el-tabs v-model="tab_selected" @tab-click="tabClick" type="border-card">
                 <el-tab-pane label="基础资料" name="base">
                     <el-form-item label="标题" class="block">
@@ -13,8 +13,18 @@
                         <el-cascader style="width: 500px" :options="related_questions" :show-all-levels="true" @active-item-change="getQuestionChildren" :change-on-select="false" :props="question_props"></el-cascader>
                     </el-form-item>
                     <el-form-item label="过度页" class="block">
-                        <el-input type="text" v-model="question.override"></el-input>
+                        <el-input type="text" v-model="question.overdue"></el-input>
                     </el-form-item>
+                    <el-form-item label="显示方式" class="block">
+                        <el-checkbox v-model="question.is_single_page">单页</el-checkbox>
+                    </el-form-item>
+                    <el-form-item label="是否是主干问题" class="block">
+                        <el-checkbox v-model="question.is_trunk"></el-checkbox>
+                    </el-form-item>
+
+                    <el-row style="margin-top: 10px;">
+                        <el-button type="primary" @click="baseSubmit">{{confirm_text}}</el-button>
+                    </el-row>
                 </el-tab-pane>
                 <el-tab-pane label="问题" name="question">
                     <el-form-item class="block" label="问题标题">
@@ -36,23 +46,29 @@
                     </el-row>
                 </el-tab-pane>
                 <el-tab-pane label="匹配关系" name="relation"></el-tab-pane>
+
             </el-tabs>
-            <el-row style="margin-top: 10px;">
-                <el-button type="primary">确定</el-button>
-            </el-row>
         </el-form>
     </div>
 </template>
 <script>
+    import {getQuestionCollection,addQuestionCollection,editQuestionCollection} from '@/api/question'
     export default{
         data(){
             return {
+                add:true,
                 tab_selected:"base",
+                confirm_text:"添加",
                 skill:null,
                 question:{
+                    id:"",
+                    type:2,
                     title:"",
                     content:"",
-                    override:'',
+                    overdue:"",
+                    question_option_id:[],
+                    is_single_page:true,
+                    is_trunk:1,
                 },
                 question_props:{
                     value:"value",
@@ -104,10 +120,11 @@
             }
         },
         methods:{
-            tabClick:function(){
-                console.log("test")
+            tabClick:function(a){
+                // console.log(this.tab_selected)
             },
             getQuestionChildren(vals){
+                // console.log(vals);
                 if(vals.length==1 && vals[0]=='emotion'){
                     this.related_questions[0].questions=[
                         {
@@ -123,7 +140,6 @@
                     ];
                 }
                 if(vals.length==2 && vals[1]=='bj'){
-                    console.log(vals)
                     console.log(this.related_questions[0].questions[0])
                     this.related_questions[0].questions[0].questions=[
                         {
@@ -139,7 +155,6 @@
                     ];
                 }
                 if(vals.length==3 && vals[2]=='chaoyang'){
-                    console.log(vals)
                     console.log(this.related_questions[0].questions[0].questions[0].questions)
                     this.related_questions[0].questions[0].questions[0].questions=[
                         {
@@ -152,6 +167,33 @@
                         }
                     ];
                 }
+                this.question.question_option_id=vals;
+            },
+            baseSubmit(){
+                if(this.add){
+                    this.question.is_single_page = Number(this.question.is_single_page);
+                    addQuestionCollection(this.question).then(data=>{
+                        this.$router.back(-1);
+                    })
+                }else{
+                    editQuestionCollection(this.question.id,this.question).then(data=>{
+                        this.$router.back(-1);
+                    })
+                }
+            }
+        },
+        created(){
+            if(this.$route.params.id){
+                this.add=false;
+                this.confirm_text="更新";
+                this.question.id=this.$route.params.id
+            }
+        },
+        mounted(){
+            if(!this.add){
+                getQuestionCollection(this.question.id).then(data=>{
+                    this.question=data;
+                })
             }
         }
     }

@@ -61,6 +61,7 @@ export default {
     question:'情感问题',
     questionList:'情感问题列表',
     questionAdd:'添加情感问题',
+    questionCollectionEdit:'编辑情感问题',
     expert:'专家库',
     expertList:'专家列表',
     expertAdd:'添加专家',

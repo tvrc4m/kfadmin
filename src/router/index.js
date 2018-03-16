@@ -105,6 +105,13 @@ export const asyncRouterMap = [
     hidden: true,
     children:[{path:"",component:_import("question/form"),name:"questionAdd",meta:{title:"questionAdd"}}]
   },
+  {//编辑情感问题集
+    path:"/question/edit/:id",
+    component:Layout,
+    name:"questionCollectionEdit",
+    hidden: true,
+    children:[{path:"",component:_import("question/form"),name:"questionCollectionEdit",meta:{title:"questionCollectionEdit"}}]
+  },
   {//专家库
     path:"/expert",
     component:Layout,
