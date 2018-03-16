@@ -21,10 +21,11 @@
                     <span>前置问题：</span>
                 </div>
                 <div class="footer">
-                    ID:{{q.id}}&nbsp;&nbsp;添加时间:{{q.created_at}}&nbsp;&nbsp;添加人:{{q.admin_user.username}}
+                    ID:{{q.id}}&nbsp;&nbsp;添加时间:{{q.created_at}}&nbsp;&nbsp;添加人:{{q.username}}
                     <div class="action right">
                         <el-button type="text">删除</el-button>
                         <el-button type="text" @click="toEdit(q.id)">编辑</el-button>
+                        <el-button type="text" @click="toView(q.id)">查看</el-button>
                     </div>
                 </div>
             </el-card>
@@ -72,9 +73,11 @@
                 )
             },
             toEdit(question_collection_id){
-                // console.log(question_collection_id);
                 this.$router.push({name:"questionCollectionEdit",params:{id:question_collection_id}})
                 // this.$router.push({path:'/question/edit',query:{question_collection_id:question_collection_id}})
+            },
+            toView(question_collection_id){
+                this.$router.push({name:"questionCollectionView",params:{id:question_collection_id}})
             },
             showAll(){
                 this.show=false;

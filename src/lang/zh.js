@@ -61,6 +61,7 @@ export default {
     adminUserAdd:'添加后台账户',
     question:'情感问题',
     questionList:'情感问题列表',
+    questionCollectionView:'查看情感问题',
     questionAdd:'添加情感问题',
     questionCollectionEdit:'编辑情感问题',
     expert:'专家库',

@@ -30,3 +30,26 @@ export function editQuestionCollection(question_collection_id,data){
 		data
 	})
 }
+
+export function getQuestion(id){
+	return request({
+		url:"question/"+id,
+		method:"get"
+	})
+}
+
+export function addQuestion(data){
+	return request({
+		url:"question/",
+		method:"post",
+		data
+	})
+}
+
+export function editQuestion(data){
+	return request({
+		url:"question/",
+		method:"put",
+		data
+	})
+}
