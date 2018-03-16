@@ -118,8 +118,8 @@ export const asyncRouterMap = [
               advise_info:_import("question/advise_form"),
               relation_info:_import("question/relation_form")
             },
-            name:"questionBaseAdd",
-            meta:{title:"questionBaseAdd"},
+            name:"questionAdd",
+            meta:{title:"questionAdd"},
           }
         ]
 
