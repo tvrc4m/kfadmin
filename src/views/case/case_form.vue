@@ -23,6 +23,10 @@
         <el-form-item label="建议">
             <el-input type="textarea" v-model="caseinfo.suggest"></el-input>
         </el-form-item>
+        <el-form-item label="判决结果">
+            <el-radio v-model="caseinfo.is_breakup" :label="0">不离</el-radio>
+            <el-radio v-model="caseinfo.is_breakup" :label="1">离婚</el-radio>
+        </el-form-item>
         <el-button type="primary" @click="saveCase">保存</el-button>
     </el-form>
 </template>
@@ -31,6 +35,9 @@
     import location from "@/components/Location/index"
     export default{
         components:{location},
+        props:{
+            case_id:Number
+        },
         data(){
             return {
                 tab:"caseinfo",
@@ -45,20 +52,28 @@
                     info:'',
                     judgment:'',
                     suggest:'',
-                    is_breakup:'',
+                    is_breakup:0,
                 },
-                add:true
+                add:true,
             }
         },
         methods:{
             saveCase(){
                 if(this.add){
                     addCase(this.caseinfo).then(data=>{
-
+                        this.$message({
+                            message:"创建成功",
+                            type:"success"
+                        })
+                        this.$emit("update:case_id",data.id)
+                        this.$router.push({name:'caseEdit',params:{case_id:data.id}})
                     })
                 }else{
                     editCase(this.caseinfo.id,this.caseinfo).then(data=>{
-
+                        this.$message({
+                            message:"更改成功",
+                            type:"success"
+                        })
                     })
                 }
             },

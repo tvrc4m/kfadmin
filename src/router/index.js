@@ -168,7 +168,6 @@ export const asyncRouterMap = [
               path:"",
               components:{
                 case_info:_import("case/case_form"),
-                case_factor:_import("case/case_factor_form")
               },
               name:"caseAdd",
               meta:{title:"caseAdd"},
@@ -189,10 +188,28 @@ export const asyncRouterMap = [
               path:"",
               components:{
                 case_info:_import("case/case_form"),
-                case_factor:_import("case/case_factor_form")
               },
               name:"caseEdit",
               meta:{title:"caseEdit"},
+            }
+          ]
+      }]
+  },
+  {//编辑案例库
+      path:"/case/edit/:case_id/factor",
+      component:Layout,
+      hidden: true,
+      children:[{
+          path:"",
+          component:_import("case/form"),
+          children:[
+            {
+              path:"",
+              components:{
+                case_factor:_import("case/case_factor_form")
+              },
+              name:"caseFactorEdit",
+              meta:{title:"caseFactorEdit"},
             }
           ]
       }]

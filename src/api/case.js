@@ -92,3 +92,18 @@ export function searchKeyword(data){
     })
 }
 
+export function getFactorKeyword(case_factor_id){
+    return request({
+        url:"/admin/case/factor/keywords",
+        method:"GET",
+        params:{case_factor_id:case_factor_id}
+    })
+}
+
+export function updateFactorKeywords(data){
+    return request({
+        url:"/admin/case/keyword",
+        method:"PUT",
+        data
+    })
+}

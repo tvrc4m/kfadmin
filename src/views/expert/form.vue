@@ -27,6 +27,33 @@
         <el-form-item label="介绍" class="block">
             <el-input type="textarea" class="content" v-model="expert.intro"></el-input>
         </el-form-item>
+        <el-form-item class="block" label="服务">
+            <el-row style="margin=5px" v-for="(es,index) of expert.services">
+                <!-- <span>{{index}}.{{es.type}}-{{es.service_name}}</span> -->
+            </el-row>
+            <el-row style="margin:5px">
+                <el-select placeholder="服务类型" v-model="expert.services.type">
+                    <el-option v-for="t in types" :value="t.name" :key="t.id" :label="t.name"></el-option>
+                </el-select>
+                <el-select placeholder="服务名称">
+                    <el-option v-for="s in services" :value="s.id" :key="s.id" :label="s.name"></el-option>
+                </el-select>
+            </el-row>
+            <el-row style="margin:5px">
+                <el-form-item>
+                    <el-input type="text" placeholder="服务价格" v-model="expert.services.price"></el-input>
+                </el-form-item>
+                <el-checkbox v-model="expert.services.price"></el-checkbox>&nbsp;&nbsp;限时免费
+            </el-row>
+            <el-row>
+                <el-form-item placeholder="服务介绍">
+                    <el-input type="textarea">
+                        
+                    </el-input>
+                </el-form-item>
+            </el-row>
+            <el-button type="text">添加</el-button>
+        </el-form-item>
         <h3>登陆信息 <span>(编辑时可不填写)</span></h3>
         <el-form-item label="账户名" class="block">
             <el-input type="text" v-model="expert.account"></el-input>
@@ -49,9 +76,9 @@
                     id:null,
                     nickname:"",
                     name:"",
-                    job_id:"",
+                    job_id:0,
                     intro:"",
-                    service:[],
+                    services:[],
                     good_at:[],
                     certification:[],
                     keywords:[],
@@ -60,10 +87,21 @@
                     account:'',
                     password:'',
                 },
+                types:[
+                    {
+                        id:1,
+                        name:"法律"
+                    },
+                    {
+                        id:2,
+                        name:"情感"
+                    },
+                ],
                 jobs:[],
                 goodat:[],
                 verify:[],
                 services:[],
+                service_count:0,
                 location:[{
                     label:"北京",
                     value:"bj",
@@ -135,6 +173,7 @@
                     }else{
                         this.expert.good_at=[]
                     }
+                    this.service_count=this.expert.services.length
                 })
             }
             getExpertJob().then(data=>{
