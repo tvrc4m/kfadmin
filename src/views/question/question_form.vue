@@ -96,6 +96,7 @@
             }
 		},
 		mounted(){
+			console.log(2,this.$route);
 			if(!this.add && this.$route.params.id){
 				getQuestion(this.$route.params.id).then(data=>{
 					console.log(data);

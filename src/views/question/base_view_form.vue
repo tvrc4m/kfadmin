@@ -62,14 +62,14 @@
             }
         },
         created(){
-            console.log(this.$route.params.id);
+            // console.log(this.$route.params.id);
             if(this.$route.params.id){
                 this.question.id=this.$route.params.id
             }
         },
         mounted(){
             getQuestionCollection(this.question.id).then(data=>{
-                console.log(data);
+                // console.log(data);
                 this.questions=data.data
             }).catch(error=>{
                     console.log(error)

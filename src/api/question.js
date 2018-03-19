@@ -31,9 +31,9 @@ export function editQuestionCollection(question_collection_id,data){
 	})
 }
 
-export function getQuestion(id){
+export function getQuestionList(question_collection_id){
 	return request({
-		url:"question/"+id,
+		url:"question/"+question_collection_id,
 		method:"get"
 	})
 }
