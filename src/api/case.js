@@ -76,10 +76,19 @@ export function editCaseFactor(case_factor_id,data){
     })
 }
 
-export function searchKeyword(name){
+export function addKeyword(data){
+    return request({
+        url:"/admin/case/keyword",
+        method:"POST",
+        data
+    })
+}
+
+export function searchKeyword(data){
     return request({
         url:"/admin/case/searchKeyword/",
         method:"POST",
-        data:{name}
+        data
     })
 }
+

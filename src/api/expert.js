@@ -46,18 +46,18 @@ export function getExpertJob(){
 
 export function getExpertGoodAt(){
     return request({
-        url:"expert/goodAt",
+        url:"/admin/expert/goodAt",
     })
 }
 
 export function getExpertServices(){
     return request({
-        url:"expert/service",
+        url:"/admin/expert/service",
     })
 }
 
 export function getExpertCertification(){
     return request({
-        url:"expert/certification",
+        url:"/admin/expert/certification",
     })
 }
