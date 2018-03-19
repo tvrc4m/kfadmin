@@ -30,9 +30,9 @@
             <el-input type="textarea" class="content" v-model="expert.intro"></el-input>
         </el-form-item>
         <el-form-item class="block" label="服务">
-            <!-- <el-row style="margin=5px" v-for="(es,index) of expert.services">
-                <span>{{index}}.{{es.type}}-{{es.service_name}}--</span>
-            </el-row> -->
+            <el-row style="margin=5px" v-for="(es,index) of expert.services">
+                <span>{{index}}.{{es.type}}-{{es.name}}--{{es.price}}</span>
+            </el-row>
             <el-row style="margin:5px">
                 <el-select placeholder="服务类型" v-model="service.type">
                     <el-option v-for="t in types" :value="t.name" :key="t.id" :label="t.name"></el-option>
@@ -45,7 +45,7 @@
                 <el-form-item>
                     <el-input type="text" placeholder="服务价格" v-model="service.price"></el-input>
                 </el-form-item>
-                <el-checkbox v-model="service.limit"></el-checkbox>&nbsp;&nbsp;限时免费
+                <el-checkbox v-model="service.limit_free"></el-checkbox>&nbsp;&nbsp;限时免费
             </el-row>
             <el-row>
                 <el-form-item placeholder="服务介绍">
@@ -103,7 +103,7 @@
                     name:'',
                     type:'',
                     price:0,
-                    limit:false
+                    limit_free:false
                 },
                 jobs:[],
                 goodat:[],
@@ -158,9 +158,22 @@
             },
             addService(){
                 console.log(this.service)
-                if(this.service.type && this.service.name && this.service.price){
-
+                var message=null
+                if(!this.service.type){
+                    message="请选择服务类型"
                 }
+                this.service.name="服务"
+                if(!this.service.name){
+                    message="请选择服务"
+                }
+                if(!this.service.price && this.service.price<0){
+                    message="服务价格不能为空且要大于等于0"
+                }
+                if(message){
+                    this.$message({message:"请选择服务",type:"warning"})
+                    return
+                }
+                this.expert.services.push(this.service)
             }
         },
         mounted(){
@@ -175,6 +188,7 @@
                         this.expert.good_at=[]
                     }
                     this.service_count=this.expert.services.length
+                    this.expert.services=[]
                 })
             }
             getExpertJob().then(data=>{
