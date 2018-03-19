@@ -48,7 +48,7 @@
         mounted(){
             if(this.$route.params.case_id){
                 this.add=false
-                this.case_id=this.$route.params.case_id
+                this.case_id=parseInt(this.$route.params.case_id)
             }
             switch(this.$route.name){
                 case 'caseAdd':this.tab='caseinfo';break;

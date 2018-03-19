@@ -91,7 +91,8 @@
             if(this.caseinfo.id){
                 getCaseInfo(this.caseinfo.id).then(data=>{
                     this.caseinfo=data
-                    console.log(data)
+                    console.log(this.caseinfo.province_id)
+                    console.log(this.caseinfo.city_id)
                 })
             }
             getCaseCat().then(data=>{

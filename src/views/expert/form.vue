@@ -14,7 +14,9 @@
             </el-select>
         </el-form-item>
         <el-form-item label="认证" class="block">
-            <el-checkbox v-model="expert.certification" v-for="v in verify" :label="v.id" :key="v.name" name="verify">{{v.name}}</el-checkbox>
+            <el-checkbox-group v-model="expert.certification">
+                <el-checkbox v-for="v in verify" :label="v.id">{{v.name}}</el-checkbox>
+            </el-checkbox-group>
         </el-form-item>
         <el-form-item label="位置" class="block">
             <location :province_id.sync="expert.province_id" :city_id.sync="expert.city_id"></location>
@@ -29,7 +31,7 @@
         </el-form-item>
         <el-form-item class="block" label="服务">
             <el-row style="margin=5px" v-for="(es,index) of expert.services">
-                <!-- <span>{{index}}.{{es.type}}-{{es.service_name}}</span> -->
+                <span>{{index}}.{{es.type}}-{{es.service_name}}</span>
             </el-row>
             <el-row style="margin:5px">
                 <el-select placeholder="服务类型" v-model="expert.services.type">
@@ -102,20 +104,7 @@
                 verify:[],
                 services:[],
                 service_count:0,
-                location:[{
-                    label:"北京",
-                    value:"bj",
-                    children:[
-                        {
-                            label:"朝阳区",
-                            value:"chaoyang"
-                        },
-                        {
-                            label:"海淀区",
-                            value:"haidian"
-                        }
-                    ]
-                }],
+                location:[],
                 keywords:[],
                 confirm_text:"新增",
                 add:true
