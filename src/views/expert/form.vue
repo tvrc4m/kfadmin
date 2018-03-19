@@ -30,22 +30,22 @@
             <el-input type="textarea" class="content" v-model="expert.intro"></el-input>
         </el-form-item>
         <el-form-item class="block" label="服务">
-            <el-row style="margin=5px" v-for="(es,index) of expert.services">
-                <span>{{index}}.{{es.type}}-{{es.service_name}}</span>
-            </el-row>
+            <!-- <el-row style="margin=5px" v-for="(es,index) of expert.services">
+                <span>{{index}}.{{es.type}}-{{es.service_name}}--</span>
+            </el-row> -->
             <el-row style="margin:5px">
-                <el-select placeholder="服务类型" v-model="expert.services.type">
+                <el-select placeholder="服务类型" v-model="service.type">
                     <el-option v-for="t in types" :value="t.name" :key="t.id" :label="t.name"></el-option>
                 </el-select>
-                <el-select placeholder="服务名称">
+                <el-select placeholder="服务名称" v-model="service.name">
                     <el-option v-for="s in services" :value="s.id" :key="s.id" :label="s.name"></el-option>
                 </el-select>
             </el-row>
             <el-row style="margin:5px">
                 <el-form-item>
-                    <el-input type="text" placeholder="服务价格" v-model="expert.services.price"></el-input>
+                    <el-input type="text" placeholder="服务价格" v-model="service.price"></el-input>
                 </el-form-item>
-                <el-checkbox v-model="expert.services.price"></el-checkbox>&nbsp;&nbsp;限时免费
+                <el-checkbox v-model="service.limit"></el-checkbox>&nbsp;&nbsp;限时免费
             </el-row>
             <el-row>
                 <el-form-item placeholder="服务介绍">
@@ -54,7 +54,7 @@
                     </el-input>
                 </el-form-item>
             </el-row>
-            <el-button type="text">添加</el-button>
+            <el-button type="text" @click="addService">添加</el-button>
         </el-form-item>
         <h3>登陆信息 <span>(编辑时可不填写)</span></h3>
         <el-form-item label="账户名" class="block">
@@ -99,6 +99,12 @@
                         name:"情感"
                     },
                 ],
+                service:{
+                    name:'',
+                    type:'',
+                    price:0,
+                    limit:false
+                },
                 jobs:[],
                 goodat:[],
                 verify:[],
@@ -148,6 +154,12 @@
                           duration: 5 * 1000
                         });
                     })
+                }
+            },
+            addService(){
+                console.log(this.service)
+                if(this.service.type && this.service.name && this.service.price){
+
                 }
             }
         },
