@@ -17,7 +17,7 @@
             <el-checkbox v-model="expert.certification" v-for="v in verify" :label="v.id" :key="v.name" name="verify">{{v.name}}</el-checkbox>
         </el-form-item>
         <el-form-item label="位置" class="block">
-            <el-cascader :options="location" filterable clearabel placeholder="选择城市" expand-trigger="hover"></el-cascader>
+            <location :province_id.sync="expert.province_id" :city_id.sync="expert.city_id"></location>
         </el-form-item>
         <el-form-item label="职业" class="block">
             <el-select v-model="expert.good_at" placeholder="擅长" filterable :multiple="true">
@@ -29,19 +29,20 @@
         </el-form-item>
         <h3>登陆信息 <span>(编辑时可不填写)</span></h3>
         <el-form-item label="账户名" class="block">
-            <el-input type="text" v-mode="expert.account"></el-input>
+            <el-input type="text" v-model="expert.account"></el-input>
         </el-form-item>
         <el-form-item label="登陆密码" class="block">
-            <el-input type="text" v-mode="expert.password"></el-input>
+            <el-input type="password" v-model="expert.password"></el-input>
         </el-form-item>
         <el-button type="primary" @click="confirm">{{confirm_text}}</el-button>
     </el-form>
 </template>
 <script>
     import keywords from "@/components/Question/keywords"
+    import location from "@/components/Location/index"
     import {getExpertInfo,addExpert,editExpert,getExpertJob,getExpertGoodAt,getExpertServices,getExpertCertification} from '@/api/expert'
     export default{
-        components:{keywords},
+        components:{keywords,location},
         data(){
             return {
                 expert:{
@@ -127,6 +128,13 @@
             if(!this.add){
                 getExpertInfo(this.expert.id).then(data=>{
                     this.expert=data;
+                    if(this.expert.good_at.length){
+                        var goodat=this.expert.good_at.split(',')
+                        this.expert.good_at=[]
+                        goodat.forEach(item=>this.expert.good_at.push(parseInt(item)))
+                    }else{
+                        this.expert.good_at=[]
+                    }
                 })
             }
             getExpertJob().then(data=>{
@@ -137,6 +145,7 @@
             })
             getExpertCertification().then(data=>{
                 this.verify=data
+                console.log(this.verify)
             })
             getExpertServices().then(data=>{
                 this.services=data

@@ -1,7 +1,7 @@
 <template>
     <div class="emotion">
         <el-row :span="24" class="emotion-header">
-            <el-select v-model="expert_type" placehoder="选择专家类型" @change="getExpertByType">
+            <el-select v-model="expert_type" placehoder="选择专家类型" @change="getExpertByType(1)">
                 <el-option v-for="type in expert_types" :label="type.label" :value="type.id" :key="type.id"></el-option>
             </el-select>
             <router-link to="/expert/add">
