@@ -6,7 +6,7 @@
         <el-form-item label="描述" class="block">
             <el-input type="textarea" v-model="question.content"></el-input>
         </el-form-item>
-        <el-form-item label="关联的问题" class="block">
+        <el-form-item class="block" label="关联问题">
             <el-cascader style="width: 500px" :options="related_questions" :show-all-levels="true" @active-item-change="getQuestionChildren" :change-on-select="false" :props="question_props"></el-cascader>
         </el-form-item>
         <el-form-item label="过度页" class="block">
@@ -34,6 +34,7 @@
                 add:true,
                 tab_selected:"base",
                 confirm_text:"添加",
+                keywords:[],
                 skill:null,
                 question:{
                     id:"",
@@ -44,6 +45,7 @@
                     question_option_id:[],
                     is_single_page:true,
                     is_trunk:1,
+                    keyword:[],
                 },
                 question_props:{
                     value:"value",
@@ -144,7 +146,8 @@
                 }
                 this.question.question_option_id=vals;
             },
-            baseSubmit(){
+            baseSubmit(){  
+                console.log(this.question_option_id)
                 if(this.add){
                     this.question.is_single_page = Number(this.question.is_single_page);
                     addQuestionCollection(this.question).then(data=>{

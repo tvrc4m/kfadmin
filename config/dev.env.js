@@ -1,6 +1,5 @@
 module.exports = {
 	NODE_ENV: '"development"',
 	ENV_CONFIG: '"dev"',
-    // BASE_API: '"https://api-dev"',
-	BASE_API: '"http://tw.vrcdkj.cn/api"',
+	BASE_API: '"http://fdev.vrcdkj.cn/api/admin/"',
 }

@@ -103,8 +103,6 @@ export const asyncRouterMap = [
     component:Layout,
     name:"questionAdd",
     hidden: true,
-    // children:[{path:"",component:_import("question/form"),name:"questionAdd",meta:{title:"questionAdd"}}]
-
     children:[
       {
         path:"",
@@ -131,7 +129,125 @@ export const asyncRouterMap = [
     component:Layout,
     name:"questionCollectionEdit",
     hidden: true,
-    children:[{path:"",component:_import("question/form"),name:"questionCollectionEdit",meta:{title:"questionCollectionEdit"}}]
+    children:[
+      {
+        path:"",
+        component:_import("question/form"),
+        children:[
+          {
+            path:"",
+            components:{base:_import("question/base_form")},
+            name:"questionCollectionEdit",
+            meta:{title:"questionCollectionEdit"},
+          }
+        ]
+
+      }
+    ]
+  },
+  {//编辑情感问题集-问题
+    path:"/question/edit/:id/question",
+    component:Layout,
+    hidden: true,
+    children:[
+      {
+        path:"",
+        component:_import("question/form"),
+        children:[
+          {
+            path:"",
+            components:{question:_import("question/question_form")},
+            name:"questionCollectionEditQuestion",
+            meta:{title:"questionCollectionEditQuestion"},
+          }
+        ]
+
+      }
+    ]
+  },
+  {//查看情感问题集
+    path:"/question/view/:id",
+    component:Layout,
+    hidden: true,
+    children:[
+      {
+        path:"",
+        component:_import("question/form"),
+        children:[
+          {
+            path:"",
+            components:{
+              base:_import("question/base_view_form"),
+            },
+            name:"questionCollectionView",
+            meta:{title:"questionCollectionView"},
+          }
+        ]
+
+      }
+    ]
+  },
+  {//查看情感问题-问题列表
+    path:"/question/view/:id/question",
+    component:Layout,
+    hidden: true,
+    children:[
+      {
+        path:"",
+        component:_import("question/form"),
+        children:[
+          {
+            path:"",
+            components:{
+              question:_import("question/question_view_form"),
+            },
+            name:"questionCollectionViewQuestion",
+            meta:{title:"questionCollectionViewQuestion"},
+          }
+        ]
+
+      }
+    ]
+  },
+  {//查看情感问题集-建议
+    path:"/question/view/:id/advise",
+    component:Layout,
+    hidden: true,
+    children:[
+      {
+        path:"",
+        component:_import("question/form"),
+        children:[
+          {
+            path:"",
+            components:{advise:_import("question/advise_view_form")},
+            name:"questionCollectionViewAdvise",
+            meta:{title:"questionCollectionViewAdvise"},
+          }
+        ]
+
+      }
+    ]
+  },
+  {//编辑情感问题集-匹配关系
+    path:"/question/view/:id/relation",
+    component:Layout,
+    hidden: true,
+    children:[
+      {
+        path:"",
+        component:_import("question/form"),
+        children:[
+          {
+            path:"",
+            components:{relation:_import("question/relation_view_form")},
+            name:"questionCollectionViewRelation",
+            meta:{title:"questionCollectionViewRelation"},
+          }
+        ]
+
+      }
+    ]
   },
   {//专家库
     path:"/expert",
