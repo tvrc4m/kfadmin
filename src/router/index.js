@@ -165,6 +165,46 @@ export const asyncRouterMap = [
       }
     ]
   },
+  {//编辑情感问题集-建议
+    path:"/question/edit/:id/advise",
+    component:Layout,
+    hidden: true,
+    children:[
+      {
+        path:"",
+        component:_import("question/form"),
+        children:[
+          {
+            path:"",
+            components:{advise:_import("question/advise_form")},
+            name:"questionCollectionEditAdvise",
+            meta:{title:"questionCollectionEditAdvise"},
+          }
+        ]
+
+      }
+    ]
+  },
+  {//编辑情感问题集-RELATION 
+    path:"/question/edit/:id/relation",
+    component:Layout,
+    hidden: true,
+    children:[
+      {
+        path:"",
+        component:_import("question/form"),
+        children:[
+          {
+            path:"",
+            components:{relation:_import("question/relation_form")},
+            name:"questionCollectionEditRelation",
+            meta:{title:"questionCollectionEditRelation"},
+          }
+        ]
+
+      }
+    ]
+  },
   {//查看情感问题集
     path:"/question/view/:id",
     component:Layout,
@@ -225,7 +265,6 @@ export const asyncRouterMap = [
             meta:{title:"questionCollectionViewAdvise"},
           }
         ]
-
       }
     ]
   },

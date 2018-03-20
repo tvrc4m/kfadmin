@@ -27,11 +27,11 @@
 
 		<el-card class="box-card">
 		  <div class="card-item">
-		  	  <div class="text item">
-		  	    一跟男闺蜜提要他去找个女朋友他就跟我生气。男闺蜜和男朋友的界限是什么呢？他不会喜欢我吧？还是觉得我多管闲事。
-		  	  </div>
+		  	  <span class="text item content-line-height">
+		  	    一跟男闺蜜提要他去找个女朋友他就跟我生气。男闺蜜和男朋友的界限是什么呢？他不会喜欢我吧？还是觉得我多管闲事。一跟男闺蜜提要他去找个女朋友他就跟我生气。男闺蜜和男朋友的界限是什么呢？他不会喜欢我吧？还是觉得我多管闲事。
+		  	  </span>
 		  	  <div class="expand">
-		  	      <el-button type="text">展开更多</el-button>
+		  	      <el-button class="show-more" type="text">展开更多</el-button>
 		  	  </div>
 
 		  	  <el-breadcrumb class="label-style card-label" separator=" ">
@@ -81,6 +81,9 @@
 </script>
 
 <style lang="scss">
+	.topic-container{
+		min-width: 700px;
+	}
 	.inline-form-box{
 		-webkit-box-sizing: border-box;
 		-moz-box-sizing: border-box;
@@ -158,6 +161,14 @@
 		padding-bottom: 10px;
 		border-bottom: 1px solid #ebebeb;
 
+	}
+	// 内容行高
+	.content-line-height{
+		line-height: 36px;
+	}
+	// 展开更多
+	.show-more{
+		margin-top:10px;
 	}
 
 	// 分页
