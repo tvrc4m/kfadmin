@@ -65,7 +65,11 @@
         mounted(){
             getLawList().then(data=>{
                 this.laws=data.data
-                this.selected_law=this.laws[0]['id'];
+                if(this.$route.query.law_id){
+                    this.selected_law=this.$route.query.law_id
+                }else{
+                    this.selected_law=this.laws[0]['id'];
+                }
                 if(this.laws.length){
                     getLawRuleList(this.selected_law).then(data=>{
                         this.law_rules=data.data

@@ -83,11 +83,13 @@
             confirm(){
                 if(this.add){
                     addLawRule(this.law_rule).then(response=>{
-                        console.log("add law rule")
+                        this.$message({message:"添加成功,即将跳转",type:"success"})
+                        this.$router.push({path:"/law/rule",query:{law_id:this.law.id}})
                     })
                 }else{
                     editLawRule(this.law_rule.id,this.law_rule).then(response=>{
-                        console.log('edit law rule')
+                        this.$message({message:"更改成功,即将跳转",type:"success"})
+                        this.$router.push({path:"/law/rule",query:{law_id:this.law.id}})
                     })
                 }
             }
@@ -104,6 +106,10 @@
             if(!this.add){
                 getLawRuleInfo(this.law_rule.id).then(data=>{
                     this.law_rule=data
+                    this.law_rule.keyword=[]
+                    data.law_rule_keyword.forEach(item=>{
+                        this.law_rule.keyword.push(item.id)
+                    })
                     getLawInfo(this.law_rule.law_id).then(data=>{
                         this.law=data
                         console.log(this.law)

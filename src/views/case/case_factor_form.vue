@@ -28,7 +28,7 @@
         methods:{
             saveFactor(){
                 updateFactorKeywords({case_id:this.case_id,data:this.factor_keyword}).then(data=>{
-                      console.log(data)
+                    this.$message({message:"更改成功",type:"success"})
                 })
             },
             selectFactor(factor_id){

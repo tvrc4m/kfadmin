@@ -35,8 +35,8 @@
 		  	  	<span>回复时间：{{topic.question_time}}</span>
 		  	  	<span>提问人: {{topic.user_name}}</span>
 		  	  	<div style="float:right">
-		  		  	<el-button type="text" @click="hiddenTopicClicked(topic.id)">{{topic.hidden_text}}</el-button>
-		  		  	<el-button type="text" @click="topTopicClicked(topic.id)">{{topic.top_text}}</el-button>
+		  		  	<el-button type="text" @click="hiddenTopicClicked(topic)">{{topic.hidden_text}}</el-button>
+		  		  	<el-button type="text" @click="topTopicClicked(topic)">{{topic.top_text}}</el-button>
 		  		</div>
 		  	  </div>
 		  </div>
@@ -73,11 +73,26 @@
 				this.cate=cate
 				this.filter(this.params)
 			},
+			mapData(data){
+				this.topics=data.data.map(item=>{
+					if(item.top==1){
+						item.top_text='取消置顶'
+					}else{
+						item.top_text='置顶'
+					}
+					if(item.is_hide==1){
+						item.hidden_text="隐藏"
+					}else{
+						item.hidden_text="取消隐藏"
+					}
+					return item
+				})
+				this.total=data.total
+				this.page_size=data.per_page
+			},
 			getTopic(page=1){
 				getTopicList({page:page}).then(data=>{
-					this.topics=data.data
-					this.total=data.total
-					this.page_size=data.per_page
+					this.mapData(data)
 				})
 			},
 			filter(params={}){
@@ -88,19 +103,28 @@
 				this.params.hide_comment || false;
 				// if(typeof(this.params.cate)) 
 				getTopicList(params).then(data=>{
-					this.topics=data.data
-					this.total=data.total
-					this.page_size=data.per_page
+					this.mapData(data)
 				})
 			},
-			hiddenTopicClicked(topic_id){
-				hiddenTopic(topic,true).then(data=>{
-					console.log(data)
+			hiddenTopicClicked(topic){
+				var hidden=topic.is_hide==2
+				hiddenTopic(topic.id,!hidden).then(data=>{
+					if(hidden){
+						topic.hidden_text='隐藏'	
+					}else{
+						topic.hidden_text='取消隐藏'
+					}
+					
 				})
 			},
-			topTopicClicked(topic_id){
-				topTopic(topic_id,true).then(data=>{
-					console.log(data)
+			topTopicClicked(topic){
+				var istop=topic.top==1
+				topTopic(topic.id,!istop).then(data=>{
+					if(istop){
+						topic.top_text='置顶'	
+					}else{
+						topic.top_text='取消置顶'
+					}
 				})
 			}
 
