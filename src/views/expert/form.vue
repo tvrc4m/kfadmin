@@ -1,10 +1,6 @@
 <template>
     <el-form class="emotion-form" :inline="true" label-width="120" label-position="right" :model="expert">
-        <el-form-item label="专家类型">
-            <el-select v-model="expert.type" placeholder="请选择专家类型" @change="changeType">
-                <el-option v-for="type in expert_types" :value="type.id" :label="type.label" :key="type.id"></el-option>
-            </el-select>
-        </el-form-item>
+        <el-input type="hidden" v-model="expert.type"></el-input>
         <el-row type="flex">
             <el-form-item label="昵称">
                 <el-input v-model="expert.nickname"></el-input>
@@ -91,16 +87,6 @@
                     account:'',
                     password:'',
                 },
-                expert_types:[
-                    {
-                        id:1,
-                        label:"法律专家"
-                    },
-                    {
-                        id:2,
-                        label:"情感专家"
-                    }
-                ],
                 cates:[
                     {
                         id:1,
@@ -140,6 +126,13 @@
                 this.expert.id=this.$route.params.id
                 this.add=false
                 this.confirm_text='编辑'
+            }else{
+                if(this.$route.query.type){
+                    this.expert.type=this.$route.query.type
+                }else{
+                    this.$message({message:"请先选择专家类型",type:"warning"})
+                    this.$router.push({path:"/expert"})
+                }
             }
         },
         methods:{
@@ -152,8 +145,8 @@
                           type: 'success',
                           duration: 5 * 1000
                         });
+                        this.$router.push({path:"/expert",query:{type:this.expert.type}})
                     })
-                    this.$router.push({path:"/expert"})
                 }else{
                     editExpert(this.expert.id,this.expert).then(data=>{
                         this.$message({
@@ -161,8 +154,8 @@
                           type: 'success',
                           duration: 5 * 1000
                         });
+                        this.$router.push({path:"/expert",query:{type:this.expert.type}})
                     })
-                    this.$router.push({path:"/expert"})
                 }
             },
             addService(){
@@ -184,12 +177,6 @@
                     description:this.service.description
                 })
                 console.log(this.expert.service)
-            },
-            changeType(){
-                getExpertServices({cate:this.expert.type}).then(data=>{
-                    this.services=data
-                    console.log(data)
-                })
             },
             removeService(index){
                 this.expert.service.splice(index,1)
@@ -226,6 +213,10 @@
             getExpertCertification().then(data=>{
                 this.verify=data
                 console.log(this.verify)
+            })
+            getExpertServices({cate:this.expert.type}).then(data=>{
+                this.services=data
+                console.log(data)
             })
         }
     }

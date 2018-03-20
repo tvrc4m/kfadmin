@@ -36,47 +36,14 @@
                 law:{},
                 add:true,
                 confirm_text:"新增",
-                skills_selected:[],
-                skills:[
-                    {
-                        label:"法律",
-                        value:"法律",
-                        children:[
-                            {
-                                label:"民事诉讼",
-                                value:"民事诉讼"
-                            },
-                            {
-                                label:"法律诉讼",
-                                value:"法律诉讼"
-                            }
-                        ]
-                    },
-                    {
-                        label:"法规",
-                        value:"法规",
-                        children:[
-                            {
-                                label:"民事诉讼",
-                                value:"民事诉讼"
-                            },
-                            {
-                                label:"法律诉讼",
-                                value:"法律诉讼"
-                            }
-                        ]
-                    },
-                ],
             }
         },
         computed:{
             
         },
         watch:{
-            keywords(selected){
-                if(this.law_rule.keyword.length) this.law_rule.keyword.splice(0,this.law_rule.keyword.length)
-                selected.forEach(item=>this.law_rule.keyword.push(item.keyword_id))
-                console.log(this.law_rule)
+            keywords(keywords){
+                this.law_rule.keyword=keywords
             }
         },
         methods:{
@@ -110,9 +77,9 @@
                     data.law_rule_keyword.forEach(item=>{
                         this.law_rule.keyword.push(item.id)
                     })
+                    this.keywords=this.law_rule.keyword
                     getLawInfo(this.law_rule.law_id).then(data=>{
                         this.law=data
-                        console.log(this.law)
                     })
                 })
             }else{

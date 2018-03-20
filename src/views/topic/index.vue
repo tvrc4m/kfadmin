@@ -4,10 +4,10 @@
 			<span class="form-label">用户提问</span>
 			<el-form style="float:right" :inline="true" class="demo-form-inlien">
 				<el-form-item>
-					<el-input label="right" placehlder="用户提问"></el-input>
+					<el-input label="right" v-model="word" placehlder="用户提问" @keyup.enter="search"></el-input>
 				</el-form-item>
 				<el-form-item>
-				    <el-button label="right" type="primary" icon="el-icon-search" plain>搜索</el-button>
+				    <el-button label="right" type="primary" icon="el-icon-search" plain @click="search">搜索</el-button>
 				  </el-form-item>
 			</el-form>
 		</div>
@@ -51,7 +51,7 @@
 
 <script>
 	import pagination from "@/components/Pagination/index"
-	import {getTopicList,topTopic,hiddenTopic} from '@/api/topic'
+	import {getTopicList,topTopic,hiddenTopic,searchTopic} from '@/api/topic'
 	export default{
 		components:{pagination},
 		data(){
@@ -62,7 +62,8 @@
 				cate:1,
 				hide_topic:false,
 				hide_comment:false,
-				params:{cate:1,sort:1}
+				params:{cate:1,sort:1},
+				word:""
 			}
 		},
 		methods:{
@@ -126,6 +127,13 @@
 						topic.top_text='取消置顶'
 					}
 				})
+			},
+			search(){
+				if(this.word && this.word.length){
+					searchTopic(this.word).then(data=>{
+						this.mapData(data)
+					})
+				}
 			}
 
 		},

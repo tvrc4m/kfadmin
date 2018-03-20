@@ -23,3 +23,11 @@ export function topTopic(topic_id,top=true){
         data:{topic_id,top_stat:top?1:0}
     })
 }
+
+export function searchTopic(content){
+    return request({
+        url:"/admin/topic/search",
+        method:"GET",
+        params:{content}
+    })
+}

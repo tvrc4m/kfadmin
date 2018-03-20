@@ -4,8 +4,8 @@
             <el-select v-model="expert_type" placehoder="选择专家类型" @change="getExpertByType(1)">
                 <el-option v-for="type in expert_types" :label="type.label" :value="type.id" :key="type.id"></el-option>
             </el-select>
-            <router-link to="/expert/add">
-                <el-button type="primary" size="small">添加新专家</el-button>
+            <router-link v-for="type in expert_types" :to="'/expert/add?type='+type.id">
+                <el-button type="primary" size="small" icon="el-icon-plus">{{type.label}}</el-button>&nbsp;&nbsp;
             </router-link>
             <span class="text right">
                 共<span v-text="total"></span>条数据
@@ -94,6 +94,9 @@
             }
         },
         mounted(){
+            if(this.$route.query.type){
+                this.expert_type=this.$route.query.type
+            }
             this.getExpertByType()
         }
     }

@@ -8,9 +8,16 @@ export function getCaseFactorList(){
 }
 
 
-export function getFactorKeywords(factor_id){
+// export function getFactorKeywords(factor_id){
+//     return request({
+//         url:"/admin/keyword/getKeywordList/"+factor_id,
+//         method:"GET"
+//     })
+// }
+
+export function getFactorKeywords(){
     return request({
-        url:"/admin/keyword/getKeywordList/"+factor_id,
+        url:"/admin/keyword",
         method:"GET"
     })
 }
