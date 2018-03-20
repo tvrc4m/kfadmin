@@ -291,7 +291,51 @@ export const asyncRouterMap = [
       }
     ]
   },
+
+  {//添加情感问题-匹配关系
+    path:"/question/add/:question_collection_id/relation",
+    component:Layout,
+    name:"questionAddRelation",
+    hidden: true,
+    children:[
+      {
+        path:"",
+        component:_import("question/form"),
+        children:[
+          {
+            path:"",
+            components:{
+              relation:_import("question/relation_form"),
+            },
+            name:"questionCollectionAddRelation",
+            meta:{title:"questionCollectionAddRelation"},
+          }
+        ]
+
+      }
+    ]
+  },
   {//编辑情感问题集-匹配关系
+    path:"/question/edit/:question_collection_id/advise/:relation_id",
+    component:Layout,
+    hidden: true,
+    children:[
+      {
+        path:"",
+        component:_import("question/form"),
+        children:[
+          {
+            path:"",
+            components:{relation:_import("question/relation_form")},
+            name:"questionCollectionEditRelation",
+            meta:{title:"questionCollectionEditRelation"},
+          }
+        ]
+
+      }
+    ]
+  },
+  {//查看情感问题集-匹配关系
     path:"/question/view/:question_collection_id/relation",
     component:Layout,
     hidden: true,
@@ -307,10 +351,10 @@ export const asyncRouterMap = [
             meta:{title:"questionCollectionViewRelation"},
           }
         ]
-
       }
     ]
   },
+
   {//专家库
     path:"/expert",
     component:Layout,
