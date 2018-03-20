@@ -11,7 +11,7 @@
         </div>
         <div class="row clearfix">
             <div class="item ">前置问题</div>
-            <div class="item-content-4 right ">{{question.pre_question[0]}}</div>
+            <div class="item-content-4 right " v-for="item in question.relate_question"></div>
         </div>
         <div class="row clearfix">
             <div class="item ">过度页</div>
@@ -24,11 +24,13 @@
 
         <div class="row clearfix">
             <div class="item ">显示方式</div>
-            <div class="item-content-4 right ">{{question.is_single_page}}</div>
+            <div class="item-content-4 right " v-if="question.is_single_page=='1'">单页</div>
+            <div class="item-content-4 right " v-else-if="question.is_single_page=='2'">多页</div>
         </div>
         <div class="row clearfix">
             <div class="item ">是否是主干问题</div>
-            <div class="item-content-7 right">{{question.is_trunk}}</div>
+            <div class="item-content-7 right" v-if="question.is_trunk=='1'">是</div>
+            <div class="item-content-7 right" v-else-if="question.is_trunk!='1'">否</div>
         </div>
 
         <el-row style="margin-top: 10px;">
@@ -38,7 +40,6 @@
 </template>
 
 <script>
-    
     import keywords from "@/components/Question/keywords"
     import {getQuestionCollection} from '@/api/question'
     export default{
@@ -54,23 +55,24 @@
                     title:"",
                     content:"",
                     overdue:"",
-                    pre_question:[],
-                    is_single_page:true,
-                    is_trunk:1,
+                    relate_question:[],
+                    is_single_page:0,//1 单页   2 多页
+                    is_trunk:0,//1 是  
+                    bgimage:""
                 },
-
             }
         },
         created(){
-            // console.log(this.$route.params.id);
-            if(this.$route.params.id){
-                this.question.id=this.$route.params.id
+            if(this.$route.params.question_collection_id){
+                this.question.id=this.$route.params.question_collection_id
             }
         },
         mounted(){
-            getQuestionCollection(this.question.id).then(data=>{
-                // console.log(data);
-                this.questions=data.data
+            console.log(222,this.question.id)
+            getQuestionCollection(parseInt(this.question.id)).then(data=>{
+                this.question=data;
+                console.log(this.question)
+
             }).catch(error=>{
                     console.log(error)
                 }
@@ -78,7 +80,7 @@
         },
         methods:{
             baseClick(){
-                this.$router.push({name:"questionCollectionEdit",params:{id:this.question.id}})
+                this.$router.push({name:"questionCollectionEdit",params:{question_collection_id:this.question.id}})
             }
         }
 
@@ -94,6 +96,7 @@
         font-size: 14px;
         color: #606266;
         .item{
+
             font-weight: 700;
             display:inline-block;
         }

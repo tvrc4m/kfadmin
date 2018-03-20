@@ -115,6 +115,9 @@
 </script>
 
 <style lang="scss" scoped>
+	.topic-container{
+		min-width: 700px;
+	}
 	.inline-form-box{
 		-webkit-box-sizing: border-box;
 		-moz-box-sizing: border-box;
@@ -200,6 +203,14 @@
 		font-size: 16px;
 		text-overflow: ellipsis;
 		white-space:nowrap;
+	}
+	// 内容行高
+	.content-line-height{
+		line-height: 36px;
+	}
+	// 展开更多
+	.show-more{
+		margin-top:10px;
 	}
 
 	// 分页
