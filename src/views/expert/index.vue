@@ -16,8 +16,8 @@
             <el-table-column prop="id" label="ID" width="50"></el-table-column>
             <el-table-column prop="nickname" label="昵称"></el-table-column>
             <el-table-column prop="name" label="姓名"></el-table-column>
-            <el-table-column prop="job" label="职业"></el-table-column>
-            <el-table-column prop="remark" label="擅长"></el-table-column>
+            <el-table-column prop="job" label="职业" :formatter="formatJob"></el-table-column>
+            <el-table-column prop="good_at" label="擅长" :formatter="formatGoodat"></el-table-column>
             <el-table-column label="操作" width="100">
                 <template slot-scope="scope">
                     <el-button type="text" size="mini" @click="editPro(scope.row.id)">编辑</el-button>
@@ -71,7 +71,6 @@
                 this.$store.commit('CONFIRM_DIALOG',true)
             },
             getExpertByType(page){
-                console.log({type:this.expert_type})
                 getExpertList({type:this.expert_type,page:page}).then(data=>{
                     this.experts=data.data
                     console.log(data)
@@ -82,6 +81,16 @@
             },
             changePage(page=1){
                 this.getExpertByType(page)
+            },
+            formatJob(row,column,cellValue){
+                if(cellValue && cellValue.name){
+                    return cellValue.name
+                }
+            },
+            formatGoodat(row,column,cellValue){
+                var str=""
+                cellValue.forEach(item=>str+=item.name)
+                return str
             }
         },
         mounted(){

@@ -21,6 +21,14 @@
                 this.$emit("update:city_id",city_id)
             }
         },
+        watch:{
+            province_id(province_id){
+                this.selected[0]=province_id
+            },
+            city_id(city_id){
+                this.selected[1]=city_id
+            }
+        },
         created(){
             getLocation().then(data=>{
                 this.provinces=[];

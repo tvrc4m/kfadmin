@@ -32,7 +32,7 @@
 		  	  </el-popover>
 		  	  <div class="label-style card-label" style="font-size: 14px;">
 		  	  	<span>问题ID：{{topic.id}}</span>
-		  	  	<span>回复时间：{{topic.question_time}}</span>
+		  	  	<span>提问时间：{{topic.question_time}}</span>
 		  	  	<span>提问人: {{topic.user_name}}</span>
 		  	  	<div style="float:right">
 		  		  	<el-button type="text" @click="hiddenTopicClicked(topic)">{{topic.hidden_text}}</el-button>
