@@ -59,7 +59,7 @@ export function getLawRuleInfo(law_rule_id){
 
 export function addLawRule(data){
     return request({
-        url:"/admin/law/rule/",
+        url:"law/rule/",
         method:"POST",
         data
     })
@@ -67,7 +67,7 @@ export function addLawRule(data){
 
 export function editLawRule(law_rule_id,data){
     return request({
-        url:"/admin/law/rule/"+law_rule_id,
+        url:"law/rule/"+law_rule_id,
         method:"PUT",
         data
     })
@@ -75,7 +75,7 @@ export function editLawRule(law_rule_id,data){
 
 export function delLawRule(law_rule_id){
     return request({
-        url:"/admin/law/rule/"+law_rule_id,
+        url:"law/rule/"+law_rule_id,
         method:"DELETE"
     })
 }

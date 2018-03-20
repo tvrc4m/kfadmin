@@ -2,7 +2,7 @@ import request from "@/utils/request"
 
 export function getQuestionCollectionList(type,page){
 	return request({
-		url:"question/collection",
+		url:"/admin/question/collection",
 		method:"get",
         params:{type:type,page:page}
 	})
@@ -10,13 +10,13 @@ export function getQuestionCollectionList(type,page){
 
 export function getQuestionCollection(id){
 	return request({
-		url:"question/collection/"+id,
+		url:"/admin/question/collection/"+id,
 		method:"get"
 	})
 }
 export function addQuestionCollection(data){
 	return request({
-		url:"question/collection",
+		url:"/admin/question/collection",
 		method:"post",
 		data
 	})
@@ -24,7 +24,7 @@ export function addQuestionCollection(data){
 
 export function editQuestionCollection(question_collection_id,data){
 	return request({
-		url:"question/collection/"+question_collection_id,
+		url:"/admin/question/collection/"+question_collection_id,
 		method:"put",
 		data
 	})
@@ -32,14 +32,14 @@ export function editQuestionCollection(question_collection_id,data){
 
 export function delQuestionCollection(question_collection_id){
 	return request({
-		url:"question/collection/"+question_collection_id,
+		url:"/admin/question/collection/"+question_collection_id,
 		method:"delete"
 	})
 }
 
 export function getQuestionList(question_collection_id){
 	return request({
-		url:"question/",
+		url:"/admin/question/",
 		method:"get",
     	params: { question_collection_id:question_collection_id }
 	})
@@ -47,14 +47,14 @@ export function getQuestionList(question_collection_id){
 
 export function getQuestion(question_id){
 	return request({
-		url:"question/"+question_id,
+		url:"/admin/question/"+question_id,
 		method:"get",
 	})
 }
 
 export function addQuestion(data){
 	return request({
-		url:"question/",
+		url:"/admin/question/",
 		method:"post",
 		data
 	})
@@ -62,7 +62,7 @@ export function addQuestion(data){
 
 export function editQuestion(question_collection_id,data){
 	return request({
-		url:"question/"+question_collection_id,
+		url:"/admin/question/"+question_collection_id,
 		method:"put",
 		data
 	})
@@ -70,7 +70,7 @@ export function editQuestion(question_collection_id,data){
 
 export function delQuestion(question_id){
 	return request({
-		url:"question/"+question_id,
+		url:"/admin/question/"+question_id,
 		method:"delete",
 	})
 }

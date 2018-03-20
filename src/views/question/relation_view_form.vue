@@ -81,7 +81,10 @@
 	    },
 	    methods:{
     		addClick(){
-    			this.$router.push({name:"questionCollectionEditRelation"})
+    			this.$router.push({name:"questionCollectionAddRelation",params:{question_collection_id:34}})
+    		},
+    		handleEdit(index,row){
+    			this.$router.push({name:"questionCollectionEditRelation",params:{question_collection_id:34,relation_id:row.id}})
     		}
     	},
 	  }

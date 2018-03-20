@@ -101,16 +101,16 @@
             display:inline-block;
         }
         .item-content{
-            width:94%;
-        }
-        .item-content-3{
             width:92%;
         }
-        .item-content-4{
+        .item-content-3{
             width:90%;
         }
+        .item-content-4{
+            width:88%;
+        }
         .item-content-7{
-            width:85%;
+            width:80%;
         }
     }
 </style>

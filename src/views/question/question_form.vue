@@ -52,7 +52,7 @@
                 question_id:"",
 				question:{
 					question_collection_id:"",
-					title:"dds",
+					title:"",
 					bgimage:"https://kanfaimage.oss-cn-beijing.aliyuncs.com/20180104/video_151504732376282.jpg?x-oss-process=image/resize,m_fill,w_750,h_422",
 					type:4,//1 单选２多选３下拉列表
 					sort:"",
