@@ -19,9 +19,9 @@
             </router-link>
         </el-form>
         <el-table :data="cases">
-            <el-table-column prop="id" label="ID"></el-table-column>
+            <el-table-column prop="id" label="ID" width="50"></el-table-column>
             <el-table-column prop="name" label="案例名称"></el-table-column>
-            <el-table-column label="操作">
+            <el-table-column label="操作" width="120">
                 <template slot-scope="scope">
                     <el-button type="text" size="small" @click="editCase(scope.row.id)">编辑</el-button>
                     <el-button type="text" size="small" @click="delConfirm(scope.row.id)">删除</el-button>
@@ -72,6 +72,7 @@
                 delCase(this.current_id).then(data=>{
                     this.cases=this.cases.filter(item=>item.id!=this.current_id)
                     this.$store.commit('CONFIRM_DIALOG',false)
+                    this.$message({message:"删除成功",type:"success"})
                 })
             }
         },

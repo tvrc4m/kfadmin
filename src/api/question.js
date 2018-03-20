@@ -15,7 +15,6 @@ export function getQuestionCollection(id){
 	})
 }
 export function addQuestionCollection(data){
-	console.log(data)
 	return request({
 		url:"question/collection",
 		method:"post",
@@ -25,16 +24,31 @@ export function addQuestionCollection(data){
 
 export function editQuestionCollection(question_collection_id,data){
 	return request({
-		url:"question/collection"+question_collection_id,
+		url:"question/collection/"+question_collection_id,
 		method:"put",
 		data
 	})
 }
 
+export function delQuestionCollection(question_collection_id){
+	return request({
+		url:"question/collection/"+question_collection_id,
+		method:"delete"
+	})
+}
+
 export function getQuestionList(question_collection_id){
 	return request({
-		url:"question/"+question_collection_id,
-		method:"get"
+		url:"question/",
+		method:"get",
+    	params: { question_collection_id:question_collection_id }
+	})
+}
+
+export function getQuestion(question_id){
+	return request({
+		url:"question/"+question_id,
+		method:"get",
 	})
 }
 
@@ -46,10 +60,17 @@ export function addQuestion(data){
 	})
 }
 
-export function editQuestion(data){
+export function editQuestion(question_collection_id,data){
 	return request({
-		url:"question/",
+		url:"question/"+question_collection_id,
 		method:"put",
 		data
+	})
+}
+
+export function delQuestion(question_id){
+	return request({
+		url:"question/"+question_id,
+		method:"delete",
 	})
 }
