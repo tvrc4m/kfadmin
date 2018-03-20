@@ -14,7 +14,9 @@
             </el-select>
         </el-form-item>
         <el-form-item label="认证" class="block">
-            <el-checkbox v-model="expert.certification" v-for="v in verify" :label="v.id" :key="v.name" name="verify">{{v.name}}</el-checkbox>
+            <el-checkbox-group v-model="expert.certification">
+                <el-checkbox v-for="v in verify" :label="v.id">{{v.name}}</el-checkbox>
+            </el-checkbox-group>
         </el-form-item>
         <el-form-item label="位置" class="block">
             <location :province_id.sync="expert.province_id" :city_id.sync="expert.city_id"></location>
@@ -26,6 +28,33 @@
         </el-form-item>
         <el-form-item label="介绍" class="block">
             <el-input type="textarea" class="content" v-model="expert.intro"></el-input>
+        </el-form-item>
+        <el-form-item class="block" label="服务">
+            <el-row style="margin=5px" v-for="(es,index) of expert.services">
+                <span>{{index}}.{{es.type}}-{{es.name}}--{{es.price}}</span>
+            </el-row>
+            <el-row style="margin:5px">
+                <el-select placeholder="服务类型" v-model="service.type">
+                    <el-option v-for="t in types" :value="t.name" :key="t.id" :label="t.name"></el-option>
+                </el-select>
+                <el-select placeholder="服务名称" v-model="service.name">
+                    <el-option v-for="s in services" :value="s.id" :key="s.id" :label="s.name"></el-option>
+                </el-select>
+            </el-row>
+            <el-row style="margin:5px">
+                <el-form-item>
+                    <el-input type="text" placeholder="服务价格" v-model="service.price"></el-input>
+                </el-form-item>
+                <el-checkbox v-model="service.limit_free"></el-checkbox>&nbsp;&nbsp;限时免费
+            </el-row>
+            <el-row>
+                <el-form-item placeholder="服务介绍">
+                    <el-input type="textarea">
+                        
+                    </el-input>
+                </el-form-item>
+            </el-row>
+            <el-button type="text" @click="addService">添加</el-button>
         </el-form-item>
         <h3>登陆信息 <span>(编辑时可不填写)</span></h3>
         <el-form-item label="账户名" class="block">
@@ -49,9 +78,9 @@
                     id:null,
                     nickname:"",
                     name:"",
-                    job_id:"",
+                    job_id:0,
                     intro:"",
-                    service:[],
+                    services:[],
                     good_at:[],
                     certification:[],
                     keywords:[],
@@ -60,24 +89,28 @@
                     account:'',
                     password:'',
                 },
+                types:[
+                    {
+                        id:1,
+                        name:"法律"
+                    },
+                    {
+                        id:2,
+                        name:"情感"
+                    },
+                ],
+                service:{
+                    name:'',
+                    type:'',
+                    price:0,
+                    limit_free:false
+                },
                 jobs:[],
                 goodat:[],
                 verify:[],
                 services:[],
-                location:[{
-                    label:"北京",
-                    value:"bj",
-                    children:[
-                        {
-                            label:"朝阳区",
-                            value:"chaoyang"
-                        },
-                        {
-                            label:"海淀区",
-                            value:"haidian"
-                        }
-                    ]
-                }],
+                service_count:0,
+                location:[],
                 keywords:[],
                 confirm_text:"新增",
                 add:true
@@ -122,6 +155,25 @@
                         });
                     })
                 }
+            },
+            addService(){
+                console.log(this.service)
+                var message=null
+                if(!this.service.type){
+                    message="请选择服务类型"
+                }
+                this.service.name="服务"
+                if(!this.service.name){
+                    message="请选择服务"
+                }
+                if(!this.service.price && this.service.price<0){
+                    message="服务价格不能为空且要大于等于0"
+                }
+                if(message){
+                    this.$message({message:"请选择服务",type:"warning"})
+                    return
+                }
+                this.expert.services.push(this.service)
             }
         },
         mounted(){
@@ -135,6 +187,8 @@
                     }else{
                         this.expert.good_at=[]
                     }
+                    this.service_count=this.expert.services.length
+                    this.expert.services=[]
                 })
             }
             getExpertJob().then(data=>{
