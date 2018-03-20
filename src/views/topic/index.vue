@@ -18,25 +18,25 @@
 		<div class="label-style">
 			<el-button type="text" :class="{buttonClicked:this.params.sort==1}" @click="filter({sort:1})">最新问题</el-button>
 			<el-button type="text" :class="{buttonClicked:this.params.sort==2}" @click="filter({sort:2})">最新回复</el-button>
-			<el-button type="text" :class="{buttonClicked:typeof(this.params.hide_question)=='boolean'}" @click="filter({hide_question:hide_question})">已隐藏问题</el-button>
+			<el-button type="text" :class="{buttonClicked:typeof(this.params.hide_topic)=='boolean'}" @click="filter({hide_topic:hide_topic})">已隐藏问题</el-button>
 			<el-button type="text" :class="{buttonClicked:typeof(this.params.hide_comment)=='boolean'}" @click="filter({hide_comment:hide_comment})">已隐藏回复</el-button>
 			<span class="questioin-num">已有{{total}}个问题</span>
 		</div>
 
-	
+		
 		<el-card class="box-card" v-for="topic in topics">
 		  <div class="card-item">
 		  	  <div class="text item">{{topic.content}}</div>
-		  	  <div class="expand">
-		  	      <el-button type="text">展开更多</el-button>
-		  	  </div>
-		  	  <div class="label-style card-label">
+		  	  <el-popover style="max-width: 400px;" placement="top" title="" trigger="hover" :content="topic.content">
+		  	  	<el-button slot="reference" type="text">显示更多</el-button>
+		  	  </el-popover>
+		  	  <div class="label-style card-label" style="font-size: 14px;">
 		  	  	<span>问题ID：{{topic.id}}</span>
 		  	  	<span>回复时间：{{topic.question_time}}</span>
 		  	  	<span>提问人: {{topic.user_name}}</span>
 		  	  	<div style="float:right">
-		  		  	<el-button type="text" @click="hiddenTopicClicked(topic.id)">隐藏</el-button>
-		  		  	<el-button type="text" @click="topTopicClicked(topic.id)">推荐</el-button>
+		  		  	<el-button type="text" @click="hiddenTopicClicked(topic.id)">{{topic.hidden_text}}</el-button>
+		  		  	<el-button type="text" @click="topTopicClicked(topic.id)">{{topic.top_text}}</el-button>
 		  		</div>
 		  	  </div>
 		  </div>
@@ -60,7 +60,7 @@
 				total:0,
 				page_size:20,
 				cate:1,
-				hide_question:false,
+				hide_topic:false,
 				hide_comment:false,
 				params:{cate:1,sort:1}
 			}
@@ -71,7 +71,7 @@
 			},
 			changeCate(cate){
 				this.cate=cate
-				this.filter()
+				this.filter(this.params)
 			},
 			getTopic(page=1){
 				getTopicList({page:page}).then(data=>{
@@ -84,7 +84,7 @@
 				this.params=params
 				this.params.cate=this.cate
 				this.params.sort || 1;
-				this.params.hide_question || false;
+				this.params.hide_topic || false;
 				this.params.hide_comment || false;
 				// if(typeof(this.params.cate)) 
 				getTopicList(params).then(data=>{
@@ -114,7 +114,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.inline-form-box{
 		-webkit-box-sizing: border-box;
 		-moz-box-sizing: border-box;
@@ -192,6 +192,14 @@
 		padding-bottom: 10px;
 		border-bottom: 1px solid #ebebeb;
 
+	}
+	.item{
+		line-height: 22px;
+		height: 22px;
+		overflow: hidden;
+		font-size: 16px;
+		text-overflow: ellipsis;
+		white-space:nowrap;
 	}
 
 	// 分页

@@ -15,7 +15,7 @@
         </el-form-item>
         <el-form-item label="认证" class="block">
             <el-checkbox-group v-model="expert.certification">
-                <el-checkbox v-for="v in verify" :label="v.id">{{v.name}}</el-checkbox>
+                <el-checkbox v-for="v in verify" :key="v.id" :label="v.id">{{v.name}}</el-checkbox>
             </el-checkbox-group>
         </el-form-item>
         <el-form-item label="位置" class="block">
@@ -31,7 +31,8 @@
         </el-form-item>
         <el-form-item class="block" label="服务">
             <el-row style="margin=5px" v-for="(es,index) of expert.services">
-                <span>{{index}}.{{es.type}}-{{es.name}}--{{es.price}}</span>
+                <div>{{index}}.{{es.type}}-{{es.name}}--{{es.price}}{{es.limit_free?'-- 限时免费':''}}</div>
+                <div>{{es.content}}</div>
             </el-row>
             <el-row style="margin:5px">
                 <el-select placeholder="服务类型" v-model="service.type">
@@ -40,16 +41,14 @@
                 <el-select placeholder="服务名称" v-model="service.name">
                     <el-option v-for="s in services" :value="s.id" :key="s.id" :label="s.name"></el-option>
                 </el-select>
-            </el-row>
-            <el-row style="margin:5px">
                 <el-form-item>
                     <el-input type="text" placeholder="服务价格" v-model="service.price"></el-input>
                 </el-form-item>
                 <el-checkbox v-model="service.limit_free"></el-checkbox>&nbsp;&nbsp;限时免费
             </el-row>
             <el-row>
-                <el-form-item placeholder="服务介绍">
-                    <el-input type="textarea">
+                <el-form-item label="">
+                    <el-input type="textarea" v-model="service.content" placeholder="服务介绍">
                         
                     </el-input>
                 </el-form-item>
@@ -103,7 +102,8 @@
                     name:'',
                     type:'',
                     price:0,
-                    limit_free:false
+                    limit_free:false,
+                    content:''
                 },
                 jobs:[],
                 goodat:[],
@@ -157,7 +157,6 @@
                 }
             },
             addService(){
-                console.log(this.service)
                 var message=null
                 if(!this.service.type){
                     message="请选择服务类型"
@@ -173,7 +172,9 @@
                     this.$message({message:"请选择服务",type:"warning"})
                     return
                 }
+                this.expert.services=[]
                 this.expert.services.push(this.service)
+                console.log(this.expert.services)
             }
         },
         mounted(){
@@ -186,6 +187,13 @@
                         goodat.forEach(item=>this.expert.good_at.push(parseInt(item)))
                     }else{
                         this.expert.good_at=[]
+                    }
+                    if(this.expert.certification.length){
+                        var goodat=this.expert.certification.split(',')
+                        this.expert.certification=[]
+                        goodat.forEach(item=>this.expert.certification.push(parseInt(item)))
+                    }else{
+                        this.expert.certification=[]
                     }
                     this.service_count=this.expert.services.length
                     this.expert.services=[]

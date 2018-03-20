@@ -12,7 +12,7 @@ export function hiddenTopic(topic_id,hidden=true){
     return request({
         url:"/admin/topic/hide",
         method:"POST",
-        data:{topic,hide_stat:hidden}
+        data:{topic_id,hide_stat:hidden}
     })
 }
 
@@ -20,6 +20,6 @@ export function topTopic(topic_id,top=true){
     return request({
         url:"/admin/topic/top",
         method:"POST",
-        data:{topic_id:topic_id,top_stat:top}
+        data:{topic_id,top_stat:top}
     })
 }
