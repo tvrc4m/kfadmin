@@ -57,6 +57,7 @@
                 }
             },
             removeKeyword(value){
+                this.$forceUpdate()
                 console.log('remove',value)
             }
         },

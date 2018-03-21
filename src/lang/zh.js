@@ -82,6 +82,10 @@ export default {
     caseFactor:'管理案例要素',
     caseFactorEdit:'编辑案例要素',
     keyword:'关键词',
+    emotion:'情感问题',
+    collection:'问题集',
+    lawQuestion:'法律问题',
+    questionCollectionAdd:'添加问题集',
   },
   navbar: {
     logOut: '退出登录',

@@ -17,8 +17,8 @@
           </el-table-column>
 			<el-table-column prop="address" label="操作" align="right" >
 				<template slot-scope="scope">
-					<el-button @click.native.prevent="editClick(scope.row)" type="text" size="small">编辑</el-button>
-					<el-button @click.native.prevent="deleteRow(scope.$index,scope.row)" type="text" size="small">删除</el-button>
+					<el-button @click.native.prevent="editClick(scope.row.id)" type="text" size="small">编辑</el-button>
+					<el-button @click.native.prevent="deleteRow(scope.$index,scope.row.id)" type="text" size="small">删除</el-button>
 					<el-button @click.native.prevent="upClick(scope.$index)" type="text" size="small">上移</el-button>
 					<el-button @click.native.prevent="downClick(scope.$index)" type="text" size="small">下移</el-button>
 				</template>
@@ -36,6 +36,10 @@
     import {getQuestionList,delQuestion} from '@/api/question'
 	export default{
         components:{pagination},
+        props:{
+            type:Number,
+            type_name:String
+        },
 		data(){
 			return {
 				question_collection_id:"",
@@ -56,19 +60,18 @@
                 )
             },
 			addClick(){
-				this.$router.push({name:"questionCollectionAddQuestion",params:{question_collection_id:this.question_collection_id}})
+				this.$router.push({name:"questionCollectionAddQuestion",params:{type:this.type_name,question_collection_id:this.question_collection_id}})
 			},
 			indexMethod(index) {
 				return index+1;
 			},
-			editClick(row){
-				console.log(row);
-				this.$router.push({name:"questionCollectionEditQuestion",params:{question_collection_id:this.question_collection_id,question_id:row.id}})
+			editClick(question_id){
+				this.$router.push({name:"questionCollectionEditQuestion",params:{type:this.type_name,question_collection_id:this.question_collection_id,question_id:question_id}})
 			},
-			deleteRow(index,row) {
-				this.question.data.splice(index, 1);
-				delQuestion(row.id).then(data=>{
-	    			this.$message({message:"删除成功",type:"success"})
+			deleteRow(index,question_id) {
+                delQuestion(question_id).then(data=>{
+                    this.$message({message:"删除成功",type:"success"})
+    				this.question.data.splice(index, 1);
 	    		})
 			},
 			upClick(index){

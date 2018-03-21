@@ -1,43 +1,18 @@
 <template>
 	<!-- 编辑建议开始 -->
 	<div class="edit-advise-container">
-		<!-- 顶部搜索及标签 -->
-<!-- 		<div class="inline-form-box">
-			<el-breadcrumb class="label-search-style" separator-class="el-icon-arrow-right">
-			  <el-breadcrumb-item :to="{ path: '/' }">数据库</el-breadcrumb-item>
-			  <el-breadcrumb-item>情感问题集</el-breadcrumb-item>
-			  <el-breadcrumb-item>建议</el-breadcrumb-item>
-			</el-breadcrumb>
-
-			<el-form style="float:right" :inline="true"  class="demo-form-inlien">
-				<el-form-item>
-					<el-input label="right" placehlder="用户提问"></el-input>
-				</el-form-item>
-				<el-form-item>
-				    <el-button label="right" type="primary" icon="el-icon-search" plain>搜索</el-button>
-				  </el-form-item>
-			</el-form>
-		</div> -->
-
-		<!-- 返回&已录入数量 -->
-<!-- 		<div class="back-num">
-			<span>
-				<el-button icon="el-icon-arrow-left" class="back" type="text">返回</el-button>
-			</span>
-			<span class="num">已录入100条</span>
-		</div> -->
-
 		<!-- 内容模块 -->
 		<el-form :model="advise" :rules="rules" ref="advise" class="demo-ruleForm">
-			
-		  	<el-form-item style="width:100%" label="序列：" prop="sort">
+			<el-form-item label="标题" prop="title" label-width="150">
+		    	<el-input style="width:600px" v-model="advise.title"></el-input>
+		  	</el-form-item>
+		  	<el-form-item label="序列：" prop="sort" label-width="150">
 		    	<el-input style="width:600px" v-model="advise.sort"></el-input>
 		  	</el-form-item>
 	  	
-		  	<el-form-item style="width:100%" label="内容：" prop="content">
+		  	<el-form-item label="内容：" prop="content" label-width="150">
 		    	<el-input style="width:600px" type="textarea" v-model="advise.content"></el-input>
 		  	</el-form-item>
-
 		  	<el-form-item class="complete-btn">
 		    	<el-button  type="primary" @click="submitForm('advise')">完成</el-button>
 		  	</el-form-item>
@@ -51,16 +26,25 @@
 <script>
     import {getAdvise,addAdvise,editAdvise} from '@/api/question'
 	export default{
+		props:{
+            is_add:Boolean,
+            type:Number,
+            type_name:String
+        },
 	    data() {
 			return {
 				add:true,
 				advise:{
 					question_collection_id:'',
+					title:'',
 					sort:'',
 					content:'',
-					type:'2',
+					type:1,
 				},
 				rules: {
+					title:[
+						{required:true,message:"请输入建议标题",trigger:"blur"}
+					],
 					sort: [
 						{ required: true, message: '请输入序号', trigger: 'blur' },
 					],
@@ -99,6 +83,7 @@
 					this.add=false;
 				}
 			}
+			this.advise.type=this.type
 		},
 		mounted(){
 			if(!this.add){

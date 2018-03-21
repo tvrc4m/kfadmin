@@ -1,9 +1,7 @@
 <template>
     <div class="emotion-container">
         <el-row style="margin-bottom: 10px;">
-            <!-- <router-link to="/question/add"> -->
-                <el-button type="primary" size="small" @click="addClick">录入新问题集</el-button>
-            <!-- </router-link> -->
+            <el-button type="primary" size="small" @click="addQuestionCollection">录入新问题集</el-button>
         </el-row>
         <el-row v-for="q in questions" :key="q.id" style="margin-bottom: 5px;">
             <el-card :body-style="{padding:'10px'}">
@@ -44,7 +42,8 @@
         components:{pagination},
         data(){
             return {
-                type:2,
+                type:1,
+                type_name:'',
                 questions:[],
                 pageIndex:1,
                 page_size:0,
@@ -65,14 +64,29 @@
                     }
                 )
             },
+            addQuestionCollection(){
+                console.log(this.type_name)
+                this.$router.push({
+                    name:"questionCollectionAdd",
+                    params:{
+                        type:this.type_name
+                    }
+                })
+            },
             addClick(){
                 this.$router.push({name:"questionAdd"})
             },
             toEdit(question_collection_id){
-                this.$router.push({name:"questionCollectionEdit",params:{question_collection_id:question_collection_id}})
+                this.$router.push({
+                    name:"questionCollectionEdit",
+                    params:{
+                        type:this.type_name,
+                        question_collection_id:question_collection_id
+                    }
+                })
             },
             toView(question_collection_id){
-                this.$router.push({name:"questionCollectionView",params:{question_collection_id:question_collection_id}})
+                this.$router.push({name:"questionCollectionView",params:{type:this.type_name,question_collection_id:question_collection_id}})
             },
             deleteClick(question_collection_id){
                 delQuestionCollection(question_collection_id).then(data=>{
@@ -81,6 +95,14 @@
             },
             showAll(){
                 this.show=false;
+            }
+        },
+        created(){
+             this.type_name=this.$route.name
+            // 获取问题集类型，emotion指情感 law指法律
+            switch(this.type_name){
+                case 'law':this.type=1;break;
+                case 'emotion':this.type=2;break;
             }
         },
         mounted(){
