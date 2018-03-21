@@ -2,7 +2,7 @@
     <div class="user-container">
         <el-row>
             <router-link to="/admin/user/add">
-                <el-button type="primary" icon="el-icon-plus" size="small">添加后台账户</el-button>
+                <el-button type="primary" icon="el-icon-plus" size="mini">后台账户</el-button>
             </router-link>
         </el-row>
         <confirm :confirmSuccess="delUser"></confirm>

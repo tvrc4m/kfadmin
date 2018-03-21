@@ -2,7 +2,7 @@
 	<div class="matching-container">
 		<!-- 匹配关系开始 -->
 			<!-- 添加建议按钮 -->
-			<el-button v-on:click="addClick" class="add-btn" type="primary" plain icon="el-icon-plus">添加建议</el-button>
+			<el-button v-on:click="addClick" class="add-btn" type="primary" plain icon="el-icon-plus">添加匹配关系</el-button>
 			<!-- 问题列表 -->
 			<el-table
 				max-height="600"

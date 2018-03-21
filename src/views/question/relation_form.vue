@@ -6,7 +6,7 @@
 			
 		  	<el-form-item style="width:100%;" label="序列：">
 		    	<el-select v-model="relation.question_suggest_id" clearable placeholder="请选择">
-		    	    <el-option v-for="item in data_form.suggestion" :label="item.sort" :value="item.id">
+		    	    <el-option v-for="item in data_form.suggestion" :label="item.title" :value="item.id">
 		    	    </el-option>
 		    	  </el-select>
 		  	</el-form-item>
@@ -34,11 +34,13 @@
 	<!-- 编辑匹配关系结束 -->
 </template>
 <script>
-    import {getAdviseRule} from '@/api/question'
+    import {getAdviseRule,addQuestionSuggestRelation} from '@/api/question'
 	export default {
 	    data() {
 	    	return {
 	    		add:true,
+	    		type:1,
+	    		type_name:'',
 	    		value:'',
 	    		data_form:{},
 	    		relation:{
@@ -51,6 +53,9 @@
 		methods: {
 		    submitForm(){
 		    	console.log(77777,this.relation);
+		    	addQuestionSuggestRelation(this.relation).then(data=>{
+		    		console.log(data)
+		    	})
 		    },
 		    changeItem(question_id,index,option_id){
 		    	this.$set(this.relation.suggest_rule,index,{question_id:question_id,option_id:option_id})
@@ -67,8 +72,9 @@
 		},
 		mounted(){
 			getAdviseRule(this.relation.question_collection_id).then(data=>{
-				console.log(1111111,data);
+				console.log(data)
 				data.question.forEach((item,index)=>{
+
 					this.relation.suggest_rule[index]={question_id:item.id,option_id:null}
 				})
 				console.log("question",this.relation.suggest_rule)

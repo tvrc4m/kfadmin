@@ -1,41 +1,51 @@
 <template>
     <div class="option-container">
-        <span class="name">{{name}}</span>
-        <el-input type="text"></el-input>
-        <el-row>
-            <el-col :span="4">
-                <span class="name">关键词</span>
-            </el-col>
-            <el-col :span="10">
-                <el-tag v-for="kv in selected_keywords" :key="kv.id" closable type="success" @close="removeKeyword(kv)"></el-tag>
-                <el-cascader :options="keywords" @chnage="addKeyword"></el-cascader>
-            </el-col>
-        </el-row>
+        <el-form :inline="true">
+            <el-form-item :label="alpha[index]" style="width: 100%">
+                <el-input style="display: inline-block;" type="text" v-model="option.name"></el-input>
+                <el-button style="float: right" type="text" icon="el-icon-del" @click="removeOption">删除</el-button>
+            </el-form-item>
+            <el-form-item label="权重">
+                <el-input type="text" v-model="option.weight"></el-input>
+            </el-form-item>
+            <el-row>
+               <keywords :keywords.sync="option.keyword" label="匹配词"></keywords>
+            </el-row>
+        </el-form>
     </div>
 </template>
 <script>
+    import keywords from "@/components/Question/keywords"
     export default{
+        components:{keywords},
         props:{
-            name:{
-                type:String,
-                required:true
+            option:{
+                type:Object,
+                required:true,
+                default:function(){
+                    return {
+                        id:null,
+                        name:"",
+                        weight:0,
+                        keyword:[]
+                    }
+                }
             },
-            keywords:{
-                type:Array,
-                required:true
-            },
-            selected_keywords:{
-                type:Array,
-                required:false
+            index:{
+                type:Number,
+                required:true,
+                default:0
+            }
+        },
+        data(){
+            return {
+                alpha:['A','B','C','D','E','F']
             }
         },
         methods:{
-            addKeyword:function(value){
-                this.selected_keywords.push(value.join("/"))
-            },
-            removeKeyword:function(value){
-                this.selected_keywords=this.selected_keywords.filter(item=>item!=value)
+            removeOption(){
+                this.$emit("remove-option",this.index)
             }
-        }        
+        }
     }
 </script>

@@ -122,5 +122,28 @@ export function getAdviseRule(question_collection_id){
 
 	})
 }
+// 查看所有的问题集
+export function getAllQuestion(params){
+	return request({
+		url:"/admin/question/allcollection",
+		method:"GET",
+		params
+	})
+}
+// 获取某个问题下面的所有问题以及选项
+export function getCollectionQuestionsAndOptions(question_collection_id){
+	return request({
+		url:"/admin/question/allquestion",
+		method:"GET",
+		params:{question_collection_id}
+	})
+}
 
-
+// 新增情感建议匹配关系
+export function addQuestionSuggestRelation(data){
+	return request({
+		url:"/admin/question/suggest/rule",
+		method:"POST",
+		data
+	})
+}

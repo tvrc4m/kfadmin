@@ -76,7 +76,7 @@ export const asyncRouterMap = [
     component:Layout,
     name:"law",
     hidden: true,
-    children:[{path:"",component:_import("law/index"),name:"law",meta:{title:"law"}}]
+    children:[{path:"",component:_import("law/index"),name:"lawlist",meta:{title:"law"}}]
   },
   {//添加法律
     path:"/law/add",
@@ -92,16 +92,20 @@ export const asyncRouterMap = [
     children:[{path:"",component:_import("law/form"),name:"lawEdit",meta:{title:"lawEdit"}}]
   },
   {//情感问题库
-    path:"/question",
+    path:"/emotion/question/collection",
     component:Layout,
-    name:"question",
     alwaysShow: false,
-    children:[{path:"",component:_import("question/index"),name:"question",meta:{title:"question",icon:"404"}}]
+    children:[{path:"",component:_import("question/index"),name:"emotion",meta:{title:"emotion",icon:"404"}}]
+  },
+  {//法律问题库
+    path:"/law/question/collection",
+    component:Layout,
+    alwaysShow: false,
+    children:[{path:"",component:_import("question/index"),name:"law",meta:{title:"lawQuestion",icon:"404"}}]
   },
   {//添加情感问题集
-    path:"/question/add",
+    path:"/:type(emotion|law)/question/collection/add",
     component:Layout,
-    name:"questionAdd",
     hidden: true,
     children:[
       {
@@ -113,8 +117,8 @@ export const asyncRouterMap = [
             components:{
               base:_import("question/base_form"),
             },
-            name:"questionAdd",
-            meta:{title:"questionAdd"},
+            name:"questionCollectionAdd",
+            meta:{title:"questionCollectionAdd"},
           }
         ]
 
@@ -122,7 +126,7 @@ export const asyncRouterMap = [
     ]
   },
   {//编辑情感问题集
-    path:"/question/edit/:question_collection_id",
+    path:"/:type(emotion|law)/question/collection/edit/:question_collection_id",
     component:Layout,
     name:"questionCollectionEdit",
     hidden: true,
@@ -143,7 +147,7 @@ export const asyncRouterMap = [
     ]
   },
   {//查看情感问题集
-    path:"/question/view/:question_collection_id",
+    path:"/:type(emotion|law)/question/collection/:question_collection_id",
     component:Layout,
     hidden: true,
     children:[
@@ -165,7 +169,7 @@ export const asyncRouterMap = [
     ]
   },
   {//添加情感问题-问题
-    path:"/question/add/:question_collection_id/question",
+    path:"/:type(emotion|law)/question/add/:question_collection_id/question",
     component:Layout,
     name:"questionAddQuestion",
     hidden: true,
@@ -188,7 +192,7 @@ export const asyncRouterMap = [
     ]
   },
   {//编辑情感问题集-问题
-    path:"/question/edit/:question_collection_id/question/:question_id",
+    path:"/:type(emotion|law)/question/edit/:question_collection_id/question/:question_id",
     component:Layout,
     hidden: true,
     children:[
@@ -208,7 +212,7 @@ export const asyncRouterMap = [
     ]
   },
   {//查看情感问题-问题列表
-    path:"/question/view/:question_collection_id/question",
+    path:"/:type(emotion|law)/question/view/:question_collection_id/question",
     component:Layout,
     hidden: true,
     children:[
@@ -230,9 +234,8 @@ export const asyncRouterMap = [
     ]
   },
   {//添加情感问题-建议
-    path:"/question/add/:question_collection_id/advise",
+    path:"/:type(emotion|law)/question/add/:question_collection_id/advise",
     component:Layout,
-    name:"questionAddAdvise",
     hidden: true,
     children:[
       {
@@ -253,7 +256,7 @@ export const asyncRouterMap = [
     ]
   },
   {//编辑情感问题集-建议
-    path:"/question/edit/:question_collection_id/advise/:advise_id",
+    path:"/:type(emotion|law)/question/edit/:question_collection_id/advise/:advise_id",
     component:Layout,
     hidden: true,
     children:[
@@ -273,7 +276,7 @@ export const asyncRouterMap = [
     ]
   },
   {//查看情感问题集-建议
-    path:"/question/view/:question_collection_id/advise",
+    path:"/:type(emotion|law)/question/view/:question_collection_id/advise",
     component:Layout,
     hidden: true,
     children:[
@@ -293,7 +296,7 @@ export const asyncRouterMap = [
   },
 
   {//添加情感问题-匹配关系
-    path:"/question/add/:question_collection_id/relation",
+    path:"/:type(emotion|law)/question/add/:question_collection_id/relation",
     component:Layout,
     name:"questionAddRelation",
     hidden: true,
@@ -316,7 +319,7 @@ export const asyncRouterMap = [
     ]
   },
   {//编辑情感问题集-匹配关系
-    path:"/question/edit/:question_collection_id/advise/:relation_id",
+    path:"/:type(emotion|law)/question/edit/:question_collection_id/advise/:relation_id",
     component:Layout,
     hidden: true,
     children:[
@@ -336,7 +339,7 @@ export const asyncRouterMap = [
     ]
   },
   {//查看情感问题集-匹配关系
-    path:"/question/view/:question_collection_id/relation",
+    path:"/:type(emotion|law)/question/view/:question_collection_id/relation",
     component:Layout,
     hidden: true,
     children:[

@@ -17,7 +17,7 @@
 		      </template>
 		    </el-table-column>
 		    <el-table-column label="序列" prop="sort"></el-table-column>
-		    <el-table-column label="内容" prop="title"></el-table-column>
+		    <el-table-column label="标题" prop="title"></el-table-column>
 		    <el-table-column label="操作" align="right" min-width="190">
 	            <template slot-scope="scope">
 	            <el-button size="mini" type="primary" plain @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
@@ -36,6 +36,11 @@
     import {getAdviseList,delAdvise} from '@/api/question'
 	export default {
         components:{pagination},
+        props:{
+            is_add:Boolean,
+            type:Number,
+            type_name:String,
+        },
 		data(){
 			return {
 				question_collection_id:"",
@@ -48,10 +53,24 @@
 		},
 	    methods:{
 	    	addClick(){
-	    		this.$router.push({name:"questionCollectionAddAdvise",params:{question_collection_id:this.question_collection_id}})
+                console.log(this.type_name,this.question_collection_id)
+	    		this.$router.push({
+                    name:"questionCollectionAddAdvise",
+                    params:{
+                        type:this.type_name,
+                        question_collection_id:this.question_collection_id
+                    }
+                })
 	    	},
 	    	handleEdit(index,row){
-	    		this.$router.push({name:"questionCollectionEditAdvise",params:{question_collection_id:this.question_collection_id,advise_id:row.id}})
+	    		this.$router.push({
+                    name:"questionCollectionEditAdvise",
+                    params:{
+                        type:this.type_name,
+                        question_collection_id:this.question_collection_id,
+                        advise_id:row.id
+                    }
+                })
 	    	},
 	    	handleDelete(index,row){
 	    		delAdvise(row.id).then(data=>{
@@ -66,6 +85,7 @@
 	    },
 	    created(){
 	    	this.question_collection_id=this.$route.params.question_collection_id;
+            console.log('type_name',this.type_name,this.type)
 	    },
         mounted(){
 	    	getAdviseList(this.question_collection_id).then(data=>{

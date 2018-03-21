@@ -3,15 +3,15 @@
         <el-form :inline="true" label-width="300">
             <el-tabs v-model="tab_selected" @tab-click="tabClick" type="border-card">
                 <el-tab-pane label="基础资料" name="base">
-                    <router-view :is_add.sync="add" name="base"></router-view>
+                    <router-view :is_add.sync="add" :type="type" :type_name="type_name" name="base"></router-view>
                 </el-tab-pane>
-                <el-tab-pane v-if="add" label="问题" name="question">
+                <el-tab-pane v-if="add" label="问题" :type="type" :type_name="type_name" name="question">
                     <router-view name="question"></router-view>
                 </el-tab-pane>
-                <el-tab-pane v-if="add" label="建议" name="advise">
+                <el-tab-pane v-if="add && type==2" label="建议" :type="type" :type_name="type_name" name="advise">
                     <router-view name="advise"></router-view>
                 </el-tab-pane>
-                <el-tab-pane v-if="add" label="匹配关系" name="relation">
+                <el-tab-pane v-if="add && type==2" label="匹配关系" :type="type" :type_name="type_name" name="relation">
                     <router-view name="relation"></router-view>
                 </el-tab-pane>
 
@@ -25,6 +25,8 @@
             return {
                 tab_selected:"base",
                 add:true,
+                type_name:'',
+                type:0
             }
         },
         methods:{
@@ -45,6 +47,22 @@
             if(!this.$route.params.question_collection_id){
                 this.add=false;
             }
+            console.log(this.$route.params)
+            if(!this.$route.params.type){
+                this.$message({
+                    message:"未指定问题类型",
+                    type:"error"
+                })
+                this.$router.push("/")
+            }
+            var [_,type,_]=this.$route.fullPath.split("/")
+            // 获取问题集类型，emotion指情感 law指法律
+            switch(type){
+                case 'law':this.type=1;break;
+                case 'emotion':this.type=2;break;
+            }
+            this.type_name=type
+
             switch(this.$route.name){
                 case 'questionCollectionView':this.tab_selected='base';break;
                 case 'questionCollectionEdit':this.tab_selected='base';break;
@@ -59,7 +77,7 @@
                 case 'questionCollectionEditRelation':this.tab_selected='relation';break;
                 case 'questionCollectionAddRelation':this.tab_selected='relation';break;
             }
-        }
+        },
     }
 </script>
 <style lang="scss">
