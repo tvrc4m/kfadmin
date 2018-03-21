@@ -54,6 +54,7 @@
                         this.$router.push({path:"/law/rule",query:{law_id:this.law.id}})
                     })
                 }else{
+                    console.log('confirm',this.law_rule)
                     editLawRule(this.law_rule.id,this.law_rule).then(response=>{
                         this.$message({message:"更改成功,即将跳转",type:"success"})
                         this.$router.push({path:"/law/rule",query:{law_id:this.law.id}})
@@ -78,8 +79,9 @@
                         this.law_rule.keyword.push(item.id)
                     })
                     this.keywords=this.law_rule.keyword
+                    console.log('getkeywords',this.keywords);
                     getLawInfo(this.law_rule.law_id).then(data=>{
-                        this.law=data
+                        this.law=data;
                     })
                 })
             }else{

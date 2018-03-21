@@ -17,6 +17,9 @@
             <router-link to="/case/factor">
                 <el-button type="primary" size="small">管理案例要素</el-button>
             </router-link>
+            <router-link to="/case/cate">
+                <el-button type="primary" size="small">管理案例分类</el-button>
+            </router-link>
         </el-form>
         <el-table :data="cases">
             <el-table-column prop="id" label="ID" width="50"></el-table-column>

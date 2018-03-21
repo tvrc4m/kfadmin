@@ -21,3 +21,27 @@ export function getFactorKeywords(){
         method:"GET"
     })
 }
+
+export function addFactorKeywords(data){
+	return request({
+		url:"/admin/case/keyword",
+		method:"POST",
+		data
+	})
+}
+
+export function editFactorKeywords(keyword_id,data){
+	return request({
+		url:"/admin/keyword/"+keyword_id,
+		method:"PUT",
+		data
+	})
+}
+
+export function delFactorKeywords(keyword_id){
+	return request({
+		url:"/admin/keyword/"+keyword_id,
+		method:"DELETE"
+	})
+
+}

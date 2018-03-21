@@ -443,6 +443,13 @@ export const asyncRouterMap = [
       hidden: true,
       children:[{path:"",component:_import("case/factor/index"),name:"caseFactor",meta:{title:"caseFactor"}}]
   },
+  {//管理案例分类
+      path:"/case/cate",
+      component:Layout,
+      name:"case_cate",
+      hidden: true,
+      children:[{path:"",component:_import("case/cate/index"),name:"caseCate",meta:{title:"caseCate"}}]
+  },
   {//后台账户列表
     path:"/admin/user",
     component:Layout,

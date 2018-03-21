@@ -112,7 +112,7 @@
                 service_count:0,
                 location:[],
                 confirm_text:"新增",
-                add:true
+                add:true,
             }
         },
         computed:{
@@ -126,6 +126,7 @@
                 this.expert.id=this.$route.params.id
                 this.add=false
                 this.confirm_text='编辑'
+                console.log(211313,this.$route)
             }else{
                 if(this.$route.query.type){
                     this.expert.type=this.$route.query.type
@@ -148,6 +149,17 @@
                         this.$router.push({path:"/expert",query:{type:this.expert.type}})
                     })
                 }else{
+                    for(let i=0;i<this.expert.service.length;i++){
+                        let item=this.expert.service[i];
+                        delete item['cate'];
+                        delete item['created_at'];
+                        delete item['expert_id'];
+                        delete item['id'];
+                        delete item['pay_type'];
+                        delete item['pre_price'];
+                        delete item['updated_at'];
+                    }
+                    console.log(222222,this.expert)
                     editExpert(this.expert.id,this.expert).then(data=>{
                         this.$message({
                           message: "编辑成功",
@@ -176,7 +188,6 @@
                     limit_free:this.service.limit_free==true?1:0,
                     description:this.service.description
                 })
-                console.log(this.expert.service)
             },
             removeService(index){
                 this.expert.service.splice(index,1)

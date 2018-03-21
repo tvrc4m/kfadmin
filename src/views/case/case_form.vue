@@ -94,7 +94,7 @@
                             type:"success"
                         })
                         this.$emit("update:case_id",data.id)
-                        this.$router.push({name:'caseEdit',params:{case_id:data.id}})
+                        this.$router.back(-1);
                     })
                 }else{
                     editCase(this.caseinfo.id,this.caseinfo).then(data=>{

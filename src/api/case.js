@@ -107,3 +107,33 @@ export function updateFactorKeywords(data){
         data
     })
 }
+
+export function getCaseCateList(){
+    return request({
+        url:"/admin/case/cate",
+        method:"GET"
+    })
+}
+
+export function addCaseCate(data){
+    return request({
+        url:"/admin/case/cate",
+        method:"POST",
+        data
+    })
+}
+
+export function editCaseCate(case_cate_id,data){
+    return request({
+        url:"/admin/case/cate/"+case_cate_id,
+        method:"PUT",
+        data
+    })
+}
+
+export function delCaseCate(case_cate_id){
+    return request({
+        url:"/admin/case/cate/"+case_cate_id,
+        method:"DELETE",
+    })
+}
