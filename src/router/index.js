@@ -467,6 +467,12 @@ export const asyncRouterMap = [
       alwaysShow: false,
       children:[{path:"",component:_import("topic/index"),name:"userTopic",meta:{title:"userTopic",icon:"404"}}]
   },
+  {//关键词
+    path:"/keyword",
+    component:Layout,
+    alwaysShow: false,
+    children:[{path:"",component:_import("keyword/index"),name:"keyword",meta:{title:"keyword",icon:"404"}}]
+  },
   {
     path: '/error',
     component: Layout,

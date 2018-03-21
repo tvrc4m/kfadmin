@@ -4,8 +4,8 @@
             <el-select v-model="expert_type" placehoder="选择专家类型" @change="getExpertByType(1)">
                 <el-option v-for="type in expert_types" :label="type.label" :value="type.id" :key="type.id"></el-option>
             </el-select>
-            <router-link to="/expert/add">
-                <el-button type="primary" size="small">添加新专家</el-button>
+            <router-link v-for="type in expert_types" :to="'/expert/add?type='+type.id">
+                <el-button type="primary" size="small" icon="el-icon-plus">{{type.label}}</el-button>&nbsp;&nbsp;
             </router-link>
             <span class="text right">
                 共<span v-text="total"></span>条数据
@@ -16,8 +16,8 @@
             <el-table-column prop="id" label="ID" width="50"></el-table-column>
             <el-table-column prop="nickname" label="昵称"></el-table-column>
             <el-table-column prop="name" label="姓名"></el-table-column>
-            <el-table-column prop="job" label="职业"></el-table-column>
-            <el-table-column prop="remark" label="擅长"></el-table-column>
+            <el-table-column prop="job" label="职业" :formatter="formatJob"></el-table-column>
+            <el-table-column prop="good_at" label="擅长" :formatter="formatGoodat"></el-table-column>
             <el-table-column label="操作" width="100">
                 <template slot-scope="scope">
                     <el-button type="text" size="mini" @click="editPro(scope.row.id)">编辑</el-button>
@@ -71,7 +71,6 @@
                 this.$store.commit('CONFIRM_DIALOG',true)
             },
             getExpertByType(page){
-                console.log({type:this.expert_type})
                 getExpertList({type:this.expert_type,page:page}).then(data=>{
                     this.experts=data.data
                     console.log(data)
@@ -82,9 +81,22 @@
             },
             changePage(page=1){
                 this.getExpertByType(page)
+            },
+            formatJob(row,column,cellValue){
+                if(cellValue && cellValue.name){
+                    return cellValue.name
+                }
+            },
+            formatGoodat(row,column,cellValue){
+                var str=""
+                cellValue.forEach(item=>str+=item.name)
+                return str
             }
         },
         mounted(){
+            if(this.$route.query.type){
+                this.expert_type=this.$route.query.type
+            }
             this.getExpertByType()
         }
     }

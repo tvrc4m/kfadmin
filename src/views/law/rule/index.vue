@@ -16,7 +16,7 @@
             <el-table-column prop="keywords" label="匹配词" :formatter="formatKeyword" width="150"></el-table-column>
             <el-table-column label="操作" width="100">
                 <template slot-scope="scope">
-                    <el-button type="text" size="mini" @click="$refs.confirm.delConfirm">删除</el-button>
+                    <el-button type="text" size="mini" @click="delConfirm(scope.row.id)">删除</el-button>
                     <el-button type="text" size="mini" @click="editLawRule(scope.row.id)">编辑</el-button>
                 </template>
             </el-table-column>
@@ -26,7 +26,7 @@
 </template>
 <script>
     import confirm from "@/components/Confirm/dialog"
-    import {getLawList,getLawRuleList} from "@/api/law"
+    import {getLawList,getLawRuleList,delLawRule} from "@/api/law"
     export default{
         components:{confirm},
         data(){
@@ -34,7 +34,8 @@
                 laws:[],
                 selected_law:null,
                 deleted:false,
-                law_rules:[]
+                law_rules:[],
+                current_rule_id:null,
             }
         },
         methods:{
@@ -50,8 +51,10 @@
                 this.$router.push({path:"/law/rule/add",query:{law_id:this.selected_law}})
             },
             delLawRule:function(){
-                console.log("delete logs")
-                this.$refs.confirm.closeConfirm()
+                delLawRule(this.current_rule_id).then(data=>{
+                    this.$refs.confirm.closeConfirm()
+                    this.law_rules=this.law_rules.filter(item=>item.id!=this.current_rule_id)
+                })
             },
             editLawRule:function(law_rule_id){
                 this.$router.push({name:"lawRuleEdit",params:{law_rule_id:law_rule_id}})
@@ -60,6 +63,10 @@
                 getLawRuleList(this.selected_law).then(data=>{
                     this.law_rules=data.data
                 })
+            },
+            delConfirm(law_rule_id){
+                this.current_rule_id=law_rule_id
+                this.$refs.confirm.showConfirm()
             }
         },
         mounted(){

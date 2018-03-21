@@ -50,9 +50,11 @@ export function getExpertGoodAt(){
     })
 }
 
-export function getExpertServices(){
+export function getExpertServices(params){
     return request({
         url:"/admin/expert/service",
+        method:"GET",
+        params
     })
 }
 

@@ -81,6 +81,7 @@ export default {
     caseEdit:'编辑案例',
     caseFactor:'管理案例要素',
     caseFactorEdit:'编辑案例要素',
+    keyword:'关键词',
   },
   navbar: {
     logOut: '退出登录',

@@ -12,7 +12,7 @@
             <location :province_id.sync="caseinfo.province_id" :city_id.sync="caseinfo.city_id"></location>
         </el-form-item>
         <el-form-item label="时间">
-            <el-date-picker type="month" v-model="caseinfo.case_date" value-format="yyyy-MM-01 00:00:00" placeholder="选择发生日期"></el-date-picker>
+            <el-date-picker type="month" v-model="caseinfo.case_date" value-format="yyyy-MM-01 00:00:00" placeholder="选择发生日期" :picker-options="datepicker"></el-date-picker>
         </el-form-item>
         <el-form-item label="案情">
             <el-input type="textarea" v-model="caseinfo.info"></el-input>
@@ -55,6 +55,34 @@
                     is_breakup:0,
                 },
                 add:true,
+                datepicker:{
+                    disabledDate(time) {
+                        return time.getTime() > Date.now();
+                    },
+                  shortcuts: [
+                    {
+                        text: 'Today',
+                        onClick(picker) {
+                            picker.$emit('pick', new Date());
+                        }
+                    }, 
+                    {
+                        text: 'Yesterday',
+                        onClick(picker) {
+                            const date = new Date();
+                            date.setTime(date.getTime() - 3600 * 1000 * 24);
+                            picker.$emit('pick', date);
+                        }
+                    }, 
+                    {
+                        text: 'A week ago',
+                        onClick(picker) {
+                            const date = new Date();
+                            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+                            picker.$emit('pick', date);
+                        }
+                  }]
+                }
             }
         },
         methods:{

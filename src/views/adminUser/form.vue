@@ -82,11 +82,13 @@
             confirm(){
                 if(this.add){
                     addAdminUser(this.user).then(data=>{
-
+                        this.$message({message:"创建成功,即将跳转",type:"success"})
+                        this.$router.push({path:"/admin/user"})
                     })
                 }else{
                     editAdminUser(this.user.id,this.user).then(data=>{
-
+                        this.$message({message:"更改成功,即将跳转",type:"success"})
+                        this.$router.push({path:"/admin/user"})
                     })
                 }
             }

@@ -3,7 +3,10 @@
         <el-form :inline="true">
             <el-button type="primary" size="mini" @click="showDialog" style="margin-bottom: 15px;text-align: right;">新增案例要素</el-button>
             <el-collapse v-model="activied" :accordion="false" style="width: 100%">
-                <el-collapse-item v-for="(item,index) in factors" :title="item.name" :name="item.name">
+                <el-collapse-item v-for="(item,index) in factors" :title="item.name" :name="item.id">
+                    <el-form-item label="要素名称" class="block">
+                        <el-input type="text" v-model="item.name"></el-input>
+                    </el-form-item>
                     <el-form-item label="类型权重">
                         <el-input-number :min="0" :max="100" :step="10" size="small" v-model="item.weight"></el-input-number>
                     </el-form-item>
@@ -50,6 +53,13 @@
             saveFactor(factor_id){
                 var factor=this.factors.filter(item=>item.id==factor_id)
                 if(factor.length){
+                    if(!factor[0].name || !factor[0].name.length){
+                        this.$message({
+                            message:"要素名称不能为空",
+                            type:"warning"
+                        })
+                        return false
+                    }
                     editCaseFactor(factor_id,factor[0]).then(data=>{
                         this.$message({
                             message:"保存成功",
@@ -70,14 +80,14 @@
                     })
                     this.showAddDialog=false
                     this.factors.push(data)
-                    this.activied.push(data.name)
+                    this.activied.push(data.id)
                 })
             }
         },
         mounted(){
             getCaseFactors().then(data=>{
                 this.factors=data
-                this.factors.forEach(item=>this.activied.push(item.name))
+                this.factors.forEach(item=>this.activied.push(item.id))
             })
         }
     }
