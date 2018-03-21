@@ -68,7 +68,6 @@
             }
         },
         mounted(){
-            console.log(222,this.question.id)
             getQuestionCollection(parseInt(this.question.id)).then(data=>{
                 this.question=data;
                 console.log(this.question)

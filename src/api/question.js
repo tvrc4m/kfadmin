@@ -74,3 +74,53 @@ export function delQuestion(question_id){
 		method:"delete",
 	})
 }
+
+
+export function getAdviseList(question_collection_id){
+	return request({
+		url:"/admin/question/suggest/",
+		method:"get",
+		params:{question_collection_id:question_collection_id}
+	})
+}
+
+export function getAdvise(advise_id){
+	return request({
+		url:"/admin/question/suggest/"+advise_id,
+		method:"get",
+	})
+}
+
+export function addAdvise(data){
+	return request({
+		url:"/admin/question/suggest",
+		method:"post",
+		data
+	})
+}
+
+export function editAdvise(advise_id,data){
+	return request({
+		url:"/admin/question/suggest/"+advise_id,
+		method:"put",
+		data
+	})
+}
+
+export function delAdvise(advise_id){
+	return request({
+		url:"/admin/question/suggest/"+advise_id,
+		method:"delete"
+	})
+}
+
+export function getAdviseRule(question_collection_id){
+	return request({
+		url:"/admin/question/suggest/rule/detail/",
+		method:"get",
+		params:{question_collection_id:question_collection_id}
+
+	})
+}
+
+

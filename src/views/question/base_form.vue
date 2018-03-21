@@ -12,6 +12,12 @@
         <el-form-item label="过度页" class="block">
             <el-input type="text" v-model="question.overdue"></el-input>
         </el-form-item>
+        <el-form-item class="block" label="背景图">
+            <el-upload class="upload" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview" :on-remove="handleRemove" :on-success="handleSuccess" :file-list="fileList" list-type="picture">
+                <el-button size="small" type="primary">点击上传</el-button>
+                <span slot="tip" class="el-upload__tip">尺寸要求：</span>
+            </el-upload>
+        </el-form-item>
         <el-form-item label="显示方式" class="block">
             <el-checkbox v-model="single_checked" @change="singleChange">单页</el-checkbox>
         </el-form-item>
@@ -38,11 +44,12 @@
                 tab_selected:"base",
                 confirm_text:"添加",
                 keywords:[],
+                fileList:[],
                 skill:null,
                 single_checked:false,
                 trunk_checked:false,
                 question:{
-                    id:"",
+                    // id:"",
                     type:2,
                     title:"",
                     content:"",
@@ -50,8 +57,8 @@
                     question_option_id:[],
                     is_single_page:1,
                     is_trunk:1,
-                    keyword:[],
-                    show_report:"",
+                    bgimage:"https://kanfaimage.oss-cn-beijing.aliyuncs.com/20180104/video_151504732376282.jpg?x-oss-process=image/resize,m_fill,w_750,h_422",
+                    // keyword:[],
                 },
                 question_props:{
                     value:"value",
@@ -107,7 +114,7 @@
                 // console.log(this.tab_selected)
             },
             getQuestionChildren(vals){
-                console.log(2222,vals);
+                // console.log(2222,vals);
                 if(vals.length==1 && vals[0]=='emotion'){
                     this.related_questions[0].questions=[
                         {
@@ -156,7 +163,6 @@
                 if(this.single_checked){
                     this.question.is_single_page=1;
                 }else{
-
                     this.question.is_single_page=2;
                 }
                 if(this.trunk_checked){
@@ -164,6 +170,7 @@
                 }else{
                     this.question.is_trunk=0;
                 }
+                console.log(222,this.question);
                 if(this.add){
                     addQuestionCollection(this.question).then(data=>{
                         this.$emit("update:is_add",true)
@@ -171,10 +178,21 @@
                         // this.$router.push({name:"questionCollectionEdit",params:{question_collection_id:data.id}})
                     })
                 }else{
+                    this.question.bgimage='https://kanfaimage.oss-cn-beijing.aliyuncs.com/20180104/video_151504732376282.jpg?x-oss-process=image/resize,m_fill,w_750,h_422';
                     editQuestionCollection(this.question.id,this.question).then(data=>{
                         this.$router.back(-1);
                     })
                 }
+            },
+            handleRemove(file, fileList) {
+                console.log(1,file, fileList);
+            },
+            handlePreview(file){
+                console.log(2,file);
+            },
+            handleSuccess(file){
+                console.log(3,file);
+                // this.question.bgimage=this.fileList[0];
             },
             singleChange(value){
                 this.single_checked=value;
@@ -193,6 +211,7 @@
         mounted(){
             if(!this.add){
                 getQuestionCollection(this.question.id).then(data=>{
+                    console.log(33333,data)
                     this.question=data;
                     if(this.question.is_single_page=='1'){
                         this.single_checked=true

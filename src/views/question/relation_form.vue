@@ -1,210 +1,81 @@
 <template>
 	<!-- 编辑匹配关系开始 -->
 	<div class="edit-matching-container">
-		<!-- 顶部搜索及标签 -->
-		<div class="inline-form-box">
-			<el-breadcrumb class="label-search-style" separator-class="el-icon-arrow-right">
-			  <el-breadcrumb-item :to="{ path: '/' }">数据库</el-breadcrumb-item>
-			  <el-breadcrumb-item>情感问题集</el-breadcrumb-item>
-			  <el-breadcrumb-item>建议</el-breadcrumb-item>
-			</el-breadcrumb>
-
-			<el-form style="float:right" :inline="true"  class="demo-form-inlien">
-				<el-form-item>
-					<el-input label="right" placehlder="用户提问"></el-input>
-				</el-form-item>
-				<el-form-item>
-				    <el-button label="right" type="primary" icon="el-icon-search" plain>搜索</el-button>
-				  </el-form-item>
-			</el-form>
-		</div>
-
-		<!-- 返回&已录入数量 -->
-		<div class="back-num">
-			<span>
-				<el-button icon="el-icon-arrow-left" class="back" type="text">返回</el-button>
-			</span>
-			<span class="num">已录入100条</span>
-		</div>
-
 		<!-- 内容模块 -->
-		<el-card>
-			<el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-				
-			  	<el-form-item style="width:100%;" label="序列：" prop="name">
-			    	<el-select v-model="value4" clearable placeholder="请选择">
-			    	    <el-option
-			    	      v-for="item in options"
-			    	      :key="item.value"
-			    	      :label="item.label"
-			    	      :value="item.value">
-			    	    </el-option>
-			    	  </el-select>
-			  	</el-form-item>
-		  	
-			  	<el-form-item style="width:100%" label="匹配关系：" prop="content">
-			  		<el-col>
-				    	<el-select v-model="value5" multiple placeholder="请选择">
-				    	    <el-option
-				    	      v-for="item in options"
-				    	      :key="item.value"
-				    	      :label="item.label"
-				    	      :value="item.value">
-				    	    </el-option>
-				    	</el-select>
-
-				    	<el-select
-				    	    v-model="value11"
-				    	    multiple
-				    	    collapse-tags
-				    	    style="margin-left: 20px;"
-				    	    placeholder="请选择">
-				    	    <el-option
-				    	      v-for="item in options"
-				    	      :key="item.value"
-				    	      :label="item.label"
-				    	      :value="item.value">
-				    	    </el-option>
-				    	</el-select>
-			    	</el-col>
-
-	    			<el-col style="margin-top: 20px;">
-			    	  	<el-select v-model="value5" multiple placeholder="请选择">
-			    	  	    <el-option
-			    	  	      v-for="item in options"
-			    	  	      :key="item.value"
-			    	  	      :label="item.label"
-			    	  	      :value="item.value">
-			    	  	    </el-option>
-			    	  	</el-select>
-
-			    	  	<el-select
-			    	  	    v-model="value11"
-			    	  	    multiple
-			    	  	    collapse-tags
-			    	  	    style="margin-left: 20px;"
-			    	  	    placeholder="请选择">
-			    	  	    <el-option
-			    	  	      v-for="item in options"
-			    	  	      :key="item.value"
-			    	  	      :label="item.label"
-			    	  	      :value="item.value">
-			    	  	    </el-option>
-			    	  	</el-select>
-		    	  	</el-col>
-					
-					<el-col style="margin-top: 20px;">
-			    	  	<el-select v-model="value5" multiple placeholder="请选择">
-			    	  	    <el-option
-			    	  	      v-for="item in options"
-			    	  	      :key="item.value"
-			    	  	      :label="item.label"
-			    	  	      :value="item.value">
-			    	  	    </el-option>
-			    	  	</el-select>
-
-			    	  	<el-select
-			    	  	    v-model="value11"
-			    	  	    multiple
-			    	  	    collapse-tags
-			    	  	    style="margin-left: 20px;"
-			    	  	    placeholder="请选择">
-			    	  	    <el-option
-			    	  	      v-for="item in options"
-			    	  	      :key="item.value"
-			    	  	      :label="item.label"
-			    	  	      :value="item.value">
-			    	  	    </el-option>
-			    	  	</el-select>
-		    	  	</el-col>
-
-			  	</el-form-item>
-
-			  	
-		  		
-			  	<el-form-item class="complete-btn">
-			    	<el-button  type="primary" @click="submitForm('ruleForm')">完成</el-button>
-			  	</el-form-item>
-
-			</el-form>
-
-		</el-card>	
-		
-		<!-- 分页 -->
-		<!-- <pagination :total="total" :page_size="page_size" @change="changePage"></pagination> -->
-		<el-pagination
-		class="page-style"
-		background
-		layout="prev,pager,next"
-		:total="100">
+		<el-form  label-width="100px" class="demo-ruleForm">
 			
-		</el-pagination>
+		  	<el-form-item style="width:100%;" label="序列：">
+		    	<el-select v-model="relation.question_suggest_id" clearable placeholder="请选择">
+		    	    <el-option v-for="item in data_form.suggestion" :label="item.sort" :value="item.id">
+		    	    </el-option>
+		    	  </el-select>
+		  	</el-form-item>
+	  	
+		  	<el-form-item style="width:100%" label="匹配关系：">
+		  		<el-col v-for="(item,index) in data_form.question" style="margin-top:10px">
+		  			<!-- <span>{{item.title}}</span> -->
+			    	<el-form-item :label="item.title">
+			    		<el-select v-model="relation.suggest_rule[index].option_id" collapse-tags @change="changeItem(item.id,index,$event)" style="margin-left: 20px;" placeholder="请选择">
+			    	    	<el-option v-for="i in item.question_option" :label="i.options" :key="i.id" :value="i.id"></el-option>
+			    		</el-select>
+			    	</el-form-item>
+		    	</el-col>
+		    	<!-- <el-cascader :options="question" @active-item-change="handleItemChange" :props="props"></el-cascader> -->
+		  	</el-form-item>
+	  		
+		  	<el-form-item class="complete-btn">
+		    	<el-button  type="primary" @click="submitForm">完成</el-button>
+		  	</el-form-item>
+
+		</el-form>
+
+		
 	</div>
 	<!-- 编辑匹配关系结束 -->
 </template>
 <script>
+    import {getAdviseRule} from '@/api/question'
 	export default {
 	    data() {
-	      return {
-	      	dynamicTags: ['感性', '分手'],
-  	        inputVisible: false,
-  	        inputValue: '',
-
-	        ruleForm: {
-	          name: '',
-	          region: '',
-	          date1: '',
-	          date2: '',
-	          delivery: false,
-	          type: [],
-	          resource: '',
-	          content: ''
-	        },
-	        rules: {
-	          name: [
-	            { required: true, message: '请输入序号', trigger: 'blur' },
-	            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-	          ],
-	          content: [
-	            { required: true, message: '请填问题内容', trigger: 'blur' }
-	          ]
-	        }
-	      };
+	    	return {
+	    		add:true,
+	    		value:'',
+	    		data_form:{},
+	    		relation:{
+		    		question_collection_id:'',
+		    		question_suggest_id:'',
+		    		suggest_rule:[]
+	    		}
+	    	}
 	    },
-	    methods: {
-	      submitForm(formName) {
-	        this.$refs[formName].validate((valid) => {
-	          if (valid) {
-	            alert('submit!');
-	          } else {
-	            console.log('error submit!!');
-	            return false;
-	          }
-	        });
-	      },
-	      resetForm(formName) {
-	        this.$refs[formName].resetFields();
-	      },
-	      
-	    },
-	    // handleClose(tag) {
-	    //     this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
-	    // },
-	    // showInput() {
-     //        this.inputVisible = true;
-     //        this.$nextTick(_ => {
-     //          this.$refs.saveTagInput.$refs.input.focus();
-     //        });
-     //    },
-     //    handleInputConfirm() {
-     //        let inputValue = this.inputValue;
-     //        if (inputValue) {
-     //          this.dynamicTags.push(inputValue);
-     //        }
-     //        this.inputVisible = false;
-     //        this.inputValue = '';
-     //    }
-	  }
+		methods: {
+		    submitForm(){
+		    	console.log(77777,this.relation);
+		    },
+		    changeItem(question_id,index,option_id){
+		    	this.$set(this.relation.suggest_rule,index,{question_id:question_id,option_id:option_id})
+		    }
+		},
+		created(){
+			if(this.$route.params.question_collection_id){
+				this.relation.question_collection_id=this.$route.params.question_collection_id;
+				if(this.$route.params.relation_id){
+					this.relation.question_suggest_id=this.$route.params.relation_id;
+					this.add=false;
+				}
+			}
+		},
+		mounted(){
+			getAdviseRule(this.relation.question_collection_id).then(data=>{
+				console.log(1111111,data);
+				data.question.forEach((item,index)=>{
+					this.relation.suggest_rule[index]={question_id:item.id,option_id:null}
+				})
+				console.log("question",this.relation.suggest_rule)
+				this.data_form=data;
+			})
+		}
+	}
 
 
 </script>

@@ -67,7 +67,9 @@
 			},
 			deleteRow(index,row) {
 				this.question.data.splice(index, 1);
-				delQuestion(row.id)
+				delQuestion(row.id).then(data=>{
+	    			this.$message({message:"删除成功",type:"success"})
+	    		})
 			},
 			upClick(index){
 				if(index>0){

@@ -2,7 +2,7 @@
 	<!-- 编辑建议开始 -->
 	<div class="edit-advise-container">
 		<!-- 顶部搜索及标签 -->
-		<div class="inline-form-box">
+<!-- 		<div class="inline-form-box">
 			<el-breadcrumb class="label-search-style" separator-class="el-icon-arrow-right">
 			  <el-breadcrumb-item :to="{ path: '/' }">数据库</el-breadcrumb-item>
 			  <el-breadcrumb-item>情感问题集</el-breadcrumb-item>
@@ -17,135 +17,98 @@
 				    <el-button label="right" type="primary" icon="el-icon-search" plain>搜索</el-button>
 				  </el-form-item>
 			</el-form>
-		</div>
+		</div> -->
 
 		<!-- 返回&已录入数量 -->
-		<div class="back-num">
+<!-- 		<div class="back-num">
 			<span>
 				<el-button icon="el-icon-arrow-left" class="back" type="text">返回</el-button>
 			</span>
 			<span class="num">已录入100条</span>
-		</div>
+		</div> -->
 
 		<!-- 内容模块 -->
-		<el-card>
-			<el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
-				
-			  	<el-form-item style="width:100%" label="序列：" prop="name">
-			    	<el-input style="width:600px" v-model="ruleForm.name"></el-input>
-			  	</el-form-item>
-		  	
-			  	<el-form-item style="width:100%" label="内容：" prop="content">
-			    	<el-input style="width:600px" type="textarea" rows="8" v-model="ruleForm.content"></el-input>
-			  	</el-form-item>
-
-			  	<el-form-item style="width:100%;margin-top:10px" label="关键词：">
-			  		<el-tag
-			  		  :key="tag"
-			  		  v-for="tag in dynamicTags"
-			  		  closable
-			  		  :disable-transitions="false"
-			  		  @close="handleClose(tag)">
-			  		  {{tag}}
-			  		</el-tag>
-			  		<el-input
-			  		  class="input-new-tag"
-			  		  v-if="inputVisible"
-			  		  v-model="inputValue"
-			  		  ref="saveTagInput"
-			  		  size="small"
-			  		  @keyup.enter.native="handleInputConfirm"
-			  		  @blur="handleInputConfirm"
-			  		>
-			  		</el-input>
-			  		<el-button v-else class="button-new-tag" size="small" @click="showInput">+ 关键词</el-button>
-			  		
-			  	</el-form-item>
-		  		
-			  	<el-form-item class="complete-btn">
-			    	<el-button  type="primary" @click="submitForm('ruleForm')">完成</el-button>
-			  	</el-form-item>
-
-			</el-form>
-
-		</el-card>	
-
-		<!-- 分页 -->
-		<!-- <pagination :total="total" :page_size="page_size" @change="changePage"></pagination> -->
-		<el-pagination
-		class="page-style"
-		background
-		layout="prev,pager,next"
-		:total="100">
+		<el-form :model="advise" :rules="rules" ref="advise" class="demo-ruleForm">
 			
-		</el-pagination>	
+		  	<el-form-item style="width:100%" label="序列：" prop="sort">
+		    	<el-input style="width:600px" v-model="advise.sort"></el-input>
+		  	</el-form-item>
+	  	
+		  	<el-form-item style="width:100%" label="内容：" prop="content">
+		    	<el-input style="width:600px" type="textarea" v-model="advise.content"></el-input>
+		  	</el-form-item>
+
+		  	<el-form-item class="complete-btn">
+		    	<el-button  type="primary" @click="submitForm('advise')">完成</el-button>
+		  	</el-form-item>
+
+		</el-form>
+
 	</div>
 	<!-- 编辑建议结束 -->
 </template>
 
 <script>
-	export default {
+    import {getAdvise,addAdvise,editAdvise} from '@/api/question'
+	export default{
 	    data() {
-	      return {
-	      	dynamicTags: ['感性', '分手'],
-  	        inputVisible: false,
-  	        inputValue: '',
-
-	        ruleForm: {
-	          name: '',
-	          region: '',
-	          date1: '',
-	          date2: '',
-	          delivery: false,
-	          type: [],
-	          resource: '',
-	          content: ''
-	        },
-	        rules: {
-	          name: [
-	            { required: true, message: '请输入序号', trigger: 'blur' },
-	            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-	          ],
-	          content: [
-	            { required: true, message: '请填问题内容', trigger: 'blur' }
-	          ]
-	        }
-	      };
+			return {
+				add:true,
+				advise:{
+					question_collection_id:'',
+					sort:'',
+					content:'',
+					type:'2',
+				},
+				rules: {
+					sort: [
+						{ required: true, message: '请输入序号', trigger: 'blur' },
+					],
+					content: [
+						{ required: true, message: '请填问题内容', trigger: 'blur' }
+					]
+				}
+			};
 	    },
 	    methods: {
-	      submitForm(formName) {
-	        this.$refs[formName].validate((valid) => {
-	          if (valid) {
-	            alert('submit!');
-	          } else {
-	            console.log('error submit!!');
-	            return false;
-	          }
-	        });
-	      },
-	      resetForm(formName) {
-	        this.$refs[formName].resetFields();
-	      },
-
-	    },
-	    handleClose(tag) {
-	        this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
-	    },
-	    showInput() {
-            this.inputVisible = true;
-            this.$nextTick(_ => {
-              this.$refs.saveTagInput.$refs.input.focus();
-            });
-        },
-        handleInputConfirm() {
-            let inputValue = this.inputValue;
-            if (inputValue) {
-              this.dynamicTags.push(inputValue);
-            }
-            this.inputVisible = false;
-            this.inputValue = '';
-        }
-	  }
+			submitForm(formName) {
+				console.log(formName);
+				this.$refs[formName].validate((valid) => {
+					if (valid) {
+						if(this.add){
+							addAdvise(this.advise).then(data=>{
+	                    		this.$router.back(-1);
+	               			})
+						}else{
+							editAdvise(this.advise_id,this.advise).then(data=>{
+	                    		this.$router.back(-1);
+	               			})
+						}
+					} else {
+						console.log('error submit!!');
+						return false;
+					}
+				});
+			},
+		},
+		created(){
+			if(this.$route.params.question_collection_id){
+				this.advise.question_collection_id=this.$route.params.question_collection_id;
+				if(this.$route.params.advise_id){
+					this.advise_id=this.$route.params.advise_id;
+					this.add=false;
+				}
+			}
+		},
+		mounted(){
+			if(!this.add){
+				getAdvise(this.advise_id).then(data=>{
+					console.log(555,data);
+					this.advise=data;
+				})
+			}
+		}
+	}
 
 
 </script>

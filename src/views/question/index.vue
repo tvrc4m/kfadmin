@@ -75,7 +75,9 @@
                 this.$router.push({name:"questionCollectionView",params:{question_collection_id:question_collection_id}})
             },
             deleteClick(question_collection_id){
-                delQuestionCollection(question_collection_id)
+                delQuestionCollection(question_collection_id).then(data=>{
+                    this.$message({message:"删除成功",type:"success"})
+                })
             },
             showAll(){
                 this.show=false;
