@@ -15,9 +15,9 @@
                     {{q.content}}
                 </div>
                 <div class="expand">
-                    <el-button type="text" @click="showAll" v-show="show">展开更多</el-button>
+                    <el-button type="text" @click="showAll(q,index)" v-show="q.show">展开更多</el-button>
                 </div>
-                <div class="questions" v-show="!show">
+                <div class="questions" v-show="!q.show">
                     <span>前置问题：</span>
                     <span v-for="item in questions.question_option">{{item.title}}</span>   
                 </div>
@@ -52,7 +52,6 @@
                 pageIndex:1,
                 page_size:0,
                 total:0,
-                show:true,
                 reportTemplate:false,
             }
         },
@@ -94,13 +93,16 @@
                 this.$router.push({name:"questionCollectionView",params:{type:this.type_name,question_collection_id:question_collection_id}})
             },
             delCollection(){
-                delQuestionCollection(this.confirm_id,this.confirm_index).then(data=>{
+                console.log(1111,this.confirm_id,this.confirm_index)
+                delQuestionCollection(this.confirm_id).then(data=>{
                     this.delSuccess()
                     this.questions.splice(this.confirm_index,1)
                 })
             },
-            showAll(){
-                this.show=false;
+            showAll(q,index){
+                this.questions[index].show=false
+                this.$forceUpdate()
+                console.log(1122,q)
             },
             toTemplate(){
                 this.$router.push({
@@ -114,7 +116,6 @@
         },
         mounted(){
              if(this.type==1){
-                console.log(22347)
                 this.reportTemplate=true
              }
             getQuestionCollectionList(this.type,this.pageIndex).then(data=>{
@@ -123,6 +124,9 @@
                 this.pageIndex=data.current_page;
                 this.page_size=data.per_page;
                 this.total=data.total;
+                this.questions.forEach(item=>{
+                    item.show=true
+                })
             }).catch(error=>{
                     console.log(error)
                 }
@@ -130,7 +134,7 @@
         }
     }
 </script>
-<style lang="scss" type="text/css">
+<style lang="scss" type="text/css" scoped>
     .header{
         line-height:22px;
         font-size:16px;
