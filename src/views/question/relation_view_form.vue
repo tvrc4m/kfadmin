@@ -14,7 +14,7 @@
 						</div>
 					</template>
 				</el-table-column>
-				<el-table-column label="操作" width="100" header-align="center">
+				<el-table-column label="操作" width="96" header-align="center">
 					<template slot-scope="scope">
 						<el-button type="text" @click="editRelation(scope.row.id,scope.$index)">编辑</el-button>
 						<el-button type="text" @click="removeRelation(scope.row.id,scope.$index)">删除</el-button>
@@ -81,7 +81,7 @@
 
 	</script>
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 	.matching-container{
 		min-width: 700px;
 	}

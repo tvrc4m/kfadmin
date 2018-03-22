@@ -4,11 +4,9 @@
 	<el-table max-height="600" :data="question.data">
           <el-table-column type="expand" prop="question_option">
             <template slot-scope="props">
-              <el-form label-position="left" inline class="demo-table-expand">
-                <el-form-item v-for="item in props.row.question_option">
-                  <span class="key-word-css">{{item.optionLetter}}、{{ item.options}}</span>
-                </el-form-item>
-              </el-form>
+                <div class="demo-table-expand">
+                    <p v-for="item in props.row.question_option">{{item.optionLetter}}. {{ item.options}}</p>
+                </div>
             </template>
           </el-table-column>
 			<el-table-column prop="date" label="序列" type="index" :index="indexMethod">
@@ -103,8 +101,10 @@
 	}
 </script>
 
-<style>
+<style lang="css" scoped>
 	.add-btn{
 		width: 100%;
 	}
+    .key-word-css{
+    }
 </style>

@@ -140,7 +140,7 @@
 		}
 	}
 </script>
-<style>
+<style lang="css" scoped>
 	.el-upload__tip{
 		margin-left: 10px;
 	}

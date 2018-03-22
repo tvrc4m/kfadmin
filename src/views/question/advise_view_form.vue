@@ -75,6 +75,7 @@
 	    	handleDelete(index,row){
 	    		delAdvise(row.id).then(data=>{
 	    			this.$message({message:"删除成功",type:"success"})
+                    this.advise.data.splice(index,1)
 	    		})
 	    	},
 	    	changePage(){
@@ -99,7 +100,7 @@
 
     }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 	.advise-container{
 		min-width: 700px;
 	}

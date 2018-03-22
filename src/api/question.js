@@ -156,3 +156,18 @@ export function getQuestionSuggestRelations(params){
 		params
 	})
 }
+// 查看情感建议匹配关系详情
+export function getQuestionSuggestRelation(devise_relation_id){
+	return request({
+		url:"/admin/question/suggest/rule/"+devise_relation_id,
+		method:"GET"
+	})
+}
+// 更新情感建议匹配关系
+export function editQuestionSuggestRelation(devise_relation_id,data){
+	return request({
+		url:"/admin/question/suggest/rule/"+devise_relation_id,
+		method:"PUT",
+		data
+	})
+}
