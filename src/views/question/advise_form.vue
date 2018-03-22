@@ -13,7 +13,7 @@
 		  	<el-form-item label="内容：" prop="content" label-width="150">
 		    	<el-input style="width:600px" type="textarea" v-model="advise.content"></el-input>
 		  	</el-form-item>
-		  	<el-form-item class="complete-btn">
+		  	<el-form-item>
 		    	<el-button  type="primary" @click="submitForm('advise')">完成</el-button>
 		  	</el-form-item>
 
@@ -61,10 +61,18 @@
 					if (valid) {
 						if(this.add){
 							addAdvise(this.advise).then(data=>{
+								this.$message({
+									message:"新增成功",
+									type:"success"
+								})
 	                    		this.$router.back(-1);
 	               			})
 						}else{
 							editAdvise(this.advise_id,this.advise).then(data=>{
+								this.$message({
+									message:"编辑成功",
+									type:"success"
+								})
 	                    		this.$router.back(-1);
 	               			})
 						}
@@ -88,7 +96,6 @@
 		mounted(){
 			if(!this.add){
 				getAdvise(this.advise_id).then(data=>{
-					console.log(555,data);
 					this.advise=data;
 				})
 			}
@@ -98,7 +105,7 @@
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.edit-advise-container{
 		min-width: 700px;
 	}

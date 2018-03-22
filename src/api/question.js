@@ -157,6 +157,30 @@ export function getQuestionSuggestRelations(params){
 	})
 }
 
+// 查看情感建议匹配关系详情
+export function getQuestionSuggestRelation(devise_relation_id){
+	return request({
+		url:"/admin/question/suggest/rule/"+devise_relation_id,
+		method:"GET"
+	})
+}
+// 更新情感建议匹配关系
+export function editQuestionSuggestRelation(devise_relation_id,data){
+	return request({
+		url:"/admin/question/suggest/rule/"+devise_relation_id,
+		method:"PUT",
+		data
+	})
+}
+
+// 删除情感建议匹配关系
+export function delQuestionSuggestRelation(devise_relation_id){
+	return request({
+		url:"/admin/question/suggest/rule/"+devise_relation_id,
+		method:"DELETE",
+	})
+}
+
 //查看报告书模版
 export function getReportTemplate(){
 	return request({

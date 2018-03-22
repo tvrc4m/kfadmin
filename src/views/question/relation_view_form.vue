@@ -4,6 +4,7 @@
 			<!-- 添加建议按钮 -->
 			<el-button v-on:click="addClick" class="add-btn" type="primary" plain icon="el-icon-plus">添加匹配关系</el-button>
 			<!-- 问题列表 -->
+			<confirm ref="confirm" :confirmSuccess="delRelation"></confirm>
 			<el-table :data="relations">
 				<el-table-column prop="id" label="建议id"></el-table-column>
 				<!-- <el-table-column prop="title" label="标题"></el-table-column> -->
@@ -14,10 +15,10 @@
 						</div>
 					</template>
 				</el-table-column>
-				<el-table-column label="操作" width="100" header-align="center">
+				<el-table-column label="操作" width="96" header-align="center">
 					<template slot-scope="scope">
 						<el-button type="text" @click="editRelation(scope.row.id,scope.$index)">编辑</el-button>
-						<el-button type="text" @click="removeRelation(scope.row.id,scope.$index)">删除</el-button>
+						<el-button type="text" @click="delConfirm(scope.row.id,scope.$index)">删除</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -29,11 +30,12 @@
 <script>
 	import question_mixin from '@/mixin/question'
 	import page_mixin from '@/mixin/page'
-	import {getQuestionSuggestRelations} from '@/api/question'
+	import confirm_mixin from '@/mixin/confirm'
+	import {getQuestionSuggestRelations,delQuestionSuggestRelation} from '@/api/question'
 	import pagination from "@/components/Pagination/index"
 	export default {
 		components:{pagination},
-		mixins:[question_mixin,page_mixin],
+		mixins:[question_mixin,page_mixin,confirm_mixin],
 	    data() {
 	      	return {
 	      		question_collection_id:null,
@@ -46,7 +48,7 @@
     				name:"questionCollectionAddRelation",
     				params:{
     					type:this.type_name,
-    					question_collection_id:34
+    					question_collection_id:this.question_collection_id
     				}
     			})
     		},
@@ -55,13 +57,16 @@
     				name:"questionCollectionEditRelation",
     				params:{
     					type:this.type_name,
-    					question_collection_id:34,
+    					question_collection_id:this.question_collection_id,
     					relation_id:suggest_id
     				}
     			})
     		},
-    		removeRelation(suggest_id,index){
-
+    		delRelation(){
+    			delQuestionSuggestRelation(this.confirm_id).then(data=>{
+    				this.delSuccess()
+    				this.relations.splice(this.confirm_index,1)
+    			})
     		},
     		changePage(page){
     			getQuestionSuggestRelations({question_collection_id:this.question_collection_id,page:page}).then(data=>{
@@ -71,17 +76,16 @@
     		}
     	},
     	created(){
-
+    		this.question_collection_id=this.$route.params.question_collection_id
     	},
     	mounted(){
-    		this.question_collection_id=this.$route.params.question_collection_id
     		this.changePage(1)
     	}
 	  }
 
 	</script>
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 	.matching-container{
 		min-width: 700px;
 	}

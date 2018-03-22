@@ -4,6 +4,7 @@
 		<!-- 添加建议按钮 -->
 		<el-button v-on:click="addClick" class="add-btn" type="primary" plain icon="el-icon-plus">添加建议</el-button>
 		<!-- 问题列表 -->
+        <confirm ref="confirm" :confirmSuccess="delSuggest"></confirm>
 		<el-table
 			max-height="600"
 		    :data="advise.data">
@@ -21,7 +22,7 @@
 		    <el-table-column label="操作" align="right" min-width="190">
 	            <template slot-scope="scope">
 	            <el-button size="mini" type="primary" plain @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-	            <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+	            <el-button size="mini" type="danger" @click="delSuggest(scope.$index, scope.row)">删除</el-button>
 	          </template>
 	        </el-table-column>
 		</el-table>
@@ -34,10 +35,11 @@
 <script>
     import pagination from "@/components/Pagination/index"
     import {getAdviseList,delAdvise} from '@/api/question'
-    import mixin from '@/mixin/question'
+    import question_mixin from '@/mixin/question'
+    import confirm_mixin from '@/mixin/confirm'
 	export default {
         components:{pagination},
-        mixins:[mixin],
+        mixins:[question_mixin,confirm_mixin],
         props:{
             is_add:Boolean,
         },
@@ -72,9 +74,10 @@
                     }
                 })
 	    	},
-	    	handleDelete(index,row){
-	    		delAdvise(row.id).then(data=>{
-	    			this.$message({message:"删除成功",type:"success"})
+	    	delSuggest(){
+	    		delAdvise(this.confirm_id).then(data=>{
+                    this.delSuccess()
+                    this.advise.data.splice(this.confirm_index,1)
 	    		})
 	    	},
 	    	changePage(){
@@ -99,7 +102,7 @@
 
     }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 	.advise-container{
 		min-width: 700px;
 	}

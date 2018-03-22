@@ -1,30 +1,26 @@
 <template>
 	<div class="questionContainer">
 		<el-button type="primary" plain class="add-btn" @click="addClick">添加问题</el-button>
-	<el-table max-height="600" :data="question.data">
-          <el-table-column type="expand" prop="question_option">
-            <template slot-scope="props">
-              <el-form label-position="left" inline class="demo-table-expand">
-                <el-form-item v-for="item in props.row.question_option">
-                  <span class="key-word-css">{{item.optionLetter}}、{{ item.options}}</span>
-                </el-form-item>
-              </el-form>
-            </template>
-          </el-table-column>
-			<el-table-column prop="date" label="序列" type="index" :index="indexMethod">
-			</el-table-column>
-          <el-table-column label="内容" prop="title">
-          </el-table-column>
-			<el-table-column prop="address" label="操作" align="right" >
-				<template slot-scope="scope">
-					<el-button @click.native.prevent="editClick(scope.row.id)" type="text" size="small">编辑</el-button>
-					<el-button @click.native.prevent="deleteRow(scope.$index,scope.row.id)" type="text" size="small">删除</el-button>
-					<el-button @click.native.prevent="upClick(scope.$index)" type="text" size="small">上移</el-button>
-					<el-button @click.native.prevent="downClick(scope.$index)" type="text" size="small">下移</el-button>
-				</template>
-			</el-table-column>
-      </el-table>
-
+        <confirm ref="confirm" :confirmSuccess="delQ"></confirm>
+    	<el-table max-height="600" :data="question.data">
+            <el-table-column type="expand" prop="question_option">
+                <template slot-scope="props">
+                    <div class="demo-table-expand">
+                        <p v-for="item in props.row.question_option">{{item.optionLetter}}. {{ item.options}}</p>
+                    </div>
+                </template>
+            </el-table-column>
+            <el-table-column prop="date" label="序列" type="index" :index="indexMethod"></el-table-column>
+            <el-table-column label="内容" prop="title"></el-table-column>
+            <el-table-column prop="address" label="操作" align="right" >
+                <template slot-scope="scope">
+            		<el-button @click.native.prevent="editClick(scope.row.id)" type="text" size="small">编辑</el-button>
+            		<el-button @click.native.prevent="delConfirm(scope.row.id,scope.$index)" type="text" size="small">删除</el-button>
+            		<el-button @click.native.prevent="upClick(scope.$index)" type="text" size="small">上移</el-button>
+            		<el-button @click.native.prevent="downClick(scope.$index)" type="text" size="small">下移</el-button>
+            	</template>
+            </el-table-column>
+        </el-table>
         <el-row>
             <pagination :total="question.total" :page_size="question.per_page" @change="changePage"></pagination>
         </el-row>
@@ -34,10 +30,11 @@
 <script>
     import pagination from "@/components/Pagination/index"
     import {getQuestionList,delQuestion} from '@/api/question'
-    import mixin from '@/mixin/question'
+    import question_mixin from '@/mixin/question'
+    import confirm_mixin from '@/mixin/confirm'
 	export default{
         components:{pagination},
-        mixins:[mixin],
+        mixins:[question_mixin,confirm_mixin],
 		data(){
 			return {
 				question_collection_id:"",
@@ -66,10 +63,10 @@
 			editClick(question_id){
 				this.$router.push({name:"questionCollectionEditQuestion",params:{type:this.type_name,question_collection_id:this.question_collection_id,question_id:question_id}})
 			},
-			deleteRow(index,question_id) {
-                delQuestion(question_id).then(data=>{
-                    this.$message({message:"删除成功",type:"success"})
-    				this.question.data.splice(index, 1);
+			delQ() {
+                delQuestion(this.confirm_id).then(data=>{
+                    this.delSuccess()
+    				this.question.data.splice(this.confirm_index, 1);
 	    		})
 			},
 			upClick(index){
@@ -103,8 +100,10 @@
 	}
 </script>
 
-<style>
+<style lang="css" scoped>
 	.add-btn{
 		width: 100%;
 	}
+    .key-word-css{
+    }
 </style>

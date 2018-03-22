@@ -2,7 +2,7 @@
 	<!-- 编辑匹配关系开始 -->
 	<div class="edit-matching-container">
 		<!-- 内容模块 -->
-		<el-form  label-width="100px" class="demo-ruleForm">
+		<el-form class="demo-ruleForm">
 			
 		  	<el-form-item style="width:100%;" label="序列：">
 		    	<el-select v-model="relation.question_suggest_id" clearable placeholder="请选择">
@@ -10,28 +10,25 @@
 		    	    </el-option>
 		    	  </el-select>
 		  	</el-form-item>
-	  	
-		  	<el-form-item style="width:100%" label="匹配关系：">
-		  		<el-col v-for="(item,index) in data_form.question" style="margin-top:10px">
-		  			<!-- <span>{{item.title}}</span> -->
-			    	<el-form-item :label="item.title">
-			    		<el-select v-model="relation.suggest_rule[index].option_id" collapse-tags @change="changeItem(item.id,index,$event)" style="margin-left: 20px;" placeholder="请选择">
-			    	    	<el-option v-for="i in item.question_option" :label="i.options" :key="i.id" :value="i.id"></el-option>
-			    		</el-select>
-			    	</el-form-item>
-		    	</el-col>
+	  		<h4>匹配关系</h4>
+	  		<el-table :data="data_form.question" width="100%">
+	  			<el-table-column prop="title" label="问题"></el-table-column>
+	  			<el-table-column label="选项">
+	  				<template slot-scope="scope">
+	  					<el-select v-model="relation.suggest_rule[scope.row.id].option_id" collapse-tags @change="changeItem(scope.row.id,scope.row.id,$event)" style="margin-left: 20px;" placeholder="请选择">
+		    	    	<el-option v-for="i in scope.row.question_option" :label="i.options" :key="i.id" :value="i.id"></el-option>
+		    		</el-select>
+	  				</template>
+	  			</el-table-column>
+	  		</el-table>
 		    	<!-- <el-cascader :options="question" @active-item-change="handleItemChange" :props="props"></el-cascader> -->
-		  	</el-form-item>
-		  	<el-form-item class="complete-btn">
-		    	<el-button  type="primary" @click="submitForm">完成</el-button>
-		  	</el-form-item>
-
+	    	<el-button style="margin-top: 10px;" type="primary" @click="submitForm">完成</el-button>
 		</el-form>
 	</div>
 	<!-- 编辑匹配关系结束 -->
 </template>
 <script>
-    import {getAdviseRule,addQuestionSuggestRelation} from '@/api/question'
+    import {getAdviseRule,getQuestionSuggestRelation,addQuestionSuggestRelation,editQuestionSuggestRelation} from '@/api/question'
     import mixin from '@/mixin/question'
 	export default {
 		mixins:[mixin],
@@ -41,27 +38,45 @@
 	    		value:'',
 	    		data_form:{},
 	    		relation:{
+	    			id:null,
 		    		question_collection_id:'',
 		    		question_suggest_id:'',
-		    		suggest_rule:[]
+		    		suggest_rule:{}
 	    		}
 	    	}
 	    },
 		methods: {
 		    submitForm(){
-		    	console.log(77777,this.relation);
-		    	addQuestionSuggestRelation(this.relation).then(data=>{
-		    		this.$message({
-		    			message:"关联成功",
-		    			type:"success"
-		    		})
-		    		this.$router.push({
-		    			name:"questionCollectionViewRelation",
-		    			params:{
-		    				question_collection_id:this.$route.params.question_collection_id
-		    			}
-		    		})
-		    	})
+		    	if(!this.add){
+		    		editQuestionSuggestRelation(this.relation.id,this.relation).then(data=>{
+			    		this.$message({
+			    			message:"关联成功",
+			    			type:"success"
+			    		})
+			    		this.$router.push({
+			    			name:"questionCollectionViewRelation",
+			    			params:{
+			    				type:this.type_name,
+			    				question_collection_id:this.$route.params.question_collection_id
+			    			}
+			    		})
+			    	})
+		    	}else{
+		    		console.log(this.relation)
+		    		// addQuestionSuggestRelation(this.relation).then(data=>{
+		    		// 	this.$message({
+			    	// 		message:"关联成功",
+			    	// 		type:"success"
+			    	// 	})
+			    	// 	this.$router.push({
+			    	// 		name:"questionCollectionViewRelation",
+			    	// 		params:{
+			    	// 			type:this.type_name,
+			    	// 			question_collection_id:this.$route.params.question_collection_id
+			    	// 		}
+			    	// 	})
+		    		// })
+		    	}
 		    },
 		    changeItem(question_id,index,option_id){
 		    	this.$set(this.relation.suggest_rule,index,{question_id:question_id,option_id:option_id})
@@ -70,21 +85,34 @@
 		created(){
 			if(this.$route.params.question_collection_id){
 				this.relation.question_collection_id=this.$route.params.question_collection_id;
-				if(this.$route.params.relation_id){
-					this.relation.question_suggest_id=this.$route.params.relation_id;
-					this.add=false;
-				}
+			}
+			if(this.$route.params.relation_id){
+				this.add=false
+				this.relation.id=this.$route.params.relation_id
 			}
 		},
 		mounted(){
+			
 			getAdviseRule(this.relation.question_collection_id).then(data=>{
 				console.log(data)
 				data.question.forEach((item,index)=>{
-
-					this.relation.suggest_rule[index]={question_id:item.id,option_id:null}
+					this.relation.suggest_rule[item.id]={question_id:item.id,option_id:null}
 				})
 				console.log("question",this.relation.suggest_rule)
 				this.data_form=data;
+				if(!this.add){
+					getQuestionSuggestRelation(this.relation.id).then(data=>{
+						this.relation.question_collection_id=data.question_collection_id
+						this.relation.question_suggest_id=data.question_suggest_id
+						var suggest_rule=[]
+						data.suggest_rule.forEach(item=>{
+							suggest_rule[item.question_id]=item
+						})
+						this.relation.suggest_rule=suggest_rule
+						console.log(this.relation.suggest_rule)
+					})
+				}
+				
 			})
 		}
 	}
@@ -92,7 +120,7 @@
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.edit-matching-container{
 		min-width: 700px;
 	}
