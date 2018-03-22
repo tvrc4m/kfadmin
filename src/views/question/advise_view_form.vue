@@ -34,12 +34,12 @@
 <script>
     import pagination from "@/components/Pagination/index"
     import {getAdviseList,delAdvise} from '@/api/question'
+    import mixin from '@/mixin/question'
 	export default {
         components:{pagination},
+        mixins:[mixin],
         props:{
             is_add:Boolean,
-            type:Number,
-            type_name:String,
         },
 		data(){
 			return {
@@ -84,6 +84,7 @@
 	    	}
 	    },
 	    created(){
+            console.log('route',this.$route)
 	    	this.question_collection_id=this.$route.params.question_collection_id;
             console.log('type_name',this.type_name,this.type)
 	    },

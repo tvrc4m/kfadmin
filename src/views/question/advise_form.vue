@@ -25,12 +25,12 @@
 
 <script>
     import {getAdvise,addAdvise,editAdvise} from '@/api/question'
+    import mixin from '@/mixin/question'
 	export default{
 		props:{
             is_add:Boolean,
-            type:Number,
-            type_name:String
         },
+        mixins:[mixin],
 	    data() {
 			return {
 				add:true,

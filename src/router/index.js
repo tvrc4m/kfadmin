@@ -119,6 +119,7 @@ export const asyncRouterMap = [
             },
             name:"questionCollectionAdd",
             meta:{title:"questionCollectionAdd"},
+            props:(route)=>({type_name:route.params.type})
           }
         ]
 
@@ -205,6 +206,7 @@ export const asyncRouterMap = [
             components:{question:_import("question/question_form")},
             name:"questionCollectionEditQuestion",
             meta:{title:"questionCollectionEditQuestion"},
+            props:(route)=>({type_name:route.params.type})
           }
         ]
 
@@ -249,6 +251,7 @@ export const asyncRouterMap = [
             },
             name:"questionCollectionAddAdvise",
             meta:{title:"questionCollectionAddAdvise"},
+            props:(route)=>({type_name:route.params.type})
           }
         ]
 
@@ -289,6 +292,8 @@ export const asyncRouterMap = [
             components:{advise:_import("question/advise_view_form")},
             name:"questionCollectionViewAdvise",
             meta:{title:"questionCollectionViewAdvise"},
+            // props:(route)=>({type_name:route.params.type})
+            props:{type_name:"emotion"}
           }
         ]
       }

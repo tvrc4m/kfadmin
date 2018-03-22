@@ -12,7 +12,7 @@
             <el-button type="warning" size="small" plain @click="addOption">添加新选项</el-button>
         </el-row>
 		<el-form-item class="block" label="背景图">
-        	<el-upload class="upload" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview" :on-remove="handleRemove" :on-success="handleSuccess" :file-list="fileList" list-type="picture">
+        	<el-upload class="upload" action="http://fdev.vrcdkj.cn/api/admin/upload" :on-preview="handlePreview" :on-remove="handleRemove" :on-success="handleSuccess" :file-list="fileList" :auto-upload="false" list-type="picture">
   				<el-button size="small" type="primary">点击上传</el-button>
   				<span slot="tip" class="el-upload__tip">尺寸要求：</span>
 			</el-upload>
@@ -36,13 +36,13 @@
 </template>
 <script>
     import questionOption from "@/components/Question/option"
+    import mixin from '@/mixin/question'
     import {getQuestion,addQuestion,editQuestion,} from '@/api/question'
 	export default{
         components:{questionOption},
+        mixins:[mixin],
 		data(){
 			return {
-                type:1,
-                type_name:'',
 				keywords:[],
 				add:true,
                 tab_selected:"question",

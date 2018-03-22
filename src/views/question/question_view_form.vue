@@ -34,12 +34,10 @@
 <script>
     import pagination from "@/components/Pagination/index"
     import {getQuestionList,delQuestion} from '@/api/question'
+    import mixin from '@/mixin/question'
 	export default{
         components:{pagination},
-        props:{
-            type:Number,
-            type_name:String
-        },
+        mixins:[mixin],
 		data(){
 			return {
 				question_collection_id:"",

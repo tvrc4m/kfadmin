@@ -147,3 +147,12 @@ export function addQuestionSuggestRelation(data){
 		data
 	})
 }
+
+// 查看情感建议匹配关系列表
+export function getQuestionSuggestRelations(params){
+	return request({
+		url:"/admin/question/suggest/rule",
+		method:"GET",
+		params
+	})
+}

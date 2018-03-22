@@ -37,13 +37,14 @@
 </template>
 <script>
     import pagination from "@/components/Pagination/index"
+    import mixin from '@/mixin/question'
     import {getQuestionCollectionList,delQuestionCollection} from '@/api/question'
     export default{
+        name:"question-collection",
         components:{pagination},
+        mixins:[mixin],
         data(){
             return {
-                type:1,
-                type_name:'',
                 questions:[],
                 pageIndex:1,
                 page_size:0,
@@ -98,14 +99,10 @@
             }
         },
         created(){
-             this.type_name=this.$route.name
-            // 获取问题集类型，emotion指情感 law指法律
-            switch(this.type_name){
-                case 'law':this.type=1;break;
-                case 'emotion':this.type=2;break;
-            }
+             
         },
         mounted(){
+            console.log('type',this.type)
             getQuestionCollectionList(this.type,this.pageIndex).then(data=>{
                 console.log(11,data);
                 this.questions=data.data

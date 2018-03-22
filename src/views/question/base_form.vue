@@ -18,7 +18,7 @@
             <el-input type="text" v-model="collection.overdue"></el-input>
         </el-form-item>
         <el-form-item class="block" label="背景图">
-            <el-upload class="upload" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview" :on-remove="handleRemove" :on-success="handleSuccess" :file-list="fileList" list-type="picture">
+            <el-upload class="upload" action="http://fdev.vrcdkj.cn/api/admin/upload" :on-preview="handlePreview" :on-remove="handleRemove" :on-success="handleSuccess" :file-list="fileList" list-type="picture">
                 <el-button size="small" type="primary">点击上传</el-button>
                 <span slot="tip" class="el-upload__tip">尺寸要求：</span>
             </el-upload>
@@ -38,13 +38,12 @@
 </template>
 
 <script>
-    import request from '@/utils/request'
+    import mixin from '@/mixin/question'
     import {getQuestionCollection,addQuestionCollection,editQuestionCollection,getAllQuestion,getCollectionQuestionsAndOptions} from '@/api/question'
     export default{
+        mixins:[mixin],
         props:{
             is_add:Boolean,
-            type:Number,
-            type_name:String
         },
         data(){
             return {
@@ -100,7 +99,7 @@
                         })
                         console.log("result",result)
                         this.related_questions.map(item=>{
-                            item.questions=result[item.value]
+                            item.questions=result[item.value]?result[item.value]:[]
                         })
                         console.log('relation',this.related_questions)
                     })

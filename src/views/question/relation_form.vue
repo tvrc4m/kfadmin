@@ -22,25 +22,22 @@
 		    	</el-col>
 		    	<!-- <el-cascader :options="question" @active-item-change="handleItemChange" :props="props"></el-cascader> -->
 		  	</el-form-item>
-	  		
 		  	<el-form-item class="complete-btn">
 		    	<el-button  type="primary" @click="submitForm">完成</el-button>
 		  	</el-form-item>
 
 		</el-form>
-
-		
 	</div>
 	<!-- 编辑匹配关系结束 -->
 </template>
 <script>
     import {getAdviseRule,addQuestionSuggestRelation} from '@/api/question'
+    import mixin from '@/mixin/question'
 	export default {
+		mixins:[mixin],
 	    data() {
 	    	return {
 	    		add:true,
-	    		type:1,
-	    		type_name:'',
 	    		value:'',
 	    		data_form:{},
 	    		relation:{
@@ -54,7 +51,16 @@
 		    submitForm(){
 		    	console.log(77777,this.relation);
 		    	addQuestionSuggestRelation(this.relation).then(data=>{
-		    		console.log(data)
+		    		this.$message({
+		    			message:"关联成功",
+		    			type:"success"
+		    		})
+		    		this.$router.push({
+		    			name:"questionCollectionViewRelation",
+		    			params:{
+		    				question_collection_id:this.$route.params.question_collection_id
+		    			}
+		    		})
 		    	})
 		    },
 		    changeItem(question_id,index,option_id){

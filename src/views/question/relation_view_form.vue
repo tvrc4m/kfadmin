@@ -4,89 +4,79 @@
 			<!-- 添加建议按钮 -->
 			<el-button v-on:click="addClick" class="add-btn" type="primary" plain icon="el-icon-plus">添加匹配关系</el-button>
 			<!-- 问题列表 -->
-			<el-table
-				max-height="600"
-			    :data="tableData5">
-			    <el-table-column type="expand">
-			      <template slot-scope="props">
-			        <el-form label-position="left" inline class="demo-table-expand">
-			          <el-form-item label="问题一">
-			            <span>C:{{ props.row.content }}</span>
-			          </el-form-item>
-			          <el-form-item label="问题二">
-			            <span>A:{{ props.row.content }}</span>
-			          </el-form-item>
-			          <el-form-item label="问题三">
-			            <span>A:{{ props.row.content }}</span>
-			          </el-form-item>
-			          <el-form-item label="问题四">
-			            <span>B:{{ props.row.content }}</span>
-			          </el-form-item>
-			        </el-form>
-			      </template>
-			    </el-table-column>
-			    <el-table-column
-			      label="序列"
-			      prop="id">
-			    </el-table-column>
-			    <el-table-column
-			      label="内容"
-			      prop="title">
-			    </el-table-column>
-			    <el-table-column label="操作" align="right" min-width="190">
-		            <template slot-scope="scope">
-		            <el-button
-		              size="mini"
-		              type="primary"
-		              plain
-		              @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-		            <el-button
-		              size="mini"
-		              type="danger"
-		              @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-		          </template>
-		        </el-table-column>
+			<el-table :data="relations">
+				<el-table-column prop="id" label="建议id"></el-table-column>
+				<!-- <el-table-column prop="title" label="标题"></el-table-column> -->
+				<el-table-column label="关联选项">
+					<template slot-scope="scope">
+						<div v-for="relation in scope.row.suggest_rule">
+							{{relation.question_id}} - {{relation.option_id}}
+						</div>
+					</template>
+				</el-table-column>
+				<el-table-column label="操作" width="100" header-align="center">
+					<template slot-scope="scope">
+						<el-button type="text" @click="editRelation(scope.row.id,scope.$index)">编辑</el-button>
+						<el-button type="text" @click="removeRelation(scope.row.id,scope.$index)">删除</el-button>
+					</template>
+				</el-table-column>
 			</el-table>
-
 			<!-- 分页 -->
-			<!-- <pagination :total="total" :page_size="page_size" @change="changePage"></pagination> -->
-			<el-pagination
-			class="page-style"
-			background
-			layout="prev,pager,next"
-			:total="100">
-				
-			</el-pagination>
+			<pagination :total="total" :page_size="page_size" @change="changePage"></pagination>
 		<!-- 匹配关系结束 -->
 	</div>
 </template>
 <script>
+	import question_mixin from '@/mixin/question'
+	import page_mixin from '@/mixin/page'
+	import {getQuestionSuggestRelations} from '@/api/question'
+	import pagination from "@/components/Pagination/index"
 	export default {
+		components:{pagination},
+		mixins:[question_mixin,page_mixin],
 	    data() {
-	      return {
-	        tableData5: [{
-	          id: '1',
-	          title: '建议1 =',
-	          content: '你无法忍受一个小心眼的人陪伴在自己左右，人一生总是要犯错的，如果犯了错得不到原谅，不仅自己很痛苦，对方也会无法释怀。所以，你很看重另一半的包容心。你应该会选择一个大度、大气的人陪伴你到老。'
-	        }, {
-	          id: '2',
-	          title: '建议2 =',
-	          content: '你无法忍受一个小心眼的人陪伴在自己左右，人一生总是要犯错的，如果犯了错得不到原谅，不仅自己很痛苦，对方也会无法释怀。所以，你很看重另一半的包容心。你应该会选择一个大度、大气的人陪伴你到老。'
-	        }, {
-	          id: '3',
-	          title: '建议3 =',
-	          content: '你无法忍受一个小心眼的人陪伴在自己左右，人一生总是要犯错的，如果犯了错得不到原谅，不仅自己很痛苦，对方也会无法释怀。所以，你很看重另一半的包容心。你应该会选择一个大度、大气的人陪伴你到老。'
-	        }]
-	      }
+	      	return {
+	      		question_collection_id:null,
+	        	relations: []
+	      	}
 	    },
 	    methods:{
     		addClick(){
-    			this.$router.push({name:"questionCollectionAddRelation",params:{question_collection_id:34}})
+    			this.$router.push({
+    				name:"questionCollectionAddRelation",
+    				params:{
+    					type:this.type_name,
+    					question_collection_id:34
+    				}
+    			})
     		},
-    		handleEdit(index,row){
-    			this.$router.push({name:"questionCollectionEditRelation",params:{question_collection_id:34,relation_id:row.id}})
+    		editRelation(suggest_id,index){
+    			this.$router.push({
+    				name:"questionCollectionEditRelation",
+    				params:{
+    					type:this.type_name,
+    					question_collection_id:34,
+    					relation_id:suggest_id
+    				}
+    			})
+    		},
+    		removeRelation(suggest_id,index){
+
+    		},
+    		changePage(page){
+    			getQuestionSuggestRelations({question_collection_id:this.question_collection_id,page:page}).then(data=>{
+	    			this.relations=data.data
+	    			this.refresh(data)
+	    		})
     		}
     	},
+    	created(){
+
+    	},
+    	mounted(){
+    		this.question_collection_id=this.$route.params.question_collection_id
+    		this.changePage(1)
+    	}
 	  }
 
 	</script>

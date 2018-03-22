@@ -20,13 +20,14 @@
     </div>
 </template>
 <script>
+    import mixin from '@/mixin/question'
     export default{
+        name:"question-collection-form",
+        mixins:[mixin],
         data(){
             return {
                 tab_selected:"base",
                 add:true,
-                type_name:'',
-                type:0
             }
         },
         methods:{
@@ -47,21 +48,6 @@
             if(!this.$route.params.question_collection_id){
                 this.add=false;
             }
-            console.log(this.$route.params)
-            if(!this.$route.params.type){
-                this.$message({
-                    message:"未指定问题类型",
-                    type:"error"
-                })
-                this.$router.push("/")
-            }
-            var [_,type,_]=this.$route.fullPath.split("/")
-            // 获取问题集类型，emotion指情感 law指法律
-            switch(type){
-                case 'law':this.type=1;break;
-                case 'emotion':this.type=2;break;
-            }
-            this.type_name=type
 
             switch(this.$route.name){
                 case 'questionCollectionView':this.tab_selected='base';break;
