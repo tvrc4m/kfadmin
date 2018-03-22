@@ -95,13 +95,19 @@ export const asyncRouterMap = [
     path:"/emotion/question/collection",
     component:Layout,
     alwaysShow: false,
-    children:[{path:"",component:_import("question/index"),name:"emotion",meta:{title:"emotion",icon:"404"}}]
+    children:[{path:"",component:_import("question/index"),name:"emotion",meta:{title:"emotion",icon:"404",noCache:true}}],
+    meta:{
+      noCache:true
+    }
   },
   {//法律问题库
     path:"/law/question/collection",
     component:Layout,
     alwaysShow: false,
-    children:[{path:"",component:_import("question/index"),name:"law",meta:{title:"lawQuestion",icon:"404"}}]
+    children:[{path:"",component:_import("question/index"),name:"law",meta:{title:"lawQuestion",icon:"404",noCache:true}}],
+    meta:{
+      noCache:true
+    }
   },
   {//添加情感问题集
     path:"/:type(emotion|law)/question/collection/add",

@@ -171,3 +171,11 @@ export function editQuestionSuggestRelation(devise_relation_id,data){
 		data
 	})
 }
+
+// 删除情感建议匹配关系
+export function delQuestionSuggestRelation(devise_relation_id){
+	return request({
+		url:"/admin/question/suggest/rule/"+devise_relation_id,
+		method:"DELETE",
+	})
+}

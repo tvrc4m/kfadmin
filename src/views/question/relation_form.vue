@@ -22,10 +22,7 @@
 	  			</el-table-column>
 	  		</el-table>
 		    	<!-- <el-cascader :options="question" @active-item-change="handleItemChange" :props="props"></el-cascader> -->
-		  	<el-form-item class="complete-btn">
-		    	<el-button  type="primary" @click="submitForm">完成</el-button>
-		  	</el-form-item>
-
+	    	<el-button style="margin-top: 10px;" type="primary" @click="submitForm">完成</el-button>
 		</el-form>
 	</div>
 	<!-- 编辑匹配关系结束 -->

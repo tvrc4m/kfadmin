@@ -3,7 +3,8 @@
         <el-row style="margin-bottom: 10px;">
             <el-button type="primary" size="small" @click="addQuestionCollection">录入新问题集</el-button>
         </el-row>
-        <el-row v-for="q in questions" :key="q.id" style="margin-bottom: 5px;">
+        <confirm ref="confirm" :confirmSuccess="delCollection"></confirm>
+        <el-row v-for="(q,index) in questions" :key="q.id" style="margin-bottom: 5px;">
             <el-card :body-style="{padding:'10px'}">
                 <div class="header">
                     <span class="title">{{q.title}}</span>
@@ -22,7 +23,7 @@
                 <div class="footer">
                     ID:{{q.id}}&nbsp;&nbsp;添加时间:{{q.created_at}}&nbsp;&nbsp;添加人:{{q.username}}
                     <div class="action right">
-                        <el-button type="text" @click="deleteClick(q.id)">删除</el-button>
+                        <el-button type="text" @click="delConfirm(q.id,index)">删除</el-button>
                         <el-button type="text" @click="toEdit(q.id)">编辑</el-button>
                         <el-button type="text" @click="toView(q.id)">查看</el-button>
                     </div>
@@ -37,12 +38,13 @@
 </template>
 <script>
     import pagination from "@/components/Pagination/index"
-    import mixin from '@/mixin/question'
+    import question_mixin from '@/mixin/question'
+    import confirm_mixin from '@/mixin/confirm'
     import {getQuestionCollectionList,delQuestionCollection} from '@/api/question'
     export default{
         name:"question-collection",
         components:{pagination},
-        mixins:[mixin],
+        mixins:[question_mixin,confirm_mixin],
         data(){
             return {
                 questions:[],
@@ -89,9 +91,10 @@
             toView(question_collection_id){
                 this.$router.push({name:"questionCollectionView",params:{type:this.type_name,question_collection_id:question_collection_id}})
             },
-            deleteClick(question_collection_id){
-                delQuestionCollection(question_collection_id).then(data=>{
-                    this.$message({message:"删除成功",type:"success"})
+            delCollection(){
+                delQuestionCollection(this.confirm_id,this.confirm_index).then(data=>{
+                    this.delSuccess()
+                    this.questions.splice(this.confirm_index,1)
                 })
             },
             showAll(){
