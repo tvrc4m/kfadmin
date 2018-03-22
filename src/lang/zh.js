@@ -87,6 +87,7 @@ export default {
     collection:'问题集',
     lawQuestion:'法律问题',
     questionCollectionAdd:'添加问题集',
+    reportTemplate:'报告书模版',
   },
   navbar: {
     logOut: '退出登录',

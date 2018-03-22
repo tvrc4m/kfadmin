@@ -156,3 +156,21 @@ export function getQuestionSuggestRelations(params){
 		params
 	})
 }
+
+//查看报告书模版
+export function getReportTemplate(){
+	return request({
+		url:"/admin/template",
+		method:"GET"
+	})
+}
+
+// 更新报告书模版
+export function editReportTemplate(data){
+	return request({
+		url:"/admin/template",
+		method:"PUT",
+		data
+	})
+
+}

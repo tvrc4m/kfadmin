@@ -2,6 +2,7 @@
     <div class="emotion-container">
         <el-row style="margin-bottom: 10px;">
             <el-button type="primary" size="small" @click="addQuestionCollection">录入新问题集</el-button>
+            <el-button type="primary" size="small" v-show="reportTemplate" @click="toTemplate">查看报告书模版</el-button>
         </el-row>
         <el-row v-for="q in questions" :key="q.id" style="margin-bottom: 5px;">
             <el-card :body-style="{padding:'10px'}">
@@ -49,7 +50,8 @@
                 pageIndex:1,
                 page_size:0,
                 total:0,
-                show:true   
+                show:true,
+                reportTemplate:false,
             }
         },
         methods:{
@@ -96,13 +98,22 @@
             },
             showAll(){
                 this.show=false;
+            },
+            toTemplate(){
+                this.$router.push({
+                    name:"reportTemplate",
+                })
+
             }
         },
         created(){
-             
+
         },
         mounted(){
-            console.log('type',this.type)
+             if(this.type==1){
+                console.log(22347)
+                this.reportTemplate=true
+             }
             getQuestionCollectionList(this.type,this.pageIndex).then(data=>{
                 console.log(11,data);
                 this.questions=data.data
