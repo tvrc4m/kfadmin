@@ -139,10 +139,12 @@
                 if(route.name=="law"){
                     this.type=1
                     this.pageIndex=1
+                    this.reportTemplate=true
                     this.getCollectionList()
                 }else if(route.name=='emotion'){
                     this.type=2
                     this.pageIndex=1
+                    this.reportTemplate=false
                     this.getCollectionList()
                 }
             }
