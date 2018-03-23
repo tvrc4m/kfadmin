@@ -13,7 +13,7 @@
         </el-row>
 		<el-form-item class="block" label="背景图">
             <el-input type="hidden" v-model="question.bgimage"></el-input>
-            <el-upload class="avatar-uploader" :action="upload_url" :show-file-list="false" :drag="true" :before-upload="beforeUpload" :on-success="uploadSuccess">
+            <el-upload class="avatar-uploader" :action="upload_url" :show-file-list="false" :drag="true" :on-success="uploadSuccess">
                 <img v-if="question.bgimage" :src="question.bgimage" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
@@ -56,7 +56,7 @@
 					question_collection_id:null,
 					title:"",
 					bgimage:"",
-					type:4,//1 单选２多选３下拉列表
+					type:3,//1 单选２多选３下拉列表
 					sort:0,
 					options:[],
 					show_report:0,//0报告书中不出现  1 出现
@@ -76,7 +76,11 @@
                     },
                     {
                         id:4,
-                        name:'日期'
+                        name:'地理位置选择'
+                    },
+                    {
+                        id:5,
+                        name:'时间选择'
                     }
                 ]
 			}
@@ -118,10 +122,6 @@
                 if(response.error_no==0 && response.data.image_url){
                     this.question.bgimage=process.env.IMG_URL+response.data.image_url
                 }
-            },
-            beforeUpload(file){
-                console.log(file)
-                return false
             }
 		},
         created(){
@@ -145,6 +145,12 @@
 		}
 	}
 </script>
+<style lang="css">
+     .el-upload-dragger{
+        width: 178px;
+        height: 178px;
+      }
+</style>
 <style lang="css" scoped>
 	.el-upload__tip{
 		margin-left: 10px;
