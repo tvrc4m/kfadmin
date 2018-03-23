@@ -369,6 +369,12 @@ export const asyncRouterMap = [
     ]
   },
 
+  {//报告书模版
+    path:"/law/question/template",
+    component:Layout,
+    hidden: true,
+    children:[{path:"",component:_import("question/template"),name:"reportTemplate",meta:{title:"reportTemplate",icon:"404"}}]
+  },
   {//专家库
     path:"/expert",
     component:Layout,

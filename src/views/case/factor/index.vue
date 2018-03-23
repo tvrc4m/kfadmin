@@ -60,6 +60,26 @@
                         })
                         return false
                     }
+                    if(factor[0].weight.toString().indexOf('.')!=-1){
+                        this.$message({
+                            message:"类型权重不能为小数",
+                            type:"warning"
+                        })
+                        return false
+                    }
+                    if(factor[0].count<0){
+                        this.$message({
+                            message:"要素个数不能小于0",
+                            type:"warning"
+                        })
+                        return false
+                    }else if(factor[0].count.toString().indexOf('.')!=-1){
+                        this.$message({
+                            message:"要素个数不能为小数",
+                            type:"warning"
+                        })
+                        return false
+                    }
                     editCaseFactor(factor_id,factor[0]).then(data=>{
                         this.$message({
                             message:"保存成功",

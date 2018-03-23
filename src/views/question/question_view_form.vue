@@ -75,7 +75,10 @@
 					this.question.data.splice(index, 1);
 					this.question.data.splice(index-1,0,row);
 				}else{
-					alert('您已经在最顶部了')
+                    this.$message({
+                        message:"您已经在最顶部了",
+                        type:"warning"
+                    })
 				}
 			},
 			downClick(index){
@@ -84,7 +87,10 @@
 					this.question.data.splice(index, 1);
 					this.question.data.splice(index+1,0,row);
 				}else{
-					alert('您已经在最底部了')
+                    this.$message({
+                        message:"您已经在最底部了",
+                        type:"warning"
+                    })
 				}
 			},
 		},

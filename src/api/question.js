@@ -156,6 +156,7 @@ export function getQuestionSuggestRelations(params){
 		params
 	})
 }
+
 // 查看情感建议匹配关系详情
 export function getQuestionSuggestRelation(devise_relation_id){
 	return request({
@@ -178,4 +179,22 @@ export function delQuestionSuggestRelation(devise_relation_id){
 		url:"/admin/question/suggest/rule/"+devise_relation_id,
 		method:"DELETE",
 	})
+}
+
+//查看报告书模版
+export function getReportTemplate(){
+	return request({
+		url:"/admin/template",
+		method:"GET"
+	})
+}
+
+// 更新报告书模版
+export function editReportTemplate(data){
+	return request({
+		url:"/admin/template",
+		method:"PUT",
+		data
+	})
+
 }
