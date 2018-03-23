@@ -6,7 +6,7 @@
 			<!-- 问题列表 -->
 			<confirm ref="confirm" :confirmSuccess="delRelation"></confirm>
 			<el-table :data="relations">
-				<el-table-column prop="id" label="建议id"></el-table-column>
+				<el-table-column prop="question_suggest_id" label="建议id"></el-table-column>
 				<!-- <el-table-column prop="title" label="标题"></el-table-column> -->
 				<el-table-column label="关联选项">
 					<template slot-scope="scope">

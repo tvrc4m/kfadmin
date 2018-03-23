@@ -62,20 +62,32 @@
 			    		})
 			    	})
 		    	}else{
-		    		console.log(this.relation)
-		    		// addQuestionSuggestRelation(this.relation).then(data=>{
-		    		// 	this.$message({
-			    	// 		message:"关联成功",
-			    	// 		type:"success"
-			    	// 	})
-			    	// 	this.$router.push({
-			    	// 		name:"questionCollectionViewRelation",
-			    	// 		params:{
-			    	// 			type:this.type_name,
-			    	// 			question_collection_id:this.$route.params.question_collection_id
-			    	// 		}
-			    	// 	})
-		    		// })
+		    		// 重新封装结构
+		    		var relation=[]
+		    		for(var index in this.relation.suggest_rule){
+		    			relation.push({
+		    				question_id:this.relation.suggest_rule[index].question_id,
+		    				option_id:this.relation.suggest_rule[index].option_id
+		    			})
+		    		}
+		    		var result={
+		    			id:this.relation.id,question_collection_id:this.relation.question_collection_id,
+		    			question_suggest_id:this.relation.question_suggest_id,
+		    			suggest_rule:relation
+		    		}
+		    		addQuestionSuggestRelation(result).then(data=>{
+		    			this.$message({
+			    			message:"关联成功",
+			    			type:"success"
+			    		})
+			    		this.$router.push({
+			    			name:"questionCollectionViewRelation",
+			    			params:{
+			    				type:this.type_name,
+			    				question_collection_id:this.$route.params.question_collection_id
+			    			}
+			    		})
+		    		})
 		    	}
 		    },
 		    changeItem(question_id,index,option_id){

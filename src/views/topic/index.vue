@@ -92,7 +92,7 @@
 				this.page_size=data.per_page
 			},
 			getTopic(page=1){
-				getTopicList({page:page}).then(data=>{
+				getTopicList({page:page,cate:this.cate}).then(data=>{
 					this.mapData(data)
 				})
 			},

@@ -11,16 +11,21 @@
                 {{related.text}}
                 <el-button type="text" @click="removeRelated(related.option_id,index)">删除</el-button>
             </div>
-            <el-cascader v-model="related_question" style="width: 500px" :options="related_questions" :show-all-levels="true" @active-item-change="getQuestionChildren" :change-on-select="false" :props="question_props"></el-cascader>
+            <el-cascader v-model="related_question" style="width: 500px" :options="related_questions" :show-all-levels="true" @active-item-change="getQuestionChildren" :change-on-select="false" :props="question_props" :file-list="[{name:'背景图片',url:this.collection.bgimage}]"></el-cascader>
             <el-button type="text" @click="addRelateQuestion">添加</el-button>
         </el-form-item>
         <el-form-item label="过度页" class="block">
             <el-input type="text" v-model="collection.overdue"></el-input>
         </el-form-item>
         <el-form-item class="block" label="背景图">
-            <el-upload class="upload" action="http://fdev.vrcdkj.cn/api/admin/upload" :on-preview="handlePreview" :on-remove="handleRemove" :on-success="handleSuccess" :file-list="fileList" list-type="picture">
-                <el-button size="small" type="primary">点击上传</el-button>
-                <span slot="tip" class="el-upload__tip">尺寸要求：</span>
+            <el-input type="hidden" ref="bgimage" v-model="collection.bgimage"></el-input>
+            <el-upload
+                  class="avatar-uploader"
+                  action="http://fdev.vrcdkj.cn/api/admin/upload"
+                  :show-file-list="false"
+                  :on-success="uploadSuccess">
+                    <img v-if="collection.bgimage" :src="collection.bgimage" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
         </el-form-item>
         <el-form-item label="显示方式" class="block">
@@ -61,7 +66,7 @@
                     title:'',
                     content:'',
                     overdue:'',
-                    bgimage:"https://kanfaimage.oss-cn-beijing.aliyuncs.com/20180104/video_151504732376282.jpg?x-oss-process=image/resize,m_fill,w_750,h_422",
+                    bgimage:"",
                     question_option_id:[],
                     is_single_page:1,
                     is_trunk:0
@@ -113,7 +118,6 @@
                         // this.$router.push({name:"questionCollectionEdit",params:{question_collection_id:data.id}})
                     })
                 }else{
-                    this.collection.bgimage='https://kanfaimage.oss-cn-beijing.aliyuncs.com/20180104/video_151504732376282.jpg?x-oss-process=image/resize,m_fill,w_750,h_422';
                     editQuestionCollection(this.collection.id,this.collection).then(data=>{
                         this.$router.back(-1);
                     })
@@ -158,8 +162,11 @@
             handlePreview(file){
                 console.log(2,file);
             },
-            handleSuccess(file){
-                console.log(3,file);
+            uploadSuccess(response){
+                if(response.error_no==0 && response.data.image_url){
+                    this.collection.bgimage=response.data.image_url
+                }
+                console.log(3,this.collection.bgimage);
                 // this.question.bgimage=this.fileList[0];
             }
         },
@@ -189,3 +196,28 @@
         }
     }
 </script>
+<style lang="css" scoped="">
+    .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+      .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+      }
+      .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 178px;
+        height: 178px;
+        line-height: 178px;
+        text-align: center;
+      }
+      .avatar {
+        width: 178px;
+        height: 178px;
+        display: block;
+      }
+</style>

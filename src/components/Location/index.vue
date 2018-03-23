@@ -39,6 +39,7 @@
                     })
                     this.provinces.push(province)
                 })
+                this.$forceUpdate()
                 if(this.province_id && this.city_id)
                     this.selected.push(this.province_id,this.city_id)
                 console.log(this.provinces)

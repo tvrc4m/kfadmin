@@ -9,8 +9,12 @@
                 <el-input v-model="expert.name"></el-input>
             </el-form-item>
         </el-row>
-        <el-form-item class="block" label="头像" v-show="false">
-            <el-input type="text" v-model="expert.icon"></el-input>
+        <el-form-item class="block" label="头像">
+            <el-input type="hidden" v-model="expert.icon"></el-input>
+            <el-upload class="avatar-uploader" action="http://fdev.vrcdkj.cn/api/admin/upload" :show-file-list="false" :on-success="uploadSuccess">
+                    <img v-if="expert.icon" :src="expert.icon" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
         </el-form-item>
         <el-form-item label="职业" class="block">
             <el-select v-model="expert.job_id" placeholder="选择职业" filterable>
@@ -76,6 +80,7 @@
                 expert:{
                     id:null,
                     nickname:"",
+                    icon:'',
                     name:"",
                     job_id:null,
                     intro:"",
@@ -139,7 +144,6 @@
         methods:{
             confirm:function(){
                 if(this.add){
-                    this.expert.icon="none"
                     addExpert(this.expert).then(data=>{
                         this.$message({
                           message: "新增成功",
@@ -191,6 +195,13 @@
             },
             removeService(index){
                 this.expert.service.splice(index,1)
+            },
+            uploadSuccess(response){
+                if(response.error_no==0 && response.data.image_url){
+                    this.expert.icon=response.data.image_url
+                }
+                console.log(3,this.expert.icon);
+                // this.question.bgimage=this.fileList[0];
             }
         },
         mounted(){

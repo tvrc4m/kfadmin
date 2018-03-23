@@ -95,7 +95,7 @@ export const asyncRouterMap = [
     path:"/emotion/question/collection",
     component:Layout,
     alwaysShow: false,
-    children:[{path:"",component:_import("question/index"),name:"emotion",meta:{title:"emotion",icon:"404",noCache:true}}],
+    children:[{path:"",component:_import("question/emotion"),name:"emotion",meta:{title:"emotion",icon:"404",noCache:true}}],
     meta:{
       noCache:true
     }
