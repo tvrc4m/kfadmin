@@ -17,9 +17,11 @@
                 <div class="expand">
                     <el-button type="text" @click="showAll(q,index)" v-show="q.show">展开更多</el-button>
                 </div>
-                <div class="questions" v-show="!q.show">
-                    <span>前置问题：</span>
-                    <span v-for="item in questions.question_option">{{item.title}}</span>   
+                <div class="questions clearfix" v-show="!q.show">
+                    <span style="float:left">前置问题：</span>
+                    <div style="float:left">
+                        <div v-for="i in q.question_name" style="margin-bottom:5px;color: #409EFF">{{i}}</div> 
+                    </div> 
                 </div>
                 <div class="footer">
                     ID:{{q.id}}&nbsp;&nbsp;添加时间:{{q.created_at}}&nbsp;&nbsp;添加人:{{q.username}}
@@ -93,7 +95,6 @@
                 this.$router.push({name:"questionCollectionView",params:{type:this.type_name,question_collection_id:question_collection_id}})
             },
             delCollection(){
-                console.log(1111,this.confirm_id,this.confirm_index)
                 delQuestionCollection(this.confirm_id).then(data=>{
                     this.delSuccess()
                     this.questions.splice(this.confirm_index,1)
@@ -102,17 +103,15 @@
             showAll(q,index){
                 this.questions[index].show=false
                 this.$forceUpdate()
-                console.log(1122,q)
             },
             toTemplate(){
                 this.$router.push({
                     name:"reportTemplate",
                 })
 
-            }
+            },
         },
         created(){
-
         },
         mounted(){
              if(this.type==1){

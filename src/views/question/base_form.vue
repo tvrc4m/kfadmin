@@ -3,7 +3,7 @@
         <el-form-item label="标题" class="block">
         <el-input type="text" v-model="collection.title"></el-input>
         </el-form-item>
-        <el-form-item label="描述" class="block">
+        <el-form-item label="描述" class="block descripe">
             <el-input type="textarea" v-model="collection.content"></el-input>
         </el-form-item>
         <el-form-item class="block" label="关联问题">
@@ -105,11 +105,11 @@
                             }
                             result[item.question_collection_id].push({label:item.title,value:item.id,questions:options})
                         })
-                        console.log("result",result)
+                        // console.log("result",result)
                         this.related_questions.map(item=>{
                             item.questions=result[item.value]?result[item.value]:[]
                         })
-                        console.log('relation',this.related_questions)
+                        // console.log('relation',this.related_questions)
                     })
                 }
             },
@@ -121,6 +121,7 @@
                         // this.$router.push({name:"questionCollectionEdit",params:{question_collection_id:data.id}})
                     })
                 }else{
+                    delete this.collection['relate_question'];
                     editQuestionCollection(this.collection.id,this.collection).then(data=>{
                         this.$router.back(-1);
                     })
@@ -129,7 +130,7 @@
             addRelateQuestion(){
                 var [collection_id,question_id,option_id]=this.related_question
                 var exists=false;
-                this.collection.question_option_id=[]
+                // this.collection.question_option_id=[]
                 this.collection.question_option_id.forEach(item=>{
                     if(item==option_id){
                         exists=true
@@ -155,7 +156,6 @@
                 // this.related_question=null
             },
             removeRelated(option_id,index){
-                console.log(option_id,index)
                 this.related_question_arr.splice(index,1)
                 this.collection.question_option_id.splice(this.collection.question_option_id.indexOf(option_id),1)
             },
@@ -188,6 +188,9 @@
                     this.is_trunk=this.collection.is_trunk==1
                     this.collection.question_option_id=this.collection.relate_question.map(item=>{
                         return item.option_id
+                    })
+                    this.collection.relate_question.map(item=>{
+                        this.related_question_arr.push({option_id:item.option_id,text:item.question_collection_name+'-'+item.question_name+'-'+item.options})
                     })
                 })
             }
@@ -223,4 +226,7 @@
         height: 178px;
         display: block;
       }
+    .el-form-item--medium>.el-form-item__content{
+        width:100%;
+    }
 </style>
