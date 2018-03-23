@@ -245,6 +245,12 @@
         }
     }
 </script>
+<style lang="css">
+     .el-upload-dragger{
+        width: 178px;
+        height: 178px;
+      }
+</style>
 <style lang="scss" scoped>
     .emotion-form{
     }
