@@ -109,6 +109,21 @@
                     name:"reportTemplate",
                 })
 
+            },
+            getCollectionList(){
+                getQuestionCollectionList(this.type,this.pageIndex).then(data=>{
+                    console.log(11,data);
+                    this.questions=data.data
+                    this.pageIndex=data.current_page;
+                    this.page_size=data.per_page;
+                    this.total=data.total;
+                    this.questions.forEach(item=>{
+                        item.show=true
+                    })
+                }).catch(error=>{
+                        console.log(error)
+                    }
+                )
             }
         },
         created(){
@@ -118,19 +133,20 @@
              if(this.type==1){
                 this.reportTemplate=true
              }
-            getQuestionCollectionList(this.type,this.pageIndex).then(data=>{
-                console.log(11,data);
-                this.questions=data.data
-                this.pageIndex=data.current_page;
-                this.page_size=data.per_page;
-                this.total=data.total;
-                this.questions.forEach(item=>{
-                    item.show=true
-                })
-            }).catch(error=>{
-                    console.log(error)
+            this.getCollectionList()
+        },
+        watch:{
+            $route(route){
+                if(route.name=="law"){
+                    this.type=1
+                    this.pageIndex=1
+                    this.getCollectionList()
+                }else if(route.name=='emotion'){
+                    this.type=2
+                    this.pageIndex=1
+                    this.getCollectionList()
                 }
-            )
+            }
         }
     }
 </script>
