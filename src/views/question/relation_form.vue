@@ -107,7 +107,7 @@
 			
 			getAdviseRule(this.relation.question_collection_id).then(data=>{
 				data.question.forEach((item,index)=>{
-					this.relation.suggest_rule[item.id]={question_id:item.id,option_id:null}
+					this.$set(this.relation.suggest_rule,item.id,{question_id:item.id,option_id:null})
 				})
 				console.log("question",this.relation.suggest_rule)
 				this.data_form=data;
@@ -121,7 +121,7 @@
 							suggest_rule[item.question_id]=item
 						})
 						this.$set(this.relation,'suggest_rule',suggest_rule)
-						console.log(this.relation.suggest_rule)
+						console.log('relation',this.relation.suggest_rule)
 					})
 				}
 				

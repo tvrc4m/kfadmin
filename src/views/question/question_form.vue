@@ -13,7 +13,7 @@
         </el-row>
 		<el-form-item class="block" label="背景图">
             <el-input type="hidden" v-model="question.bgimage"></el-input>
-            <el-upload class="avatar-uploader" :action="upload_url" :show-file-list="false" :drag="true" :before-upload="beforeUpload" :on-success="uploadSuccess">
+            <el-upload class="avatar-uploader" :action="upload_url" :show-file-list="false" :drag="true" :on-success="uploadSuccess">
                 <img v-if="question.bgimage" :src="question.bgimage" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
@@ -118,10 +118,6 @@
                 if(response.error_no==0 && response.data.image_url){
                     this.question.bgimage=process.env.IMG_URL+response.data.image_url
                 }
-            },
-            beforeUpload(file){
-                console.log(file)
-                return false
             }
 		},
         created(){
