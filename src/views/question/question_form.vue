@@ -116,7 +116,7 @@
             },
             uploadSuccess(response){
                 if(response.error_no==0 && response.data.image_url){
-                    this.question.bgimage=response.data.image_url
+                    this.question.bgimage=process.env.IMG_URL+response.data.image_url
                 }
             },
             beforeUpload(file){

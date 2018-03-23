@@ -167,7 +167,7 @@
             },
             uploadSuccess(response){
                 if(response.error_no==0 && response.data.image_url){
-                    this.collection.bgimage=response.data.image_url
+                    this.collection.bgimage=process.env.IMG_URL+response.data.image_url
                 }
                 console.log(3,this.collection.bgimage);
                 // this.question.bgimage=this.fileList[0];

@@ -29,7 +29,7 @@
         <el-form-item label="位置" class="block">
             <location :province_id.sync="expert.province_id" :city_id.sync="expert.city_id"></location>
         </el-form-item>
-        <el-form-item label="职业" class="block">
+        <el-form-item label="擅长" class="block">
             <el-select v-model="expert.good_at" placeholder="擅长" filterable :multiple="true">
                 <el-option v-for="g in goodat" :key="g.id" :label="g.name" :value="g.id"></el-option>
             </el-select>
@@ -200,7 +200,7 @@
             },
             uploadSuccess(response){
                 if(response.error_no==0 && response.data.image_url){
-                    this.expert.icon=response.data.image_url
+                    this.expert.icon=process.env.IMG_URL+response.data.image_url
                 }
                 console.log(3,this.expert.icon);
                 // this.question.bgimage=this.fileList[0];
