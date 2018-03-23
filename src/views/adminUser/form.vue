@@ -1,6 +1,6 @@
 <template>
     <div class="user-add">
-        <el-form :inline="true" label-width="120" :show-message="true" :inline-message="false" size="medium" :model="user">
+        <el-form :inline="true" label-width="120" ref="user" :show-message="true" :inline-message="false" size="medium" :model="user">
             <el-form-item label="账户" :rules="validate.username" prop="username" class="block">
                 <el-input type="text" placeholder="请输入账户名" v-model="user.username" style="width: 500px"></el-input>
             </el-form-item>
@@ -11,7 +11,7 @@
                 <el-input type="email" placeholder="请输入邮箱" v-model="user.email" style="width: 500px"></el-input>
             </el-form-item>
             <el-form-item label="" class="block" style="width: 550px;text-align: center;">
-                <el-button type="primary" @click="confirm">添加</el-button>
+                <el-button type="primary" @click="confirm('user')">添加</el-button>
             </el-form-item>
         </el-form>
     </div>
@@ -79,18 +79,25 @@
             }
         },
         methods:{
-            confirm(){
-                if(this.add){
-                    addAdminUser(this.user).then(data=>{
-                        this.$message({message:"创建成功,即将跳转",type:"success"})
-                        this.$router.push({path:"/admin/user"})
-                    })
-                }else{
-                    editAdminUser(this.user.id,this.user).then(data=>{
-                        this.$message({message:"更改成功,即将跳转",type:"success"})
-                        this.$router.push({path:"/admin/user"})
-                    })
-                }
+            confirm(formName){
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        if(this.add){
+                            addAdminUser(this.user).then(data=>{
+                                this.$message({message:"创建成功,即将跳转",type:"success"})
+                                this.$router.push({path:"/admin/user"})
+                            })
+                        }else{
+                            editAdminUser(this.user.id,this.user).then(data=>{
+                                this.$message({message:"更改成功,即将跳转",type:"success"})
+                                this.$router.push({path:"/admin/user"})
+                            })
+                        }
+                    } else {
+                        this.$message({message:"提交失败",type:"error"})
+                        return false;
+                    }
+                });
             }
         }
     }

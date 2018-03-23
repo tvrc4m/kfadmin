@@ -89,8 +89,8 @@
             },
             formatGoodat(row,column,cellValue){
                 var str=""
-                cellValue.forEach(item=>str+=item.name)
-                return str
+                cellValue.forEach(item=>str+=item.name+'-')
+                return str.slice(0,str.length-1)
             }
         },
         mounted(){

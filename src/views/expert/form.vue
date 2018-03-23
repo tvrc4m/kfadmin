@@ -226,6 +226,14 @@
                     }
                     // this.service_count=this.expert.service.length
                     // this.expert.service=[]
+
+                    getExpertServices({cate:this.expert.type}).then(data=>{
+                        this.services=data
+                    })
+                })
+            }else{
+                getExpertServices({cate:this.expert.type}).then(data=>{
+                    this.services=data
                 })
             }
             getExpertJob().then(data=>{
@@ -237,10 +245,6 @@
             getExpertCertification().then(data=>{
                 this.verify=data
                 console.log(this.verify)
-            })
-            getExpertServices({cate:this.expert.type}).then(data=>{
-                this.services=data
-                console.log(data)
             })
         }
     }
