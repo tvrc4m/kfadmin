@@ -2,7 +2,19 @@
     <div class="base-container">
         <el-table :data="table" :show-header="false" :border="true" width="100%">
             <el-table-column prop="label" width="135" :render-header="renderHeader"></el-table-column>
-            <el-table-column prop="value"></el-table-column>
+            <el-table-column>
+                <template slot-scope="scope">
+                    <div v-if="scope.row.label=='背景图'">
+                        <img src="" alt="" :src="scope.row.value" width="200" height="auto">
+                    </div>
+                    <div v-else-if="scope.row.label=='前置问题'">
+                        <div v-for="item in scope.row.value">{{item.question_collection_name}}-{{item.question_name}}-{{item.options}}</div>
+                    </div>
+                    <div v-else>
+                        {{scope.row.value}}
+                    </div>
+                </template>
+            </el-table-column>
         </el-table>
         <el-row style="margin-top: 10px;">
             <el-button type="primary" @click="baseClick">{{confirm_text}}</el-button>
@@ -47,9 +59,9 @@
                 this.table.push(
                     {label:"标题",value:this.question.title},
                     {label:"描述",value:this.question.content},
-                    // {label:"前置问题",value:this.question.relate_question.split(',')},
+                    {label:"前置问题",value:this.question.relate_question},
                     {label:"过度页",value:this.question.overdue},
-                    {label:"背景图",value:this.question.title},
+                    {label:"背景图",value:this.question.bgimage},
                     {label:"显示方式",value:this.question.is_single_page==1?'单页':'多页'},
                     {label:"是否是主干问题",value:this.question.is_trunk?'是':'否'},
                 )

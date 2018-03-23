@@ -14,11 +14,13 @@
                     {{q.content}}
                 </div>
                 <div class="expand">
-                    <el-button type="text" @click="showAll" v-show="show">展开更多</el-button>
+                    <el-button type="text" @click="showAll(q,index)" v-show="q.show">展开更多</el-button>
                 </div>
-                <div class="questions" v-show="!show">
-                    <span>前置问题：</span>
-                    <span v-for="item in questions.question_option">{{item.title}}</span>   
+                <div class="questions clearfix" v-show="!q.show">
+                    <span style="float:left">前置问题：</span>
+                    <div style="float:left">
+                        <div v-for="i in q.question_name" style="margin-bottom:5px;color: #409EFF">{{i}}</div> 
+                    </div> 
                 </div>
                 <div class="footer">
                     ID:{{q.id}}&nbsp;&nbsp;添加时间:{{q.created_at}}&nbsp;&nbsp;添加人:{{q.username}}
@@ -50,8 +52,7 @@
                 questions:[],
                 pageIndex:1,
                 page_size:0,
-                total:0,
-                show:true   
+                total:0,   
             }
         },
         methods:{
@@ -97,9 +98,10 @@
                     this.questions.splice(this.confirm_index,1)
                 })
             },
-            showAll(){
-                this.show=false;
-            }
+            showAll(q,index){
+                this.questions[index].show=false
+                this.$forceUpdate()
+            },
         },
         created(){
              
@@ -112,6 +114,9 @@
                 this.pageIndex=data.current_page;
                 this.page_size=data.per_page;
                 this.total=data.total;
+                this.questions.forEach(item=>{
+                    item.show=true
+                })
             }).catch(error=>{
                     console.log(error)
                 }
