@@ -106,7 +106,6 @@
 		mounted(){
 			
 			getAdviseRule(this.relation.question_collection_id).then(data=>{
-				console.log(data)
 				data.question.forEach((item,index)=>{
 					this.relation.suggest_rule[item.id]={question_id:item.id,option_id:null}
 				})
@@ -114,13 +113,14 @@
 				this.data_form=data;
 				if(!this.add){
 					getQuestionSuggestRelation(this.relation.id).then(data=>{
+						console.log(data)
 						this.relation.question_collection_id=data.question_collection_id
 						this.relation.question_suggest_id=data.question_suggest_id
 						var suggest_rule=[]
 						data.suggest_rule.forEach(item=>{
 							suggest_rule[item.question_id]=item
 						})
-						this.relation.suggest_rule=suggest_rule
+						this.$set(this.relation,'suggest_rule',suggest_rule)
 						console.log(this.relation.suggest_rule)
 					})
 				}
