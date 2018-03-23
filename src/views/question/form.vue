@@ -63,7 +63,7 @@
                 case 'questionCollectionEditRelation':this.tab_selected='relation';break;
                 case 'questionCollectionAddRelation':this.tab_selected='relation';break;
             }
-        },
+        }
     }
 </script>
 <style lang="scss">

@@ -9,9 +9,9 @@
                 <el-input v-model="expert.name"></el-input>
             </el-form-item>
         </el-row>
-        <el-form-item class="block" label="头像">
+        <el-form-item class="block" label="头像(限制500*500)">
             <el-input type="hidden" v-model="expert.icon"></el-input>
-            <el-upload class="avatar-uploader" action="http://fdev.vrcdkj.cn/api/admin/upload" :show-file-list="false" :on-success="uploadSuccess">
+            <el-upload class="avatar-uploader" :action="upload_url" :show-file-list="false" :drag="true" :on-success="uploadSuccess">
                     <img v-if="expert.icon" :src="expert.icon" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
@@ -72,11 +72,13 @@
 </template>
 <script>
     import location from "@/components/Location/index"
+    import {upload_url} from '@/api/upload'
     import {getExpertInfo,addExpert,editExpert,getExpertJob,getExpertGoodAt,getExpertServices,getExpertCertification} from '@/api/expert'
     export default{
         components:{location},
         data(){
             return {
+                upload_url:upload_url,
                 expert:{
                     id:null,
                     nickname:"",
@@ -251,4 +253,27 @@
     }
     .content{
     }
+    .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+      .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+      }
+      .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 178px;
+        height: 178px;
+        line-height: 178px;
+        text-align: center;
+      }
+      .avatar {
+        width: 178px;
+        height: 178px;
+        display: block;
+      }
 </style>

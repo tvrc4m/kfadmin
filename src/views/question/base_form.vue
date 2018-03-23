@@ -11,7 +11,7 @@
                 {{related.text}}
                 <el-button type="text" @click="removeRelated(related.option_id,index)">删除</el-button>
             </div>
-            <el-cascader v-model="related_question" style="width: 500px" :options="related_questions" :show-all-levels="true" @active-item-change="getQuestionChildren" :change-on-select="false" :props="question_props" :file-list="[{name:'背景图片',url:this.collection.bgimage}]"></el-cascader>
+            <el-cascader v-model="related_question" style="width: 500px" :options="related_questions" :show-all-levels="true" @active-item-change="getQuestionChildren" :change-on-select="false" :props="question_props"></el-cascader>
             <el-button type="text" @click="addRelateQuestion">添加</el-button>
         </el-form-item>
         <el-form-item label="过度页" class="block">
@@ -21,8 +21,9 @@
             <el-input type="hidden" ref="bgimage" v-model="collection.bgimage"></el-input>
             <el-upload
                   class="avatar-uploader"
-                  action="http://fdev.vrcdkj.cn/api/admin/upload"
+                  :action="upload_url"
                   :show-file-list="false"
+                  :drag="true"
                   :on-success="uploadSuccess">
                     <img v-if="collection.bgimage" :src="collection.bgimage" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -43,16 +44,18 @@
 </template>
 
 <script>
-    import mixin from '@/mixin/question'
+    import question_mixin from '@/mixin/question'
     import {getQuestionCollection,addQuestionCollection,editQuestionCollection,getAllQuestion,getCollectionQuestionsAndOptions} from '@/api/question'
+    import {upload_url} from '@/api/upload'
     export default{
-        mixins:[mixin],
+        mixins:[question_mixin],
         props:{
             is_add:Boolean,
         },
         data(){
             return {
                 add:true,
+                upload_url:upload_url,
                 tab_selected:"base",
                 confirm_text:"添加",
                 keywords:[],

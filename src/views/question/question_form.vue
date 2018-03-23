@@ -12,10 +12,11 @@
             <el-button type="warning" size="small" plain @click="addOption">添加新选项</el-button>
         </el-row>
 		<el-form-item class="block" label="背景图">
-        	<el-upload class="upload" action="http://fdev.vrcdkj.cn/api/admin/upload" :on-preview="handlePreview" :on-remove="handleRemove" :on-success="handleSuccess" :file-list="fileList" :auto-upload="false" list-type="picture">
-  				<el-button size="small" type="primary">点击上传</el-button>
-  				<span slot="tip" class="el-upload__tip">尺寸要求：</span>
-			</el-upload>
+            <el-input type="hidden" v-model="question.bgimage"></el-input>
+            <el-upload class="avatar-uploader" :action="upload_url" :show-file-list="false" :drag="true" :before-upload="beforeUpload" :on-success="uploadSuccess">
+                <img v-if="question.bgimage" :src="question.bgimage" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
 		</el-form-item>
          <el-form-item class="block" label="排序">
             <el-input type="text" v-model="question.sort"></el-input>
@@ -38,11 +39,13 @@
     import questionOption from "@/components/Question/option"
     import mixin from '@/mixin/question'
     import {getQuestion,addQuestion,editQuestion,} from '@/api/question'
+    import {upload_url} from '@/api/upload'
 	export default{
         components:{questionOption},
         mixins:[mixin],
 		data(){
 			return {
+                upload_url:upload_url,
 				keywords:[],
 				add:true,
                 tab_selected:"question",
@@ -52,7 +55,7 @@
 				question:{
 					question_collection_id:null,
 					title:"",
-					bgimage:"https://kanfaimage.oss-cn-beijing.aliyuncs.com/20180104/video_151504732376282.jpg?x-oss-process=image/resize,m_fill,w_750,h_422",
+					bgimage:"",
 					type:4,//1 单选２多选３下拉列表
 					sort:0,
 					options:[],
@@ -102,13 +105,6 @@
 			handleRemove(file, fileList) {
 				console.log(1,file, fileList);
 			},
-			handlePreview(file){
-				console.log(2,file);
-			},
-			handleSuccess(file){
-				console.log(3,file);
-				this.question.bgimage=this.fileList[0];
-			},
             addOption(){
                 this.question.options.push({name:'',weight:null,keyword:[]})
             },
@@ -117,6 +113,15 @@
             },
             removeOption(index){
                 this.question.options.splice(index,1)
+            },
+            uploadSuccess(response){
+                if(response.error_no==0 && response.data.image_url){
+                    this.question.bgimage=response.data.image_url
+                }
+            },
+            beforeUpload(file){
+                console.log(file)
+                return false
             }
 		},
         created(){
@@ -144,4 +149,27 @@
 	.el-upload__tip{
 		margin-left: 10px;
 	}
+    .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+      .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+      }
+      .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 178px;
+        height: 178px;
+        line-height: 178px;
+        text-align: center;
+      }
+      .avatar {
+        width: 178px;
+        height: 178px;
+        display: block;
+      }
 </style>
