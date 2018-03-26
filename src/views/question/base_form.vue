@@ -29,6 +29,9 @@
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
         </el-form-item>
+        <el-form-item class="block" label="排序">
+            <el-input-number v-model="collection.sort" :min="0" :max="100" style="width: 120px;" label="排序"></el-input-number>
+        </el-form-item>
         <el-form-item label="显示方式" class="block">
             <el-radio v-model="collection.is_single_page" :label="1">单页</el-radio>
             <el-radio v-model="collection.is_single_page" :label="2">多页</el-radio>
@@ -72,7 +75,8 @@
                     bgimage:"",
                     question_option_id:[],
                     is_single_page:1,
-                    is_trunk:0
+                    is_trunk:0,
+                    sort:null
                 },
                 question_props:{
                     value:"value",

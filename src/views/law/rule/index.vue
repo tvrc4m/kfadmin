@@ -13,9 +13,9 @@
         <el-table :data="law_rules">
             <el-table-column prop="title" label="标题" width="150"></el-table-column>
             <el-table-column prop="content" label="内容"></el-table-column>
-            <el-table-column prop="keywords" label="匹配词" :formatter="formatKeyword" width="400">
+            <el-table-column prop="keywords" label="匹配词" :formatter="formatKeyword" width="200">
                 <template slot-scope="scope">
-                    <el-tag type="success" v-for="item in scope.row.law_rule_keyword">{{item.name}}</el-tag>
+                    <el-tag type="success" style="margin: 0 2px" v-for="item in scope.row.law_rule_keyword">{{item.name}}</el-tag>
                 </template>
             </el-table-column>
             <el-table-column label="操作" width="100">

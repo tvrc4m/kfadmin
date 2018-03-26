@@ -3,7 +3,7 @@
         <el-form :inline="true">
             <el-button type="primary" size="mini" @click="showDialog" style="margin-bottom: 15px;text-align: right;">新增案例分类</el-button>
             <el-card class="box-card" v-for="(item,index) in cates" style="margin-bottom: 10px">
-                <el-form-item label="分类名称" class="block" style="margin-bottom:0px;">
+                <el-form-item label="分类名称" style="margin-bottom:0px;">
                     <el-input type="text" v-model="item.name"></el-input>
                 </el-form-item>
                 <el-button style="margin-right: 15px;margin-top: 5px;" type="warning" size="mini" @click="saveCate(item.id)">修改</el-button>
