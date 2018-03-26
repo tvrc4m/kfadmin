@@ -4,13 +4,13 @@
             <el-collapse-item v-for="(factor,factorindex) in tableData" :title="factor.name" :name="factor.id">
 
                 <div class="tag" v-for="(tag,tagindex) in factor.keywords" style="display:inline-block; margin-right:10px;margin-bottom:5px;">
-                    <el-input type="text" class="input-new-tag" v-show="tag.inputVisible" v-model="tag.inputValue" ref="editTagInput" size="small"  @keyup.enter.native="handleEditInputConfirm(tag,tagindex,factorindex)" @blur="handleEditInputConfirm(tag,tagindex,factorindex)"></el-input>
+                    <el-input type="text" class="input-new-tag" v-show="tag.inputVisible" v-model="tag.inputValue" ref="editTagInput" size="small"  @keyup.enter.native="handleEditInputConfirm(tag,tagindex,factorindex)" @blur="hideEditInput(tag,tagindex,factorindex)"></el-input>
                     <el-tag v-show="!tag.inputVisible" :key="tag.id"  closable :disable-transitions="false" @close="handleClose(tag,tagindex,factorindex)">{{tag.name}}
                         <i class="el-tag__edit el-icon-edit" @click="showEditInput(tag,tagindex)"></i>
                     </el-tag>
                 </div>
-                <el-input type="text" class="input-new-tag" v-show="factor.inputVisible" v-model="factor.inputValue" ref="saveTagInput" size="small"  @keyup.enter.native="handleInputConfirm(factor,factorindex)" @blur="handleInputConfirm(factor,factorindex)"></el-input>
-                <el-button v-show="!factor.inputVisible" class="button-new-tag" size="small" @click="showInput(factor,factorindex)">+ New Tag</el-button>
+                <el-input type="text" class="input-new-tag" v-show="factor.inputVisible" v-model="factor.inputValue" ref="saveTagInput" size="small"  @keyup.enter.native="handleInputConfirm(factor,factorindex)"  @blur="hideInput(factor,factorindex)"></el-input>
+                <el-button v-show="!factor.inputVisible" class="button-new-tag" size="small" @click="showInput(factor,factorindex)">新增</el-button>
             </el-collapse-item>
         </el-collapse>
 
@@ -94,6 +94,19 @@
                 tag.inputVisible = false;
                 tag.inputValue = '';
             },
+            hideInput(factor,factorindex){
+                console.log(11111)
+                factor.inputVisible = false;
+                this.$forceUpdate()
+                // this.$nextTick(_ => {
+                    // console.log(this.$refs)
+                    // this.$refs['saveTagInput'][factorindex].focus()
+                // });
+            },
+            hideEditInput(tag,tagindex,factorindex){
+                tag.inputVisible = false;
+                this.$forceUpdate()
+            }
         }
     }
 </script>

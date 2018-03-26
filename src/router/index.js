@@ -503,6 +503,12 @@ export const asyncRouterMap = [
       alwaysShow: false,
       children:[{path:"",component:_import("topic/index"),name:"userTopic",meta:{title:"userTopic",icon:"404"}}]
   },
+  {//专家回复
+      path:"/admin/topic/comment",
+      component:Layout,
+      alwaysShow: false,
+      children:[{path:"",component:_import("topic/comment"),name:"expertComment",meta:{title:"expertComment",icon:"404"}}]
+  },
   {//关键词
     path:"/keyword",
     component:Layout,

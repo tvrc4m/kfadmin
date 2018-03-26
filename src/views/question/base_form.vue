@@ -4,7 +4,7 @@
         <el-input type="text" v-model="collection.title"></el-input>
         </el-form-item>
         <el-form-item label="描述" class="block descripe">
-            <el-input type="textarea" v-model="collection.content"></el-input>
+            <el-input type="textarea" autosize style="width: 600px;" v-model="collection.content"></el-input>
         </el-form-item>
         <el-form-item v-if="type!=3" class="block" label="关联问题">
             <div v-for="(related,index) in related_question_arr">
