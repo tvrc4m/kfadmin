@@ -1,7 +1,7 @@
 <template>
     <div class="emotion-container">
         <el-row style="margin-bottom: 10px;">
-            <el-button type="primary" size="small" @click="addQuestionCollection">录入新问题集</el-button>
+            <el-button type="primary" size="small" @click="addQuestionCollection" v-if="showAdd">录入新问题集</el-button>
             <el-button type="primary" size="small" v-show="reportTemplate" @click="toTemplate">查看报告书模版</el-button>
         </el-row>
         <confirm ref="confirm" :confirmSuccess="delCollection"></confirm>
@@ -26,7 +26,7 @@
                 <div class="footer">
                     ID:{{q.id}}&nbsp;&nbsp;添加时间:{{q.created_at}}&nbsp;&nbsp;添加人:{{q.username}}
                     <div class="action right">
-                        <el-button type="text" @click="delConfirm(q.id,index)">删除</el-button>
+                        <el-button type="text" @click="delConfirm(q.id,index)" v-if="type!=3">删除</el-button>
                         <el-button type="text" @click="toEdit(q.id)">编辑</el-button>
                         <el-button type="text" @click="toView(q.id)">查看</el-button>
                     </div>
@@ -55,6 +55,7 @@
                 page_size:0,
                 total:0,
                 reportTemplate:false,
+                showAdd:true
             }
         },
         methods:{
@@ -120,6 +121,9 @@
                     this.questions.forEach(item=>{
                         item.show=true
                     })
+                    console.log('type',this.type)
+                    if(this.type==3 && this.questions.length>0) this.showAdd=false
+                    else this.showAdd=true
                 }).catch(error=>{
                         console.log(error)
                     }
@@ -143,6 +147,11 @@
                     this.getCollectionList()
                 }else if(route.name=='emotion'){
                     this.type=2
+                    this.pageIndex=1
+                    this.reportTemplate=false
+                    this.getCollectionList()
+                }else if(route.name=='preposing'){
+                    this.type=3
                     this.pageIndex=1
                     this.reportTemplate=false
                     this.getCollectionList()

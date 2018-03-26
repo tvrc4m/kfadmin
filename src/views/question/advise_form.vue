@@ -9,14 +9,18 @@
 		  	<el-form-item label="序列：" prop="sort" label-width="150">
 		    	<el-input style="width:600px" v-model="advise.sort"></el-input>
 		  	</el-form-item>
-	  	
+		  	<el-form-item label="问题类型" required v-if="type==3">
+		  		<el-select v-model="advise.type" prop="type" placeholder="请选择类型">
+		  			<el-option :value="1" key="law" label="法规"></el-option>
+		  			<el-option :value="2" key="emotion" label="情感"></el-option>
+		  		</el-select>
+		  	</el-form-item>
 		  	<el-form-item label="内容：" prop="content" label-width="150">
 		    	<el-input style="width:600px" type="textarea" v-model="advise.content"></el-input>
 		  	</el-form-item>
-		  	<el-form-item>
+		  	<el-form-item style="display: block">
 		    	<el-button  type="primary" @click="submitForm('advise')">完成</el-button>
 		  	</el-form-item>
-
 		</el-form>
 
 	</div>
@@ -39,7 +43,7 @@
 					title:'',
 					sort:'',
 					content:'',
-					type:1,
+					type:0,
 				},
 				rules: {
 					title:[
@@ -50,6 +54,9 @@
 					],
 					content: [
 						{ required: true, message: '请填问题内容', trigger: 'blur' }
+					],
+					type:[
+						{ required: true, message: '请选择建议类型', trigger: 'blur' }	
 					]
 				}
 			};
@@ -98,6 +105,12 @@
 				getAdvise(this.advise_id).then(data=>{
 					this.advise=data;
 				})
+			}else{
+				if(type==1){
+					this.advise.type=1
+				}else if(type==2){
+					this.advise.type=2
+				}
 			}
 		}
 	}

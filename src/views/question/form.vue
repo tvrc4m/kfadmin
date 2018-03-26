@@ -8,10 +8,10 @@
                 <el-tab-pane v-if="add" label="问题" :type="type" :type_name="type_name" name="question">
                     <router-view name="question"></router-view>
                 </el-tab-pane>
-                <el-tab-pane v-if="add && type==2" label="建议" :type="type" :type_name="type_name" name="advise">
+                <el-tab-pane v-if="add && type!=1" label="建议" :type="type" :type_name="type_name" name="advise">
                     <router-view name="advise"></router-view>
                 </el-tab-pane>
-                <el-tab-pane v-if="add && type==2" label="匹配关系" :type="type" :type_name="type_name" name="relation">
+                <el-tab-pane v-if="add && type!=1" label="匹配关系" :type="type" :type_name="type_name" name="relation">
                     <router-view name="relation"></router-view>
                 </el-tab-pane>
 

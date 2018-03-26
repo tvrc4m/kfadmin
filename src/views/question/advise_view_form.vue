@@ -2,7 +2,7 @@
 	<div class="advise-container">
 		<!-- 建议列表开始 -->
 		<!-- 添加建议按钮 -->
-		<el-button v-on:click="addClick" class="add-btn" type="primary" plain icon="el-icon-plus">添加建议</el-button>
+		<el-button v-on:click="addClick" class="add-btn" type="primary" plain icon="el-icon-plus" v-if="showAdd">添加建议</el-button>
 		<!-- 问题列表 -->
         <confirm ref="confirm" :confirmSuccess="delSuggest"></confirm>
 		<el-table
@@ -50,7 +50,8 @@
 					data:[],
 					total:0,
 					per_page:0,
-				}
+				},
+                showAdd:true
 			}
 		},
 	    methods:{
@@ -95,6 +96,7 @@
 	    	getAdviseList(this.question_collection_id).then(data=>{
 	    		console.log(111232,data);
 	    		this.advise=data;
+                if(this.type==3 && this.advise.data.length>=2) this.showAdd=false
 	    	}).catch(e=>{
 	    		console.log(e)
 	    	})

@@ -6,7 +6,7 @@
         <el-form-item label="描述" class="block descripe">
             <el-input type="textarea" v-model="collection.content"></el-input>
         </el-form-item>
-        <el-form-item class="block" label="关联问题">
+        <el-form-item v-if="type!=3" class="block" label="关联问题">
             <div v-for="(related,index) in related_question_arr">
                 {{related.text}}
                 <el-button type="text" @click="removeRelated(related.option_id,index)">删除</el-button>

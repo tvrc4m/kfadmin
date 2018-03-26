@@ -91,6 +91,15 @@ export const asyncRouterMap = [
     hidden: true,
     children:[{path:"",component:_import("law/form"),name:"lawEdit",meta:{title:"lawEdit"}}]
   },
+  {//前置问题集
+    path:"/preposing/question/collection",
+    component:Layout,
+    alwaysShow: false,
+    children:[{path:"",component:_import("question/index"),name:"preposing",meta:{title:"preposing",icon:"404",noCache:true}}],
+    meta:{
+      noCache:true
+    }
+  },
   {//情感问题库
     path:"/emotion/question/collection",
     component:Layout,
@@ -110,7 +119,7 @@ export const asyncRouterMap = [
     }
   },
   {//添加情感问题集
-    path:"/:type(emotion|law)/question/collection/add",
+    path:"/:type(emotion|law|preposing)/question/collection/add",
     component:Layout,
     hidden: true,
     children:[
@@ -133,7 +142,7 @@ export const asyncRouterMap = [
     ]
   },
   {//编辑情感问题集
-    path:"/:type(emotion|law)/question/collection/edit/:question_collection_id",
+    path:"/:type(emotion|law|preposing)/question/collection/edit/:question_collection_id",
     component:Layout,
     name:"questionCollectionEdit",
     hidden: true,
@@ -154,7 +163,7 @@ export const asyncRouterMap = [
     ]
   },
   {//查看情感问题集
-    path:"/:type(emotion|law)/question/collection/:question_collection_id",
+    path:"/:type(emotion|law|preposing)/question/collection/:question_collection_id",
     component:Layout,
     hidden: true,
     children:[
@@ -176,7 +185,7 @@ export const asyncRouterMap = [
     ]
   },
   {//添加情感问题-问题
-    path:"/:type(emotion|law)/question/add/:question_collection_id/question",
+    path:"/:type(emotion|law|preposing)/question/add/:question_collection_id/question",
     component:Layout,
     name:"questionAddQuestion",
     hidden: true,
@@ -199,7 +208,7 @@ export const asyncRouterMap = [
     ]
   },
   {//编辑情感问题集-问题
-    path:"/:type(emotion|law)/question/edit/:question_collection_id/question/:question_id",
+    path:"/:type(emotion|law|preposing)/question/edit/:question_collection_id/question/:question_id",
     component:Layout,
     hidden: true,
     children:[
@@ -220,7 +229,7 @@ export const asyncRouterMap = [
     ]
   },
   {//查看情感问题-问题列表
-    path:"/:type(emotion|law)/question/view/:question_collection_id/question",
+    path:"/:type(emotion|law|preposing)/question/view/:question_collection_id/question",
     component:Layout,
     hidden: true,
     children:[
@@ -242,7 +251,7 @@ export const asyncRouterMap = [
     ]
   },
   {//添加情感问题-建议
-    path:"/:type(emotion|law)/question/add/:question_collection_id/advise",
+    path:"/:type(emotion|law|preposing)/question/add/:question_collection_id/advise",
     component:Layout,
     hidden: true,
     children:[
@@ -265,7 +274,7 @@ export const asyncRouterMap = [
     ]
   },
   {//编辑情感问题集-建议
-    path:"/:type(emotion|law)/question/edit/:question_collection_id/advise/:advise_id",
+    path:"/:type(emotion|law|preposing)/question/edit/:question_collection_id/advise/:advise_id",
     component:Layout,
     hidden: true,
     children:[
@@ -285,7 +294,7 @@ export const asyncRouterMap = [
     ]
   },
   {//查看情感问题集-建议
-    path:"/:type(emotion|law)/question/view/:question_collection_id/advise",
+    path:"/:type(emotion|law|preposing)/question/view/:question_collection_id/advise",
     component:Layout,
     hidden: true,
     children:[
@@ -307,7 +316,7 @@ export const asyncRouterMap = [
   },
 
   {//添加情感问题-匹配关系
-    path:"/:type(emotion|law)/question/add/:question_collection_id/relation",
+    path:"/:type(emotion|law|preposing)/question/add/:question_collection_id/relation",
     component:Layout,
     name:"questionAddRelation",
     hidden: true,
@@ -330,7 +339,7 @@ export const asyncRouterMap = [
     ]
   },
   {//编辑情感问题集-匹配关系
-    path:"/:type(emotion|law)/question/edit/:question_collection_id/advise/:relation_id",
+    path:"/:type(emotion|law|preposing)/question/edit/:question_collection_id/advise/:relation_id",
     component:Layout,
     hidden: true,
     children:[
@@ -350,7 +359,7 @@ export const asyncRouterMap = [
     ]
   },
   {//查看情感问题集-匹配关系
-    path:"/:type(emotion|law)/question/view/:question_collection_id/relation",
+    path:"/:type(emotion|law|preposing)/question/view/:question_collection_id/relation",
     component:Layout,
     hidden: true,
     children:[

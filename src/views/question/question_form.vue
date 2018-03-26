@@ -22,7 +22,7 @@
             <el-input type="text" v-model="question.sort"></el-input>
         </el-form-item>
         <el-form-item class="block" label="显示方式">
-            <el-radio v-for="t in question_type" v-model="question.type" :label="t.id">{{t.name}}</el-radio>
+            <el-radio v-for="t in question_type" v-model="question.type"  :disabled="disableOption(t.limit)" :label="t.id">{{t.name}}</el-radio>
         </el-form-item>
 
         <el-form-item class="block" label="报告书">
@@ -64,23 +64,28 @@
                 question_type:[
                     {
                         id:1,
-                        name:'单选'
+                        name:'单选',
+                        limit:0
                     },
                     {
                         id:2,
-                        name:'多选'
+                        name:'多选',
+                        limit:[1]
                     },
                     {
                         id:3,
-                        name:'下拉列表'
+                        name:'下拉列表',
+                        limit:0
                     },
                     {
                         id:4,
-                        name:'地理位置选择'
+                        name:'地理位置选择',
+                        limit:[1]
                     },
                     {
                         id:5,
-                        name:'时间选择'
+                        name:'时间选择',
+                        limit:[1]
                     }
                 ]
 			}
@@ -122,6 +127,21 @@
                 if(response.error_no==0 && response.data.image_url){
                     this.question.bgimage=process.env.IMG_URL+response.data.image_url
                 }
+            },
+            disableOption(limit){
+                var disabled=true;
+                if(limit==0) return false
+
+                if(typeof(limit)=='number'){
+                    if(this.type==limit) disabled=false
+                }else{
+                    limit.forEach(item=>{
+                        if(this.type==item){
+                            disabled=false
+                        }
+                    })
+                }
+                return disabled
             }
 		},
         created(){

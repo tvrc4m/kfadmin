@@ -84,6 +84,7 @@ export default {
     caseCate:'管理案例分类',
     keyword:'关键词',
     emotion:'情感问题',
+    preposing:'前置问题集',
     collection:'问题集',
     lawQuestion:'法律问题',
     questionCollectionAdd:'添加问题集',

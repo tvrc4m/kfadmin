@@ -59,7 +59,11 @@
                 this.table.push(
                     {label:"标题",value:this.question.title},
                     {label:"描述",value:this.question.content},
-                    {label:"前置问题",value:this.question.relate_question},
+                )
+                if(this.type!=3){
+                    this.table.push({label:"前置问题",value:this.question.relate_question})
+                }
+                this.table.push(
                     {label:"过度页",value:this.question.overdue},
                     {label:"背景图",value:this.question.bgimage},
                     {label:"显示方式",value:this.question.is_single_page==1?'单页':'多页'},
