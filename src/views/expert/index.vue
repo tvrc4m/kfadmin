@@ -83,12 +83,14 @@
                 this.getExpertByType(page)
             },
             formatJob(row,column,cellValue){
+                if(!cellValue) return ''
                 if(cellValue && cellValue.name){
                     return cellValue.name
                 }
             },
             formatGoodat(row,column,cellValue){
                 var str=""
+                if(!cellValue) return ''
                 cellValue.forEach(item=>str+=item.name+'-')
                 return str.slice(0,str.length-1)
             }

@@ -6,7 +6,11 @@
         <el-form-item label="描述" class="block descripe">
             <el-input type="textarea" autosize style="width: 600px;" v-model="collection.content"></el-input>
         </el-form-item>
-        <el-form-item v-if="type!=3" class="block" label="关联问题">
+        <el-form-item label="是否是主干问题" class="block">
+            <el-checkbox v-model="is_trunk"></el-checkbox>
+            <small>(主干问题将不能设置关联问题)</small>
+        </el-form-item>
+        <el-form-item v-if="showRelation" class="block" label="关联问题">
             <div v-for="(related,index) in related_question_arr">
                 {{related.text}}
                 <el-button type="text" @click="removeRelated(related.option_id,index)">删除</el-button>
@@ -36,10 +40,6 @@
             <el-radio v-model="collection.is_single_page" :label="1">单页</el-radio>
             <el-radio v-model="collection.is_single_page" :label="2">多页</el-radio>
         </el-form-item>
-        <el-form-item label="是否是主干问题" class="block">
-            <el-checkbox v-model="is_trunk"></el-checkbox>
-        </el-form-item>
-
         <el-row style="margin-top: 10px;">
             <el-button type="primary" @click="baseSubmit">{{confirm_text}}</el-button>
         </el-row>
@@ -63,7 +63,8 @@
                 confirm_text:"添加",
                 keywords:[],
                 fileList:[],
-                is_trunk:false,
+                is_trunk:true,
+                showRelation:false,
                 related_question:null,
                 related_question_arr:[],
                 collection:{
@@ -88,6 +89,11 @@
         watch:{
             is_trunk(value){
                 this.collection.is_trunk=value?1:0;
+                if(this.collection.is_trunk){
+                    this.showRelation=false
+                }else{
+                    this.showRelation=true
+                }
             }
         },
         methods:{
@@ -119,6 +125,10 @@
             },
             baseSubmit(){  
                 if(this.add){
+                    if(this.collection.is_trunk && this.collection.question_option_id){
+                        this.collection.question_option_id.splice(0,this.collection.question_option_id.length)
+                        this.related_question_arr.splice(0,this.related_question_arr.length)
+                    }
                     addQuestionCollection(this.collection).then(data=>{
                         this.$emit("update:is_add",true)
                         this.$router.back(-1);
@@ -126,6 +136,10 @@
                     })
                 }else{
                     delete this.collection['relate_question'];
+                    if(this.collection.is_trunk && this.collection.question_option_id){
+                        this.collection.question_option_id.splice(0,this.collection.question_option_id.length)
+                        this.related_question_arr.splice(0,this.related_question_arr.length)
+                    }
                     editQuestionCollection(this.collection.id,this.collection).then(data=>{
                         this.$router.back(-1);
                     })
@@ -186,6 +200,9 @@
             this.collection.type=this.type
         },
         mounted(){
+            if(this.type==3){
+                this.showRelation=false;
+            }
             if(!this.add){
                 getQuestionCollection(this.collection.id).then(data=>{
                     this.collection=data;

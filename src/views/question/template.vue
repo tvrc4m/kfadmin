@@ -6,7 +6,7 @@
 		    	<el-button style="float: right; padding: 5px 10px" @click="editClick" type="primary" plain>保存</el-button>
 		  	</div>
 		  	<div>
-		    	<el-input type="textarea" class="content" autosize v-model="template.content" placeholder="模版内容" :value="template.content"></el-input>
+		    	<el-input type="textarea" auto-size class="content" autosize v-model="template.content" placeholder="模版内容" :value="template.content"></el-input>
 		  	</div>
 		  	<div style="padding: 20px 0;border-bottom: 1px solid #ebeef5;margin-top:20px;">
 		  		<span>模版说明</span>
