@@ -11,6 +11,7 @@
                 </template>
             </el-table-column>
             <el-table-column prop="date" label="序列" type="index" :index="indexMethod"></el-table-column>
+            <el-table-column prop="id" label="ID"></el-table-column>
             <el-table-column label="内容" prop="title"></el-table-column>
             <el-table-column prop="address" label="操作" align="right" >
                 <template slot-scope="scope">
