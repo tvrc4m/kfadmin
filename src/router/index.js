@@ -110,16 +110,16 @@ export const asyncRouterMap = [
     }
   },
   {//法律问题库
-    path:"/law/question/collection",
+    path:"/legal/question/collection",
     component:Layout,
     alwaysShow: false,
-    children:[{path:"",component:_import("question/index"),name:"law",meta:{title:"lawQuestion",icon:"404",noCache:true}}],
+    children:[{path:"",component:_import("question/index"),name:"legal",meta:{title:"legalQuestion",icon:"404",noCache:true}}],
     meta:{
       noCache:true
     }
   },
   {//添加情感问题集
-    path:"/:type(emotion|law|preposing)/question/collection/add",
+    path:"/:type(emotion|legal|preposing)/question/collection/add",
     component:Layout,
     hidden: true,
     children:[
@@ -142,7 +142,7 @@ export const asyncRouterMap = [
     ]
   },
   {//编辑情感问题集
-    path:"/:type(emotion|law|preposing)/question/collection/edit/:question_collection_id",
+    path:"/:type(emotion|legal|preposing)/question/collection/edit/:question_collection_id",
     component:Layout,
     name:"questionCollectionEdit",
     hidden: true,
@@ -163,7 +163,7 @@ export const asyncRouterMap = [
     ]
   },
   {//查看情感问题集
-    path:"/:type(emotion|law|preposing)/question/collection/:question_collection_id",
+    path:"/:type(emotion|legal|preposing)/question/collection/:question_collection_id",
     component:Layout,
     hidden: true,
     children:[
@@ -185,7 +185,7 @@ export const asyncRouterMap = [
     ]
   },
   {//添加情感问题-问题
-    path:"/:type(emotion|law|preposing)/question/add/:question_collection_id/question",
+    path:"/:type(emotion|legal|preposing)/question/add/:question_collection_id/question",
     component:Layout,
     name:"questionAddQuestion",
     hidden: true,
@@ -208,7 +208,7 @@ export const asyncRouterMap = [
     ]
   },
   {//编辑情感问题集-问题
-    path:"/:type(emotion|law|preposing)/question/edit/:question_collection_id/question/:question_id",
+    path:"/:type(emotion|legal|preposing)/question/edit/:question_collection_id/question/:question_id",
     component:Layout,
     hidden: true,
     children:[
@@ -229,7 +229,7 @@ export const asyncRouterMap = [
     ]
   },
   {//查看情感问题-问题列表
-    path:"/:type(emotion|law|preposing)/question/view/:question_collection_id/question",
+    path:"/:type(emotion|legal|preposing)/question/view/:question_collection_id/question",
     component:Layout,
     hidden: true,
     children:[
@@ -251,7 +251,7 @@ export const asyncRouterMap = [
     ]
   },
   {//添加情感问题-建议
-    path:"/:type(emotion|law|preposing)/question/add/:question_collection_id/advise",
+    path:"/:type(emotion|legal|preposing)/question/add/:question_collection_id/advise",
     component:Layout,
     hidden: true,
     children:[
@@ -274,7 +274,7 @@ export const asyncRouterMap = [
     ]
   },
   {//编辑情感问题集-建议
-    path:"/:type(emotion|law|preposing)/question/edit/:question_collection_id/advise/:advise_id",
+    path:"/:type(emotion|legal|preposing)/question/edit/:question_collection_id/advise/:advise_id",
     component:Layout,
     hidden: true,
     children:[
@@ -294,7 +294,7 @@ export const asyncRouterMap = [
     ]
   },
   {//查看情感问题集-建议
-    path:"/:type(emotion|law|preposing)/question/view/:question_collection_id/advise",
+    path:"/:type(emotion|legal|preposing)/question/view/:question_collection_id/advise",
     component:Layout,
     hidden: true,
     children:[
@@ -316,7 +316,7 @@ export const asyncRouterMap = [
   },
 
   {//添加情感问题-匹配关系
-    path:"/:type(emotion|law|preposing)/question/add/:question_collection_id/relation",
+    path:"/:type(emotion|legal|preposing)/question/add/:question_collection_id/relation",
     component:Layout,
     name:"questionAddRelation",
     hidden: true,
@@ -339,7 +339,7 @@ export const asyncRouterMap = [
     ]
   },
   {//编辑情感问题集-匹配关系
-    path:"/:type(emotion|law|preposing)/question/edit/:question_collection_id/advise/:relation_id",
+    path:"/:type(emotion|legal|preposing)/question/edit/:question_collection_id/advise/:relation_id",
     component:Layout,
     hidden: true,
     children:[
@@ -359,7 +359,7 @@ export const asyncRouterMap = [
     ]
   },
   {//查看情感问题集-匹配关系
-    path:"/:type(emotion|law|preposing)/question/view/:question_collection_id/relation",
+    path:"/:type(emotion|legal|preposing)/question/view/:question_collection_id/relation",
     component:Layout,
     hidden: true,
     children:[
@@ -379,7 +379,7 @@ export const asyncRouterMap = [
   },
 
   {//报告书模版
-    path:"/law/question/template",
+    path:"/legal/question/template",
     component:Layout,
     hidden: true,
     children:[{path:"",component:_import("question/template"),name:"reportTemplate",meta:{title:"reportTemplate",icon:"404"}}]
@@ -498,16 +498,10 @@ export const asyncRouterMap = [
       children:[{path:"",component:_import("adminUser/form"),name:"adminUserEdit",meta:{title:"adminUserEdit",icon:"404"}}]
   },
   {//用户帖子
-      path:"/admin/user/topic",
+      path:"/user/topic",
       component:Layout,
       alwaysShow: false,
       children:[{path:"",component:_import("topic/index"),name:"userTopic",meta:{title:"userTopic",icon:"404"}}]
-  },
-  {//专家回复
-      path:"/admin/topic/comment",
-      component:Layout,
-      alwaysShow: false,
-      children:[{path:"",component:_import("topic/comment"),name:"expertComment",meta:{title:"expertComment",icon:"404"}}]
   },
   {//关键词
     path:"/keyword",

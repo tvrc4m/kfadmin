@@ -8,7 +8,7 @@ export default{
     created(){
         console.log(this.$route.params)
          var [_,type,_]=this.$route.fullPath.split("/")
-         if(['law','emotion','preposing'].indexOf(type)==-1){
+         if(['legal','emotion','preposing'].indexOf(type)==-1){
             this.$message({
                 message:"未指定问题类型",
                 type:"error"
@@ -17,7 +17,7 @@ export default{
          }
         // 获取问题集类型，emotion指情感 law指法律
         switch(type){
-            case 'law':this.type=1;break;
+            case 'legal':this.type=1;break;
             case 'emotion':this.type=2;break;
             case 'preposing':this.type=3;break;
         }

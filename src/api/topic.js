@@ -31,3 +31,11 @@ export function searchTopic(content){
         params:{content}
     })
 }
+// 获取用户提问的专家评论列表
+export function getCommentList(params){
+    return request({
+        url:'/admin/comment',
+        method:'GET',
+        params
+    })
+}

@@ -86,7 +86,7 @@ export default {
     emotion:'情感问题',
     preposing:'前置问题集',
     collection:'问题集',
-    lawQuestion:'法律问题',
+    legalQuestion:'法律问题',
     questionCollectionAdd:'添加问题集',
     reportTemplate:'报告书模版',
     expertComment:'专家回复',

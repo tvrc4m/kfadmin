@@ -16,27 +16,27 @@
 		<el-button type="primary" :plain="this.cate==1" @click="changeCate(2)">情感类</el-button>
 		
 		<div class="label-style">
-			<el-button type="text" :class="{buttonClicked:this.params.sort==1}" @click="filter({sort:1})">最新问题</el-button>
-			<el-button type="text" :class="{buttonClicked:this.params.sort==2}" @click="filter({sort:2})">最新回复</el-button>
-			<el-button type="text" :class="{buttonClicked:typeof(this.params.hide_topic)=='boolean'}" @click="filter({hide_topic:hide_topic})">已隐藏问题</el-button>
-			<el-button type="text" :class="{buttonClicked:typeof(this.params.hide_comment)=='boolean'}" @click="filter({hide_comment:hide_comment})">已隐藏回复</el-button>
+			<el-button type="text" :class="{buttonClicked:this.type==1}" @click="filter({type:1})">最新问题</el-button>
+			<el-button type="text" :class="{buttonClicked:this.type==2}" @click="filter({type:2})">最新回复</el-button>
+			<el-button type="text" :class="{buttonClicked:typeof(this.params.hide_topic)=='boolean'}" @click="filter({type:1,hide_topic:hide_topic})">已隐藏问题</el-button>
+			<el-button type="text" :class="{buttonClicked:typeof(this.params.hide_comment)=='boolean'}" @click="filter({type:2,hide_comment:hide_comment})">已隐藏回复</el-button>
 			<span class="questioin-num">已有{{total}}个问题</span>
 		</div>
 
 		
-		<el-card class="box-card" v-for="topic in topics">
+		<el-card class="box-card" v-for="d in data">
 		  <div class="card-item">
-		  	  <div class="text item">{{topic.content}}</div>
-		  	  <el-popover style="max-width: 400px;" placement="top" title="" trigger="hover" :content="topic.content">
+		  	  <div class="text item">{{d.content}}</div>
+		  	  <el-popover style="max-width: 400px;" placement="top" title="" trigger="hover" :content="d.content">
 		  	  	<el-button slot="reference" type="text">显示更多</el-button>
 		  	  </el-popover>
 		  	  <div class="label-style card-label" style="font-size: 14px;">
-		  	  	<span>问题ID：{{topic.id}}</span>
-		  	  	<span>提问时间：{{topic.question_time}}</span>
-		  	  	<span>提问人: {{topic.user_name}}</span>
+		  	  	<span>问题ID：{{d.id}}</span>
+		  	  	<span>提问时间：{{d.question_time}}</span>
+		  	  	<span>提问人: {{d.user_name}}</span>
 		  	  	<div style="float:right">
-		  		  	<el-button type="text" @click="hiddenTopicClicked(topic)">{{topic.hidden_text}}</el-button>
-		  		  	<el-button type="text" @click="topTopicClicked(topic)">{{topic.top_text}}</el-button>
+		  		  	<el-button type="text" @click="hiddenClicked(d)">{{d.hidden_text}}</el-button>
+		  		  	<el-button type="text" @click="topClicked(d)">{{d.top_text}}</el-button>
 		  		</div>
 		  	  </div>
 		  </div>
@@ -51,19 +51,20 @@
 
 <script>
 	import pagination from "@/components/Pagination/index"
-	import {getTopicList,topTopic,hiddenTopic,searchTopic} from '@/api/topic'
+	import {getTopicList,topTopic,hiddenTopic,searchTopic,getCommentList} from '@/api/topic'
 	export default{
 		components:{pagination},
 		data(){
 			return {
-				topics:[],
+				data:[],
 				total:0,
 				page_size:20,
 				cate:1,
 				hide_topic:false,
 				hide_comment:false,
 				params:{cate:1,sort:1},
-				word:""
+				word:"",
+				type:1
 			}
 		},
 		methods:{
@@ -75,7 +76,7 @@
 				this.filter(this.params)
 			},
 			mapData(data){
-				this.topics=data.data.map(item=>{
+				this.data=data.data.map(item=>{
 					if(item.top==1){
 						item.top_text='取消置顶'
 					}else{
@@ -96,18 +97,32 @@
 					this.mapData(data)
 				})
 			},
-			filter(params={}){
-				this.params=params
-				this.params.cate=this.cate
-				this.params.sort || 1;
-				this.params.hide_topic || false;
-				this.params.hide_comment || false;
-				// if(typeof(this.params.cate)) 
-				getTopicList(params).then(data=>{
+			getComment(page=1){
+				getCommentList({page:page,cate:this.cate}).then(data=>{
 					this.mapData(data)
 				})
 			},
-			hiddenTopicClicked(topic){
+			filter(params={}){
+				if(params.type){
+					this.type=params.type
+				}
+				this.params=params
+				this.params.cate=this.cate
+				this.type || 1;
+				this.params.hide_topic || false;
+				this.params.hide_comment || false;
+
+				if(this.type==2){
+					getCommentList(params).then(data=>{
+						this.mapData(data)
+					})
+				}else{
+					getTopicList(params).then(data=>{
+						this.mapData(data)
+					})
+				}
+			},
+			hiddenClicked(topic){
 				var hidden=topic.is_hide==2
 				hiddenTopic(topic.id,!hidden).then(data=>{
 					if(hidden){
@@ -118,7 +133,7 @@
 					
 				})
 			},
-			topTopicClicked(topic){
+			topClicked(topic){
 				var istop=topic.top==1
 				topTopic(topic.id,!istop).then(data=>{
 					if(istop){
