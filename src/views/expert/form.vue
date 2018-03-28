@@ -49,7 +49,7 @@
                     <el-option v-for="s in services" :value="s.id" :key="s.id" :label="s.name"></el-option>
                 </el-select>
                 <el-form-item>
-                    <el-input type="text" placeholder="服务价格" v-model="service.price"></el-input>
+                    <el-input-number v-model="service.price" :min="0" :max="2000" :controls="false" placeholder="服务价格"></el-input-number>
                 </el-form-item>
                 <el-checkbox v-model="service.limit_free"></el-checkbox>&nbsp;&nbsp;限时免费
             </el-row>

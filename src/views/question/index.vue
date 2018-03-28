@@ -14,17 +14,17 @@
                 <div class="content">
                     {{q.content}}
                 </div>
-                <div class="expand">
-                    <el-button type="text" @click="showAll(q,index)" v-show="q.show">展开更多</el-button>
-                </div>
-                <div class="questions clearfix" v-show="!q.show">
-                    <span style="float:left">前置问题：</span>
+                <div class="questions clearfix" v-if="q.question_name.length">
+                    <strong style="float:left">前置问题：</strong>
                     <div style="float:left">
-                        <div v-for="i in q.question_name" style="margin-bottom:5px;color: #409EFF">{{i}}</div> 
+                        <div v-for="i in q.question_name" style="margin-bottom:5px;color: #409EFF">
+                            <span>{{i.question_title}}</span>-
+                            <span style="color: red">{{i.option_title}}</span>
+                        </div> 
                     </div> 
                 </div>
                 <div class="footer">
-                    ID:{{q.id}}&nbsp;&nbsp;添加时间:{{q.created_at}}&nbsp;&nbsp;添加人:{{q.username}}
+                    <strong>ID:</strong>{{q.id}}&nbsp;&nbsp;<strong>添加时间:</strong>{{q.created_at}}&nbsp;&nbsp;<strong>添加人:</strong>{{q.username}}
                     <div class="action right">
                         <el-button type="text" @click="delConfirm(q.id,index)" v-if="type!=3">删除</el-button>
                         <el-button type="text" @click="toEdit(q.id)">编辑</el-button>
