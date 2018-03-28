@@ -24,5 +24,7 @@ export default {
 <style lang="scss" type="text/css">
     .app-main{
         margin:10px 15px;
+        height:100%;
+        overflow-y:scroll;
     }
 </style>
