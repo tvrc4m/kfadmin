@@ -16,8 +16,8 @@
                 </div>
                 <div class="questions clearfix" v-if="q.question_name.length">
                     <strong style="float:left">前置问题：</strong>
-                    <div style="float:left">
-                        <div v-for="i in q.question_name" style="margin-bottom:5px;color: #409EFF">
+                    <div style="float:left;padding-top: 10px;">
+                        <div v-for="i in q.question_name" style="margin-bottom:5px;color: #409EFF;font-size: 14px;line-height: 23px;">
                             <span>{{i.question_title}}</span>-
                             <span style="color: red">{{i.option_title}}</span>
                         </div> 
@@ -176,6 +176,14 @@
         }
     }
     .content{
+        -webkit-box-sizing:border-box;
+        -moz-box-sizing:border-box;
+        box-sizing: border-box;
+        white-space: normal;
+        word-break: break-all;
+        line-height: 23px;
+        font-size: 14px;
+        color: #606266;
         margin-bottom:10px;
     }
     .expand{

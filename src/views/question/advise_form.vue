@@ -3,19 +3,19 @@
 	<div class="edit-advise-container">
 		<!-- 内容模块 -->
 		<el-form :model="advise" :rules="rules" ref="advise" class="demo-ruleForm">
-			<el-form-item label="标题" prop="title" label-width="150">
+			<el-form-item label="标题：" prop="title">
 		    	<el-input style="width:600px" v-model="advise.title"></el-input>
 		  	</el-form-item>
-		  	<el-form-item label="序列：" prop="sort" label-width="150">
+		  	<el-form-item label="序列：" prop="sort">
 		    	<el-input style="width:600px" v-model="advise.sort"></el-input>
 		  	</el-form-item>
-		  	<el-form-item label="问题类型" required v-if="type==3">
-		  		<el-select v-model="advise.type" prop="type" placeholder="请选择类型">
+		  	<el-form-item label="问题类型：" required v-if="type==3">
+		  		<el-select style="width: 572px" v-model="advise.type" prop="type" placeholder="请选择类型">
 		  			<el-option :value="1" key="law" label="法规"></el-option>
 		  			<el-option :value="2" key="emotion" label="情感"></el-option>
 		  		</el-select>
 		  	</el-form-item>
-		  	<el-form-item label="内容：" prop="content" label-width="150">
+		  	<el-form-item label="内容：" prop="content">
 		    	<el-input style="width:600px" type="textarea" v-model="advise.content"></el-input>
 		  	</el-form-item>
 		  	<el-form-item style="display: block">

@@ -5,24 +5,24 @@
 		<el-form class="demo-ruleForm">
 			
 		  	<el-form-item style="width:100%;" label="序列：">
-		    	<el-select v-model="relation.question_suggest_id" clearable placeholder="请选择">
+		    	<el-select style="width:600px;" v-model="relation.question_suggest_id" clearable placeholder="请选择">
 		    	    <el-option v-for="item in data_form.suggestion" :label="item.title" :value="item.id">
 		    	    </el-option>
-		    	  </el-select>
+		    	</el-select>
 		  	</el-form-item>
 	  		<h4>匹配关系</h4>
 	  		<el-table :data="data_form.question" width="100%">
 	  			<el-table-column prop="title" label="问题"></el-table-column>
 	  			<el-table-column label="选项">
 	  				<template slot-scope="scope">
-	  					<el-select v-model="relation.suggest_rule[scope.row.id].option_id" collapse-tags @change="changeItem(scope.row.id,scope.row.id,$event)" style="margin-left: 20px;" placeholder="请选择">
+	  					<el-select v-model="relation.suggest_rule[scope.row.id].option_id" collapse-tags @change="changeItem(scope.row.id,scope.row.id,$event)"  placeholder="请选择">
 		    	    	<el-option v-for="i in scope.row.question_option" :label="i.options" :key="i.id" :value="i.id"></el-option>
 		    		</el-select>
 	  				</template>
 	  			</el-table-column>
 	  		</el-table>
 		    	<!-- <el-cascader :options="question" @active-item-change="handleItemChange" :props="props"></el-cascader> -->
-	    	<el-button style="margin-top: 10px;" type="primary" @click="submitForm">完成</el-button>
+	    	<el-button style="margin-top: 15px;" type="primary" @click="submitForm">完成</el-button>
 		</el-form>
 	</div>
 	<!-- 编辑匹配关系结束 -->
@@ -135,6 +135,10 @@
 <style lang="scss" scoped>
 	.edit-matching-container{
 		min-width: 700px;
+
+		.demo-ruleForm{
+			width:100%;
+		}
 	}
 	// 顶部搜索及标签
 	.inline-form-box{

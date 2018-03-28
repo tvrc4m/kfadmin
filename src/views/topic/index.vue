@@ -4,7 +4,7 @@
 			<span class="form-label">用户提问</span>
 			<el-form style="float:right" :inline="true" class="demo-form-inlien">
 				<el-form-item>
-					<el-input label="right" v-model="word" placehlder="用户提问" @keyup.enter="search"></el-input>
+					<el-input style="margin-top: 5px;" label="right" v-model="word" placehlder="用户提问" @keyup.enter="search"></el-input>
 				</el-form-item>
 				<el-form-item>
 				    <el-button label="right" type="primary" icon="el-icon-search" plain @click="search">搜索</el-button>

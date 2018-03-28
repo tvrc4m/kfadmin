@@ -121,6 +121,9 @@
 </script>
 
 <style lang="css" scoped>
+	.idStyle{
+		width: 100px !important;
+	}
 	.add-btn{
 		width: 100%;
 	}

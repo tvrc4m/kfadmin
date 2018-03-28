@@ -1,7 +1,7 @@
 <template>
 	<div class="question-container">
 		<el-form-item class="block" label="问题标题">
-			<el-input type="text" v-model="question.title"></el-input>
+			<el-input style="width:572px;" type="text" v-model="question.title"></el-input>
 		</el-form-item>
         <el-form-item class="block" label="选项">
         </el-form-item>
@@ -9,9 +9,9 @@
             <question-option :option.sync="option" :index.sync="index" @remove-option='removeOption'></question-option>
         </el-row>
         <el-row>
-            <el-button type="warning" size="small" plain @click="addOption">添加新选项</el-button>
+            <el-button type="primary" plain size="small" plain @click="addOption">添加新选项</el-button>
         </el-row>
-		<el-form-item class="block" label="背景图">
+		<el-form-item style="margin-top:10px;" class="block" label="背景图">
             <el-input type="hidden" v-model="question.bgimage"></el-input>
             <el-upload class="avatar-uploader" :action="upload_url" :show-file-list="false" :drag="true" :on-success="uploadSuccess">
                 <img v-if="question.bgimage" :src="question.bgimage" class="avatar">
@@ -19,7 +19,7 @@
             </el-upload>
 		</el-form-item>
          <el-form-item class="block" label="排序">
-            <el-input type="text" v-model="question.sort"></el-input>
+            <el-input style="width:600px" type="text" v-model="question.sort"></el-input>
         </el-form-item>
         <el-form-item class="block" label="显示方式">
             <el-radio v-for="t in question_type" v-model="question.type"  :disabled="disableOption(t.limit)" :label="t.id">{{t.name}}</el-radio>

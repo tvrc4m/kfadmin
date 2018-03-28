@@ -1,7 +1,7 @@
 <template>
     <div class="base-container">
         <el-form-item label="标题" class="block">
-        <el-input type="text" v-model="collection.title"></el-input>
+        <el-input style="width:600px" type="text" v-model="collection.title"></el-input>
         </el-form-item>
         <el-form-item label="描述" class="block descripe">
             <el-input type="textarea" autosize style="width: 600px;" v-model="collection.content"></el-input>
@@ -15,11 +15,11 @@
                 {{related.text}}
                 <el-button type="text" @click="removeRelated(related.option_id,index)">删除</el-button>
             </div>
-            <el-cascader v-model="related_question" style="width: 500px" :options="related_questions" :show-all-levels="true" @active-item-change="getQuestionChildren" :change-on-select="false" :props="question_props"></el-cascader>
-            <el-button type="text" @click="addRelateQuestion">添加</el-button>
+            <el-cascader v-model="related_question" style="width: 572px" :options="related_questions" :show-all-levels="true" @active-item-change="getQuestionChildren" :change-on-select="false" :props="question_props"></el-cascader>
+            <el-button style="margin-left: 10px;" type="text" @click="addRelateQuestion">添加</el-button>
         </el-form-item>
         <el-form-item label="过度页" class="block">
-            <el-input type="text" v-model="collection.overdue"></el-input>
+            <el-input style="width:586px" type="text" v-model="collection.overdue"></el-input>
         </el-form-item>
         <el-form-item class="block" label="背景图">
             <el-input type="hidden" ref="bgimage" v-model="collection.bgimage"></el-input>
@@ -223,13 +223,11 @@
         }
     }
 </script>
-<style lang="css">
+<style lang="css" scoped="">
      .el-upload-dragger{
         width: 178px;
         height: 178px;
       }
-</style>
-<style lang="css" scoped="">
     .avatar-uploader .el-upload {
         border: 1px dashed #d9d9d9;
         border-radius: 6px;
@@ -255,5 +253,8 @@
       }
     .el-form-item--medium>.el-form-item__content{
         width:100%;
+    }
+    .el-popper{
+        width: 572px !important;
     }
 </style>
