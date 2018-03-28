@@ -140,7 +140,7 @@
         },
         watch:{
             $route(route){
-                if(route.name=="law"){
+                if(route.name=="legal"){
                     this.type=1
                     this.pageIndex=1
                     this.reportTemplate=true

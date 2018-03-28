@@ -51,7 +51,7 @@
 
 <script>
 	import pagination from "@/components/Pagination/index"
-	import {getTopicList,topTopic,hiddenTopic,searchTopic,getCommentList} from '@/api/topic'
+	import {getTopicList,topTopic,hiddenTopic,searchTopic,getCommentList,topComment,hiddenComment} from '@/api/topic'
 	export default{
 		components:{pagination},
 		data(){
@@ -124,24 +124,46 @@
 			},
 			hiddenClicked(topic){
 				var hidden=topic.is_hide==2
-				hiddenTopic(topic.id,!hidden).then(data=>{
-					if(hidden){
-						topic.hidden_text='隐藏'	
-					}else{
-						topic.hidden_text='取消隐藏'
-					}
-					
-				})
+				if(this.type==2){
+					hiddenComment(topic.id,!hidden).then(data=>{
+						if(hidden){
+							topic.hidden_text='隐藏'	
+						}else{
+							topic.hidden_text='取消隐藏'
+						}
+						
+					})
+				}else{
+					hiddenTopic(topic.id,!hidden).then(data=>{
+						if(hidden){
+							topic.hidden_text='隐藏'	
+						}else{
+							topic.hidden_text='取消隐藏'
+						}
+						
+					})
+				}
 			},
 			topClicked(topic){
 				var istop=topic.top==1
-				topTopic(topic.id,!istop).then(data=>{
-					if(istop){
-						topic.top_text='置顶'	
-					}else{
-						topic.top_text='取消置顶'
-					}
-				})
+				if(this.type==2){
+					topComment(topic.id,!istop).then(data=>{
+						if(istop){
+							topic.top_text='置顶'	
+						}else{
+							topic.top_text='取消置顶'
+						}
+					})
+				}else{
+					topTopic(topic.id,!istop).then(data=>{
+						if(istop){
+							topic.top_text='置顶'	
+						}else{
+							topic.top_text='取消置顶'
+						}
+					})
+				}
+				
 			},
 			search(){
 				if(this.word && this.word.length){

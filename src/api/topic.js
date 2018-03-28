@@ -39,3 +39,19 @@ export function getCommentList(params){
         params
     })
 }
+
+export function topComment(comment_id,top=true){
+    return request({
+        url:"/admin/comment/top",
+        method:"POST",
+        data:{comment_id,top_stat:top?1:0}
+    })
+}
+
+export function hiddenComment(comment_id,hidden=true){
+    return request({
+        url:"/admin/comment/hide",
+        method:"POST",
+        data:{comment_id,hide_stat:hidden?2:1}
+    })
+}
