@@ -15,13 +15,13 @@
             <el-date-picker type="month" v-model="caseinfo.case_date" value-format="yyyy-MM-01 00:00:00" placeholder="选择发生日期" :picker-options="datepicker"></el-date-picker>
         </el-form-item>
         <el-form-item label="案情">
-            <el-input type="textarea" v-model="caseinfo.info"></el-input>
+            <el-input :rows="3" type="textarea" v-model="caseinfo.info"></el-input>
         </el-form-item>
         <el-form-item label="判决">
-            <el-input type="textarea" v-model="caseinfo.judgment"></el-input>
+            <el-input :rows="3" type="textarea" v-model="caseinfo.judgment"></el-input>
         </el-form-item>
         <el-form-item label="建议">
-            <el-input type="textarea" v-model="caseinfo.suggest"></el-input>
+            <el-input :rows="3" type="textarea" v-model="caseinfo.suggest"></el-input>
         </el-form-item>
         <el-form-item label="判决结果">
             <el-radio v-model="caseinfo.is_breakup" :label="0">不离</el-radio>
@@ -131,8 +131,8 @@
 </script>
 <style lang="scss" scoped>
     .case-container{
-        .el-input,input[type=text],.el-textarea,textarea{
-            width:500px;
+        .el-input,input[type=text],.el-textarea,textarea,.el-select,select,.el-cascader{
+            width:600px;
         }
         textarea{
             height:100px;
