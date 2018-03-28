@@ -196,5 +196,12 @@ export function editReportTemplate(data){
 		method:"PUT",
 		data
 	})
-
+}
+// 问题排序
+export function sortQuestion(data){
+	return request({
+		url:"/admin/question/sort",
+		method:"POST",
+		data
+	})
 }

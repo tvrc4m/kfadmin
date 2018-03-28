@@ -30,7 +30,7 @@
 
 <script>
     import pagination from "@/components/Pagination/index"
-    import {getQuestionList,delQuestion} from '@/api/question'
+    import {getQuestionList,delQuestion,sortQuestion} from '@/api/question'
     import question_mixin from '@/mixin/question'
     import confirm_mixin from '@/mixin/confirm'
 	export default{
@@ -70,11 +70,23 @@
     				this.question.data.splice(this.confirm_index, 1);
 	    		})
 			},
+            resort(){
+                var exchange=[]
+                this.question.data.map((item,index)=>{
+                    item.sort=index*5
+                    exchange.push({question_id:item.id,sort:item.sort})
+                })
+                sortQuestion({question_sort:exchange}).then(data=>{
+                    console.log("sort",data)
+                })
+                console.log("exchange",exchange)
+            },
 			upClick(index){
 				if(index>0){
 					let row=this.question.data[index];
 					this.question.data.splice(index, 1);
 					this.question.data.splice(index-1,0,row);
+                    this.resort()
 				}else{
                     this.$message({
                         message:"您已经在最顶部了",
@@ -87,6 +99,7 @@
 					let row=this.question.data[index];
 					this.question.data.splice(index, 1);
 					this.question.data.splice(index+1,0,row);
+                    this.resort()
 				}else{
                     this.$message({
                         message:"您已经在最底部了",
