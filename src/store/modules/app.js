@@ -6,7 +6,8 @@ const app = {
       opened: !+Cookies.get('sidebarStatus')
     },
     language: Cookies.get('language') || 'en',
-    confirm:false
+    confirm:false,
+    loading:false
   },
   mutations: {
     TOGGLE_SIDEBAR: state => {
@@ -24,8 +25,10 @@ const app = {
     CONFIRM_DIALOG:(state,status)=>{
       console.log(status)
       state.confirm=status
+    },
+    SET_LOADING:(state,loading)=>{
+      state.loading=loading
     }
-
   },
   actions: {
     toggleSideBar({ commit }) {

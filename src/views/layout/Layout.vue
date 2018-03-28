@@ -3,14 +3,14 @@
 		<sidebar class="sidebar-container"></sidebar>
 		<div class="main-container">
 			<navbar></navbar>
-			<app-main></app-main>
+			<app-main v-loading="loading" element-loading-text="加载数据中" element-loading-background="rgba(0, 0, 0, 0.8)"></app-main>
 		</div>
 	</div>
 </template>
 
 <script>
 import { Navbar, Sidebar, AppMain, TagsView } from './components'
-
+import {mapGetters} from 'vuex'
 export default {
   name: 'layout',
   components: {
@@ -20,6 +20,7 @@ export default {
     TagsView
   },
   computed: {
+    ...mapGetters(['loading']),
     sidebar() {
       return this.$store.state.app.sidebar
     }
