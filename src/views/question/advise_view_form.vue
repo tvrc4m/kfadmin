@@ -34,7 +34,7 @@
 </template>
 <script>
     import pagination from "@/components/Pagination/index"
-    import {getAdviseList,delAdvise} from '@/api/question'
+    import {getAdviseList,delAdvise,getRelationList} from '@/api/question'
     import question_mixin from '@/mixin/question'
     import confirm_mixin from '@/mixin/confirm'
 	export default {
@@ -81,8 +81,8 @@
                     this.advise.data.splice(this.confirm_index,1)
 	    		})
 	    	},
-	    	changePage(){
-		    	getRelationList(this.question_collection_id).then(data=>{
+	    	changePage(pageIndex){
+		    	getAdviseList(this.question_collection_id,pageIndex).then(data=>{
 		    		this.advise=data;
 		    	})
 	    	}
@@ -93,7 +93,7 @@
             console.log('type_name',this.type_name,this.type)
 	    },
         mounted(){
-	    	getAdviseList(this.question_collection_id).then(data=>{
+	    	getAdviseList(this.question_collection_id,1).then(data=>{
 	    		console.log(111232,data);
 	    		this.advise=data;
                 if(this.type==3 && this.advise.data.length>=2) this.showAdd=false
