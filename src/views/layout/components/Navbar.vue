@@ -6,7 +6,7 @@
 
     <div class="right-menu">
       <error-log class="errLog-container right-menu-item"></error-log>
-      <span class="nick">@admin</span>
+      <span class="nick">@{{name}}</span>
       <el-button type="text" size="medium" @click="logout">退出</el-button>
     </div>
   </el-menu>

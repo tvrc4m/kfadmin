@@ -40,22 +40,24 @@
         <el-form-item class="block" label="服务">
             <el-row style="margin=5px" v-for="(es,index) of expert.service">
                 <div>
-                    <span>{{index}}.{{es.type}}-{{es.name}}--{{es.price}}{{es.limit_free?'-- 限时免费':''}}</span>&nbsp;&nbsp; 
+                    <span>{{index}}.{{es.type}}-{{getServiceName(es.service_id)}}--{{es.price}}{{es.limit_free?'-- 限时免费':''}}</span>&nbsp;&nbsp; 
                     <el-button type="text" @click="removeService(index)">删除</el-button></div>
                 <div>{{es.description}}</div>
             </el-row>
-            <el-row style="margin:5px">
-                <el-select placeholder="服务名称" v-model="service.service_id">
-                    <el-option v-for="s in services" :value="s.id" :key="s.id" :label="s.name"></el-option>
-                </el-select>
-                <el-form-item>
-                    <el-input-number v-model="service.price" :min="0" :max="2000" :controls="false" placeholder="服务价格"></el-input-number>
+            <el-row style="margin-bottom: 3px;">
+                <el-form-item label="服务名称">
+                    <el-select placeholder="服务名称" v-model="service.service_id">
+                        <el-option v-for="s in services" :value="s.id" :key="s.id" :label="s.name"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="服务价格">
+                    <el-input-number style="width: 90px;" v-model="service.price" :min="0" :max="2000" :controls="false" placeholder="服务价格"></el-input-number>
                 </el-form-item>
                 <el-checkbox v-model="service.limit_free"></el-checkbox>&nbsp;&nbsp;限时免费
             </el-row>
             <el-row>
-                <el-form-item label="">
-                    <el-input type="textarea" v-model="service.description" placeholder="服务介绍"></el-input>
+                <el-form-item label="服务介绍">
+                    <el-input type="textarea" style="width: 700px" v-model="service.description" placeholder="服务介绍"></el-input>
                 </el-form-item>
             </el-row>
             <el-button type="text" @click="addService">添加</el-button>
@@ -204,6 +206,16 @@
                 }
                 console.log(3,this.expert.icon);
                 // this.question.bgimage=this.fileList[0];
+            },
+            getServiceName(service_id){
+                var service_name=''
+                this.services.forEach(item=>{
+                    if(item.id==service_id){
+                        service_name=item.name
+                        return
+                    }
+                })
+                return service_name
             }
         },
         mounted(){
