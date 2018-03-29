@@ -269,11 +269,12 @@
 		color:red;
 		float:right;
 	}
-	// .box-card{
-	// 	&:last-child{
-	// 		border-bottom: none !important;
-	// 	}
-	// }
+	.box-card{
+		margin:10px 0;
+		// &:last-child{
+		// 	border-bottom: none !important;
+		// }
+	}
 	.card-item{
 		-webkit-box-sizing: border-box;
 		-moz-box-sizing: border-box;
