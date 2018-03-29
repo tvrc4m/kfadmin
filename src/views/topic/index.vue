@@ -30,10 +30,19 @@
 		  	  <el-popover style="max-width: 400px;" placement="top" title="" trigger="hover" :content="d.content">
 		  	  	<el-button slot="reference" type="text">显示更多</el-button>
 		  	  </el-popover>
-		  	  <div class="label-style card-label" style="font-size: 14px;">
+		  	  <div class="label-style card-label" style="font-size: 14px;" v-if="type==1">
 		  	  	<span>问题ID：{{d.id}}</span>
 		  	  	<span>提问时间：{{d.question_time}}</span>
-		  	  	<span>提问人: {{d.user_name}}</span>
+		  	  	<span v-if="d.user_name">提问人: {{d.user_name}}</span>
+		  	  	<div style="float:right">
+		  		  	<el-button type="text" @click="hiddenClicked(d)">{{d.hidden_text}}</el-button>
+		  		  	<el-button type="text" @click="topClicked(d)">{{d.top_text}}</el-button>
+		  		</div>
+		  	  </div>
+		  	  <div class="label-style card-label" style="font-size: 14px;" v-else-if="type==2">
+		  	  	<span>问题ID：{{d.topic_id}}</span>
+		  	  	<span>回复时间：{{d.created_at}}</span>
+		  	  	<span v-if="d.name">专家姓名: {{d.name}}</span>
 		  	  	<div style="float:right">
 		  		  	<el-button type="text" @click="hiddenClicked(d)">{{d.hidden_text}}</el-button>
 		  		  	<el-button type="text" @click="topClicked(d)">{{d.top_text}}</el-button>
@@ -99,6 +108,11 @@
 			},
 			getComment(page=1){
 				getCommentList({page:page,cate:this.cate}).then(data=>{
+					data.data.map(item=>{
+						item.user_name=item.name
+						item.question_time=item.created_at
+						return item
+					})
 					this.mapData(data)
 				})
 			},
@@ -114,6 +128,11 @@
 
 				if(this.type==2){
 					getCommentList(params).then(data=>{
+						data.data.map(item=>{
+							item.user_name=item.name
+							item.question_time=item.created_at
+							return item
+						})
 						this.mapData(data)
 					})
 				}else{
