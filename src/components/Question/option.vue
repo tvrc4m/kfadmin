@@ -2,11 +2,11 @@
     <div class="option-container">
         <el-form :inline="true">
             <el-form-item :label="alpha[index]" style="width: 100%">
-                <el-input style="display: inline-block;" type="text" v-model="option.name"></el-input>
+                <el-input style="display: inline-block;width:618px;" type="text" v-model="option.name"></el-input>
                 <el-button style="float: right" type="text" icon="el-icon-del" @click="removeOption">删除</el-button>
             </el-form-item>
             <el-form-item label="权重">
-                <el-input type="text" v-model="option.weight"></el-input>
+                <el-input style="width:600px;" type="text" v-model="option.weight"></el-input>
             </el-form-item>
             <el-row>
                <keywords :keywords.sync="option.keyword" label="匹配词"></keywords>
@@ -49,3 +49,8 @@
         }
     }
 </script>
+<style lang="scss" scoped>
+    .el-cascader,.el-input__inner{
+        width:586px !important;
+    }
+</style>

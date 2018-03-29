@@ -1,7 +1,7 @@
 <template>
     <el-form class="law-form" :inline="true" label-width="100px;">
         <el-form-item label="法律" class="block" required>
-            <el-input type="text" disabled v-model="law.name"></el-input>
+            <el-input class="law-input" type="text" disabled v-model="law.name"></el-input>
         </el-form-item>
         <el-form-item label="条目" class="block" required>
             <el-input v-model="law_rule.title"  class="law-input"></el-input>
@@ -12,7 +12,7 @@
                 </el-form-item>
         </el-row>
         <el-row>
-            <keywords :keywords.sync="keywords" label="匹配词"></keywords>
+            <keywords class="law-input" :keywords.sync="keywords" label="匹配词"></keywords>
         </el-row>
         <el-button type="primary" @click="confirm">{{confirm_text}}</el-button>
     </el-form>
@@ -99,7 +99,7 @@
 <style lang="scss" scoped>
     .law-form{
         width:100%;
-        .law-input{
+        .law-input,.el-input,input,.el-cascader,input{
             width:600px;
         }
     }
