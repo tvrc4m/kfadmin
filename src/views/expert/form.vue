@@ -3,10 +3,10 @@
         <el-input type="hidden" v-model="expert.type"></el-input>
         <el-row type="flex">
             <el-form-item label="昵称">
-                <el-input v-model="expert.nickname"></el-input>
+                <el-input style="width:275px" v-model="expert.nickname"></el-input>
             </el-form-item>
             <el-form-item label="姓名">
-                <el-input v-model="expert.name"></el-input>
+                <el-input style="width:275px" v-model="expert.name"></el-input>
             </el-form-item>
         </el-row>
         <el-form-item class="block" label="头像(限制500*500)">
@@ -17,7 +17,7 @@
             </el-upload>
         </el-form-item>
         <el-form-item label="职业" class="block">
-            <el-select v-model="expert.job_id" placeholder="选择职业" filterable>
+            <el-select style="width:600px;" v-model="expert.job_id" placeholder="选择职业" filterable>
                 <el-option v-for="job in jobs" :key="job.job_id" :label="job.name" :value="job.job_id"></el-option>
             </el-select>
         </el-form-item>
@@ -27,15 +27,15 @@
             </el-checkbox-group>
         </el-form-item>
         <el-form-item label="位置" class="block">
-            <location :province_id.sync="expert.province_id" :city_id.sync="expert.city_id"></location>
+            <location style="width:600px;" :province_id.sync="expert.province_id" :city_id.sync="expert.city_id"></location>
         </el-form-item>
         <el-form-item label="擅长" class="block">
-            <el-select v-model="expert.good_at" placeholder="擅长" filterable :multiple="true">
+            <el-select style="width:600px;" v-model="expert.good_at" placeholder="擅长" filterable :multiple="true">
                 <el-option v-for="g in goodat" :key="g.id" :label="g.name" :value="g.id"></el-option>
             </el-select>
         </el-form-item>
         <el-form-item label="介绍" class="block">
-            <el-input type="textarea" class="content" v-model="expert.intro"></el-input>
+            <el-input style="width:600px;" rows="3" type="textarea" class="content" v-model="expert.intro"></el-input>
         </el-form-item>
         <el-form-item class="block" label="服务">
             <el-row style="margin=5px" v-for="(es,index) of expert.service">
@@ -51,23 +51,23 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="服务价格">
-                    <el-input-number style="width: 90px;" v-model="service.price" :min="0" :max="2000" :controls="false" placeholder="服务价格"></el-input-number>
+                    <el-input-number style="width: 165px;" v-model="service.price" :min="0" :max="2000" :controls="false" placeholder="服务价格"></el-input-number>
                 </el-form-item>
                 <el-checkbox v-model="service.limit_free"></el-checkbox>&nbsp;&nbsp;限时免费
             </el-row>
-            <el-row>
+            <el-row style="margin-top:22px;">
                 <el-form-item label="服务介绍">
-                    <el-input type="textarea" style="width: 700px" v-model="service.description" placeholder="服务介绍"></el-input>
+                    <el-input type="textarea" style="width: 532px" v-model="service.description" placeholder="服务介绍"></el-input>
                 </el-form-item>
             </el-row>
             <el-button type="text" @click="addService">添加</el-button>
         </el-form-item>
         <h3>登陆信息 <span>(编辑时可不填写)</span></h3>
         <el-form-item label="账户名" class="block">
-            <el-input type="text" v-model="expert.account"></el-input>
+            <el-input style="width:300px;margin-left: 14px;" type="text" v-model="expert.account"></el-input>
         </el-form-item>
         <el-form-item label="登陆密码">
-            <el-input type="password" v-model="expert.password"></el-input>
+            <el-input style="width:300px" type="password" v-model="expert.password"></el-input>
         </el-form-item>
         <span style="height: 36px;line-height: 36px;color: red" if="!add">(编辑时可不填,则不会更改)</span>
         <el-button class="block" type="primary" @click="confirm">{{confirm_text}}</el-button>
@@ -270,6 +270,7 @@
 </style>
 <style lang="scss" scoped>
     .emotion-form{
+        min-width: 800px;
     }
     .block{
         display:block;
