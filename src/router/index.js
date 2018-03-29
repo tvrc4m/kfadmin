@@ -401,6 +401,12 @@ export const asyncRouterMap = [
       children:[{path:"",component:_import("expert/form"),name:"expertEdit",meta:{title:"expertEdit"}}],
       hidden: true
   },
+  {//专家服务
+      path:"/expert/service",
+      component:Layout,
+      children:[{path:"",component:_import("expert/service"),name:"service",meta:{title:"service"}}],
+      hidden: true
+  },
   {//案例库
     path:"/case",
     component:Layout,

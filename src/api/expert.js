@@ -63,3 +63,35 @@ export function getExpertCertification(){
         url:"/admin/expert/certification",
     })
 }
+// 获取后台服务列表
+export function getAdminServices(params){
+    return request({
+        url:"/admin/service/",
+        method:"GET",
+        params
+    })
+}
+// 添加服务
+export function addService(data){
+    return request({
+        url:"/admin/service/",
+        method:"POST",
+        data
+    })
+}
+// 修改服务
+export function editService(service_id,data){
+    return request({
+        url:"/admin/service/"+service_id,
+        method:"PUT",
+        data
+    })
+}
+
+// 修改服务
+export function delService(service_id){
+    return request({
+        url:"/admin/service/"+service_id,
+        method:"DELETE",
+    })
+}

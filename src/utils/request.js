@@ -59,6 +59,7 @@ service.interceptors.response.use(
       }
   },
   error => {
+    store.commit('SET_LOADING',false)
     console.log('err' + error)// for debug
     Message({
       message: error.message,

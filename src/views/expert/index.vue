@@ -7,6 +7,9 @@
             <router-link v-for="type in expert_types" :to="'/expert/add?type='+type.id">
                 <el-button type="primary" size="small" icon="el-icon-plus">{{type.label}}</el-button>&nbsp;&nbsp;
             </router-link>
+            <router-link to="/expert/service">
+                <el-button type="primary" size="small">专家服务管理</el-button>
+            </router-link>
             <span class="text right">
                 共<span v-text="total"></span>条数据
             </span>

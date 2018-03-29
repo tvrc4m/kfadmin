@@ -90,6 +90,7 @@ export default {
     questionCollectionAdd:'添加问题集',
     reportTemplate:'报告书模版',
     expertComment:'专家回复',
+    service:'服务',
   },
   navbar: {
     logOut: '退出登录',
