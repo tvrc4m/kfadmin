@@ -4,6 +4,8 @@
     min-height: 100%;
     transition: margin-left 0.28s;
     margin-left: 180px;
+    height:100%;
+    overflow-y:scroll;
   } // 侧边栏
   .sidebar-container {
     transition: width 0.28s;

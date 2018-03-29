@@ -48,7 +48,7 @@
 		},
 		methods:{
             changePage(pageIndex){
-				getQuestionList(this.question_collection_id).then(data=>{
+				getQuestionList(this.question_collection_id,pageIndex).then(data=>{
 					this.question=data;
 				}).catch(error=>{
                         console.log(error)
@@ -112,10 +112,7 @@
 			this.question_collection_id=this.$route.params.question_collection_id;
 		},
         mounted(){
-			getQuestionList(this.question_collection_id).then(data=>{
-				this.question=data;
-				console.log(3333,this.question)
-			})
+            this.changePage(1)
 		}
 	}
 </script>

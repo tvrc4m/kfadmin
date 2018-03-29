@@ -66,10 +66,11 @@
         <el-form-item label="账户名" class="block">
             <el-input type="text" v-model="expert.account"></el-input>
         </el-form-item>
-        <el-form-item label="登陆密码" class="block">
+        <el-form-item label="登陆密码">
             <el-input type="password" v-model="expert.password"></el-input>
         </el-form-item>
-        <el-button type="primary" @click="confirm">{{confirm_text}}</el-button>
+        <span style="height: 36px;line-height: 36px;color: red" if="!add">(编辑时可不填,则不会更改)</span>
+        <el-button class="block" type="primary" @click="confirm">{{confirm_text}}</el-button>
     </el-form>
 </template>
 <script>

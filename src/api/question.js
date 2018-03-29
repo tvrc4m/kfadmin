@@ -37,11 +37,11 @@ export function delQuestionCollection(question_collection_id){
 	})
 }
 
-export function getQuestionList(question_collection_id){
+export function getQuestionList(question_collection_id,page){
 	return request({
 		url:"/admin/question/",
 		method:"get",
-    	params: { question_collection_id:question_collection_id }
+    	params: { question_collection_id:question_collection_id,page:page }
 	})
 }
 
@@ -76,11 +76,11 @@ export function delQuestion(question_id){
 }
 
 
-export function getAdviseList(question_collection_id){
+export function getAdviseList(question_collection_id,page){
 	return request({
 		url:"/admin/question/suggest/",
 		method:"get",
-		params:{question_collection_id:question_collection_id}
+		params:{question_collection_id:question_collection_id,page:page}
 	})
 }
 
