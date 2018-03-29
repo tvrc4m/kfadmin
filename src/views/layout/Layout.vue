@@ -3,7 +3,7 @@
 		<sidebar class="sidebar-container"></sidebar>
 		<div class="main-container">
 			<navbar></navbar>
-			<app-main style="height: 100%" v-loading="loading" element-loading-text="加载数据中" element-loading-background="rgba(0, 0, 0, 0.8)"></app-main>
+			<app-main v-loading="loading" element-loading-text="加载数据中" element-loading-background="rgba(0, 0, 0, 0.8)"></app-main>
 		</div>
 	</div>
 </template>
