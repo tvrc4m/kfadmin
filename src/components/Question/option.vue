@@ -39,7 +39,7 @@
         },
         data(){
             return {
-                alpha:['A','B','C','D','E','F']
+                alpha:['A','B','C','D','E','F','G','H','I','J','K']
             }
         },
         methods:{
