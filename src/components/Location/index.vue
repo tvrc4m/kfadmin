@@ -24,9 +24,11 @@
         watch:{
             province_id(province_id){
                 this.selected[0]=province_id
+                this.$emit("update:province_id",province_id)
             },
             city_id(city_id){
                 this.selected[1]=city_id
+                this.$emit("update:city_id",city_id)
             }
         },
         created(){

@@ -35,7 +35,7 @@
             </el-select>
         </el-form-item>
         <el-form-item label="介绍" class="block">
-            <el-input style="width:600px;" rows="3" type="textarea" class="content" v-model="expert.intro"></el-input>
+            <el-input style="width:600px;" :rows="3" type="textarea" class="content" v-model="expert.intro"></el-input>
         </el-form-item>
         <el-form-item class="block" label="服务">
             <el-row style="margin=5px" v-for="(es,index) of expert.service">
